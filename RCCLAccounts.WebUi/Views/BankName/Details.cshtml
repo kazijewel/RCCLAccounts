@@ -1,0 +1,48 @@
+﻿@model ProvidentFund.Core.Models.BankNameModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Bank</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BankNames)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BankNames)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.TelephoneNo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TelephoneNo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ManagingDirector)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ManagingDirector)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MobileNo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MobileNo)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.BankId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

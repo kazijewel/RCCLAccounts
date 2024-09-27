@@ -1,0 +1,329 @@
+﻿@model ProvidentFund.Core.Models.BankDepositVM
+@{
+    ViewData["Title"] = "Bank Deposit / Withdraw";
+}
+
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">Bank Deposit Withdraw</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bank Deposit Withdraw</li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="pd-30 pd-sm-20">
+
+                    <form id="frmBankDeposit" method="post" asp-action="Edit" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="row row-xs">
+                            <div class="col-md-2">
+                                <label class="form-label" asp-for="Id"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" asp-for="Id" type="text" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="TransactionDate"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" asp-for="TransactionDate">
+                            </div>
+
+                        </div>
+                        <div class="row row-xs">
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="AccountId"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="AccountId" asp-items="@(ViewBag.AccountInfo)">
+                                    <option value="0">  Please Select</option>
+                                </select>
+                                <span asp-validation-for="AccountId" class="text-danger"> </span>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="BankName"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" asp-for="BankName" readonly>
+                            </div>
+
+                        </div>
+                        <div class="row row-xs">
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="BankBranch"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <input class="form-control" asp-for="BankBranch" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="TransactionType"></label>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="TransactionType" asp-items="@(ViewBag.TransactionType)">
+                                </select>
+                                <span asp-validation-for="TransactionType" class="text-danger"> </span>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0">Account Type</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input class="form-control" id="AccountType" readonly>
+                            </div>
+
+                        </div>
+
+                        <div class="row row-xs">
+
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="TransactionMode"></label>
+                            </div>
+                            <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="TransactionMode" asp-items="@(ViewBag.TransactionMode)">
+                                </select>
+                                <span asp-validation-for="TransactionMode" class="text-danger"> </span>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="ChequeNo"></label>
+                                <span asp-validation-for="ChequeNo" class="text-danger"> </span>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control" asp-for="ChequeNo">
+                            </div>
+
+                        </div>
+
+                        <div class="row row-xs">
+
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="Particulars"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <textarea class="form-control" placeholder="Particulars" rows="3" asp-for="Particulars"></textarea>
+                                <span asp-validation-for="Particulars" class="text-danger"> </span>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="Amount"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control only-currency" placeholder="Deposit Amount" type="text" asp-for="Amount">
+                                <span asp-validation-for="Amount" />
+                            </div>
+
+                        </div>
+
+                        <div class="row row-xs">
+
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="RateOfInterest"></label>
+                            </div>
+                            <div class="col-md-4 mg-t-10 mg-md-t-0">
+                                <input class="form-control only-currency" placeholder="Rate Of Interest" type="text" asp-for="RateOfInterest" readonly>
+                                <span asp-validation-for="RateOfInterest" class="text-danger"> </span>
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label mg-b-0" asp-for="VAT"></label>
+                            </div>
+                            <div class="col-md-4">
+                                <input class="form-control only-currency" placeholder="VAT" type="text" asp-for="VAT" readonly>
+                                <span asp-validation-for="VAT" />
+                            </div>
+
+                        </div>
+                        <div class="text-center mt-5">
+                            <button class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" id="btnSubmit">Update</button>
+                            <button class="btn btn-secondary pd-x-30 mg-t-5" asp-controller="BankDeposit" asp-action="Index">Cancel</button>
+                        </div>
+
+
+                    </form>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts
+    {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        var accountType = '';
+
+        $('input.only-number').on('keypress', function (e) {
+            return (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) ? false : true;
+        });
+        $('.only-number').each(function () {
+            $(this).val((new Number($(this).val().replace(/\,/g, ''))).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        });
+
+        $('.only-currency').each(function () {
+            $(this).val((new Number($(this).val().replace(/\,/g, ''))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        });
+
+        $('.only-currency').on('keypress', function (e) {
+            return (e.which != 46 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) ? false : true;
+        });
+
+        function GetBankBranchName() {
+
+            var accountId = $('#AccountId').val();
+            $('#BankName').val('');
+            $('#BankBranch').val('');
+            $('#AccountType').val('');
+
+            $.ajax
+                ({
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("GetBankBranchName")',
+                    data: { accountId: accountId },
+                    success: function (response) {
+                        $('#BankName').val(response.bankname);
+                        $('#BankBranch').val(response.bankbranch);
+                        $('#AccountType').val(response.accounttype);
+                        accountType = '';
+                        accountType = response.accounttype;
+
+                        var transactionModeSelect = $('#TransactionMode');
+                        console.log("Account Type:" + accountType);
+                        console.log("transactionModeSelect :" + transactionModeSelect);
+                        // Clear existing options
+                        transactionModeSelect.empty();
+
+                        if (accountType === 'SOD') {
+                            console.log("SOD");
+                            // If AccountType is SOD, show 'Received' and 'Payment' options
+                            transactionModeSelect.append($('<option>', {
+                                value: 'Received',
+                                text: 'Received'
+                            }));
+                            transactionModeSelect.append($('<option>', {
+                                value: 'Payment',
+                                text: 'Payment'
+                            }));
+                        } else {
+                            console.log("Other");
+                            // For other AccountTypes, show 'Deposit' and 'Withdraw' options
+                            transactionModeSelect.append($('<option>', {
+                                value: 'Deposit',
+                                text: 'Deposit'
+                            }));
+                            transactionModeSelect.append($('<option>', {
+                                value: 'Withdraw',
+                                text: 'Withdraw'
+                            }));
+                        }
+
+                        // Refresh the Select2 dropdown after modifying options
+                        transactionModeSelect.trigger('change');
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                }
+                );
+        };
+
+        $(document).ready(function () 
+        {
+            $('.select2').select2();
+
+            $(document).on('change', '#AccountId', function () 
+            {
+                if ($('#AccountId').val()!= 0) {
+                    GetBankBranchName();
+                }
+
+            });
+
+            $('#AccountId').trigger("change");
+
+
+            function showHideTransactionMode() {
+                var transactionModeSelect = $('#TransactionMode');
+                console.log("Account Type:" + accountType);
+                console.log("transactionModeSelect :" + transactionModeSelect);
+                // Clear existing options
+                transactionModeSelect.empty();
+
+                if (accountType === 'SOD') {
+                    console.log("SOD");
+                    // If AccountType is SOD, show 'Received' and 'Payment' options
+                    transactionModeSelect.append($('<option>', {
+                        value: 'Received',
+                        text: 'Received'
+                    }));
+                    transactionModeSelect.append($('<option>', {
+                        value: 'Payment',
+                        text: 'Payment'
+                    }));
+                } else {
+                    console.log("Other");
+                    // For other AccountTypes, show 'Deposit' and 'Withdraw' options
+                    transactionModeSelect.append($('<option>', {
+                        value: 'Deposit',
+                        text: 'Deposit'
+                    }));
+                    transactionModeSelect.append($('<option>', {
+                        value: 'Withdraw',
+                        text: 'Withdraw'
+                    }));
+                }
+
+                // Refresh the Select2 dropdown after modifying options
+                transactionModeSelect.trigger('change');
+            }
+
+            //$(document).on('change', '#AccountType', function () {
+            //   console.log("Account Type:  Change Event");
+
+            //   if ($('#AccountType').val() != '') {
+            //       showHideTransactionMode();
+
+            //   }
+
+            //});
+
+            $('#btnSubmit').click(function () {
+                if ($("#frmBankDeposit").valid()) {
+                    $('.only-number').each(function () {
+                        $(this).val($(this).val().replace(/\,/g, ''));
+                    });
+                    $('.only-currency').each(function () {
+                        $(this).val($(this).val().replace(/\,/g, ''));
+                    });
+                    $('#frmBankDeposit').submit();
+                }
+                else {
+                    return false;
+                }
+            });
+
+        });
+
+
+
+    </script>
+
+
+}

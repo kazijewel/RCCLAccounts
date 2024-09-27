@@ -1,0 +1,60 @@
+﻿
+
+
+.reportViewWrapper {
+    overflow: auto;
+    /* height: 100%;*/
+    max-height: 700px;
+    padding: 0px;
+    min-height: 600px;
+}
+/*.reportViewWrapper {
+    overflow: auto;
+    height: 400px;
+    padding: 0px;
+}*/
+.loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 120px;
+    height: 120px;
+    margin: -76px 0 0 -76px;
+    border: 16px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 16px solid #3498db;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+/* Modal Wrapper */
+.modal-wrapper {
+    position: relative;
+    padding: 0px 0;
+}
+
+
+.modal-block-danger .fa {
+    color: #d2322d;
+}
+
+.modal-block-danger.modal-header-color .panel-heading {
+    background-color: #d2322d;
+}
+
+.modal-block-danger.modal-full-color .panel {
+    background-color: #d9534f;
+}
+
+.modal-block-danger.modal-full-color .panel-heading {
+    background-color: #d2322d;
+}
+
+.modal-block-danger.modal-full-color .panel-footer {
+    background-color: #d9534f;
+}
+
+
+.mfp-hide {
+    display: none !important;
+}

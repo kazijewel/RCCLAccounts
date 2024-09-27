@@ -1,0 +1,252 @@
+﻿<style>
+    .btn-export {
+        top: 10px;
+        left: 50px;
+        background: green !important;
+        border: none !important;
+        color: #fff !important;
+        font-size: 14px !important;
+        padding: 6px 5px !important;
+    }
+</style>
+
+
+@model IEnumerable<ProvidentFund.Core.Models.CPFLoanLedgerModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">Loan Disbursment</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Loan Disbursment</li>
+        </ol>
+    </div>
+</div>
+<!-- /breadcrumb -->
+
+@*@if (TempData["InfoMessage"] != null)
+{
+    <div class="alert alert-info" id="alert" >
+        <strong>Information ! </strong>   @TempData["InfoMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span>&times;</span>
+        </button>
+    </div>
+}
+else if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" id="alert" >
+        <strong>Success ! </strong>   @TempData["SuccessMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span>&times;</span>
+        </button>
+    </div>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" id="alert">
+        <strong>Error ! </strong>   @TempData["ErrorMessage"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span>&times;</span>
+        </button>
+    </div>
+}*@
+@if (TempData["InfoMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            
+            swal({
+                title: '@TempData["title"]',
+                text: '@TempData["InfoMessage"]',
+                type: "info",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        };
+
+       
+    </script>
+}
+else if (TempData["SuccessMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+      @*  swal("Good job!", '@TempData["SuccessMessage"]', "success" ,timer: 2000);*@
+           swal({
+                    title: '@TempData["title"]',
+                    text: '@TempData["SuccessMessage"]',
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 2000
+            });
+    };
+        
+    </script>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: '@TempData["title"]',
+                text: '@TempData["ErrorMessage"]',
+                type: "error",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        };
+    </script>
+}
+
+
+<div>
+    <button type="button" asp-action="Create" class="btn btn-info"><a asp-action="Create"><i class="bi bi-plus-circle-fill"></i> Create New</a></button>
+    <br /><br />
+</div>
+<!-- Row -->
+<div class="row row-sm">
+    <div class="col-lg-12">
+        <div class="card custom-card overflow-hidden">
+            <div class="card-body">         
+                <div class="table-responsive  export-table">
+                    <table class=" table table-bordered text-nowrap key-buttons border-bottom dataTable no-footer dtr-inline collapsed" id="file-datatable">
+                        <thead>
+                            <tr>
+                                <th style="width:100px" >Loan No</th>
+                                <th style="width:200px" >Transaction Date</th>
+                                <th style="width:200px" >Transaction Type</th>
+                                <th style="width:200px" >Transaction Mode</th>
+                                <th style="width:200px" >Particular</th>
+                                <th style="width:100px" >Dr Amount</th>
+                                <th style="width:100px" >Cr Amount</th>
+                                <th style="width:200px" class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                   <td>
+                                        @Html.DisplayFor(modelItem => item.LoanDetails)
+                                    </td>
+                                    <td>
+                                        @(item.TransactionDate.ToString("dd-MM-yyyy"))
+                                    </td>
+                                     <td>
+                                        @Html.DisplayFor(modelItem => item.TransactionType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TransactionMode)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Narration)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DrAmount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CrAmount)
+                                    </td>
+
+                                    <td class="text-center">
+@*                                        <a asp-action="Edit" asp-route-id="@item.TransactionId"><i class="fa fa-marker fa-lg" style="color:red;"></i></a> |
+*@                                        <a asp-action="Details" asp-route-id="@item.TransactionId"><i class="fa fa-desktop fa-lg" style="color:green;"></i></a> |
+                                        <a asp-action="Delete" asp-route-id="@item.TransactionId"><i class="fa fa-trash-alt fa-lg" style="color:blue;"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/jquery.datatables.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/datatables.bootstrap5.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/datatables.buttons.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/buttons.bootstrap5.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/jszip.min.js"></script>
+
+    <script src="~/assets/plugins/datatable/pdfmake/pdfmake.min.js"></script>
+    <script src="~/assets/plugins/datatable/pdfmake/vfs_fonts.js"></script>
+    <script src="~/assets/plugins/datatable/js/buttons.html5.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/buttons.print.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/buttons.colvis.min.js"></script>
+    <script src="~/assets/plugins/datatable/datatables.responsive.min.js"></script>
+    <script src="~/assets/plugins/datatable/responsive.bootstrap5.min.js"></script>
+    <script src="~/assets/js/table-data.js"></script>
+
+    <script>
+        //setTimeout(function () {
+
+        //    // Closing the alert
+        //    $('#alert').alert('close');
+        //}, 5000);
+
+        $.fn.dataTable.ext.type.order['date-dd-mm-yyyy-pre'] = function (d) {
+            return moment(d, 'DD-MM-YYYY').unix();
+        };
+
+        $(document).ready(function () {
+
+            $('#file-datatable').DataTable({
+                pageLength: 100,
+                destroy: true,
+                responsive: true,
+                // dom: 'Bfrtip',
+                //  dom: 'lBfrtip',
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: '<i class="fas fa-copy"></i> Copy',
+                        className: 'btn-export'
+                    },
+                    {
+                        extend: 'csv',
+                        text: '<i class="fas fa-file-csv"></i> CSV',
+                        className: 'btn-export'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel"></i></i> Excel',
+                        className: 'btn-export'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="far fa-file-pdf"></i> PDF',
+                        className: 'btn-export'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fas fa-print"></i> Print',
+                        className: 'btn-export'
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="fas fa-universal-access"></i> Column Visibility',
+                        className: 'btn-export'
+                    }
+                ],
+
+                order: [[1, 'desc']],
+                    columnDefs: [
+                    { type: 'date-dd-mm-yyyy', targets: 1 }
+                ]
+            });
+           
+        });
+    </script>
+}

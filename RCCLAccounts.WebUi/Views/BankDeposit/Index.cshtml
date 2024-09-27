@@ -1,0 +1,208 @@
+﻿<style>
+    .btn-export {
+        top: 10px;
+        left: 50px;
+        background: green !important;
+        border: none !important;
+        color: #fff !important;
+        font-size: 14px !important;
+        padding: 6px 5px !important;
+    }
+</style>
+
+@using System.Globalization;
+@model IEnumerable<ProvidentFund.Core.Models.BankDepositVM>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">Bank Deposit/Withdraw</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bank Deposit/Withdraw</li>
+        </ol>
+    </div>
+</div>
+<!-- /breadcrumb -->
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<!-- Row -->
+<div class="row row-sm">
+    <div class="col-lg-12">
+        <div class="card custom-card overflow-hidden">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered text-nowrap key-buttons border-bottom dataTable no-footer dtr-inline collapsed" id="file-datatable">
+                        <thead>
+                            <tr>
+                                <th class="wd-30p">@Html.DisplayNameFor(model => model.Id)</th>
+                                <th class="wd-30p">Tr. Date</th>
+                                <th class="wd-40p">Account No</th>
+                                <th class="wd-30p">Tr. Type</th>
+                                <th class="wd-30p">Tr. Mode</th>
+                                <th class="wd-30p">@Html.DisplayNameFor(model => model.Particulars)</th>
+                                <th class="wd-30p">@Html.DisplayNameFor(model => model.ChequeNo)</th>
+                                <th class="wd-30p">@Html.DisplayNameFor(model => model.DrAmount)</th> 
+                                <th class="wd-30p">@Html.DisplayNameFor(model => model.CrAmount)</th>
+                                <th class="wd-40p text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Id)
+                                    </td>
+                                    <td>
+                                        @(item.TransactionDate.ToString("dd-MM-yyyy"))
+                                    </td>
+                                    <td>
+                                        @(item.AccountName)
+                                    </td>
+                                    <td>
+                                        @(item.TransactionType)
+                                    </td>
+                                    <td>
+                                        @(item.TransactionMode)
+                                    </td>
+                                    <td>
+                                        @(item.Particulars)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ChequeNo)
+                                    </td>
+                                    <td>
+                                        @(item.DrAmount.ToString("#,##0.00"))
+                                    </td>
+                                    <td>
+                                        @(item.CrAmount.ToString("#,##0.00"))
+                                    </td>
+                                    
+                                    <td class="text-center">
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                        <a href="javascript:void(0)" class="delete-btn" data-id="@item.Id">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <!-- Internal  Sweet-Alert js -->
+    <script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/jquery.datatables.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/datatables.bootstrap5.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/datatables.buttons.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/buttons.bootstrap5.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/jszip.min.js"></script>
+
+    <script src="~/assets/plugins/datatable/pdfmake/pdfmake.min.js"></script>
+    <script src="~/assets/plugins/datatable/pdfmake/vfs_fonts.js"></script>
+    <script src="~/assets/plugins/datatable/js/buttons.html5.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/buttons.print.min.js"></script>
+    <script src="~/assets/plugins/datatable/js/buttons.colvis.min.js"></script>
+    <script src="~/assets/plugins/datatable/datatables.responsive.min.js"></script>
+    <script src="~/assets/plugins/datatable/responsive.bootstrap5.min.js"></script>
+    <script src="~/assets/js/table-data.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+
+            $('#file-datatable').DataTable({
+                pageLength: 50,
+                destroy: true,
+                responsive: true,
+                // dom: 'Bfrtip',
+                //  dom: 'lBfrtip',
+                dom: 'lBfrtip',
+                buttons: [
+                    {
+                        extend: 'copy',
+                        text: '<i class="fas fa-copy"></i> Copy',
+                        className: 'btn-export'
+                    },
+                    {
+                        extend: 'csv',
+                        text: '<i class="fas fa-file-csv"></i> CSV',
+                        className: 'btn-export'
+                    },
+                    {
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel"></i></i> Excel',
+                        className: 'btn-export'
+                    },
+                    {
+                        extend: 'pdf',
+                        text: '<i class="far fa-file-pdf"></i> PDF',
+                        className: 'btn-export'
+                    },
+                    {
+                        extend: 'print',
+                        text: '<i class="fas fa-print"></i> Print',
+                        className: 'btn-export'
+                    },
+                    {
+                        extend: 'colvis',
+                        text: '<i class="fas fa-universal-access"></i> Column Visibility',
+                        className: 'btn-export'
+                    }
+                ],
+
+                order: [[0, 'desc'], [1, 'desc']]
+
+            });
+
+
+            $('#file-datatable tbody').on('click', '.delete-btn', function () {
+                debugger
+                let id = $(this).data('id');
+                $('body').removeClass('timer-alert');
+                swal({
+                    title: "Are you sure?",
+                    text: "You want to delete?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn btn-danger",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    $.post('@Url.Action("Delete", "BankDeposit")', { Id: id }, function (data) {
+                        console.log(data);
+                        if (data.message == "Success") {
+                            swal({
+                                title: "Deleted!",
+                                text: "Successfully deleted",
+                                type: "success"
+                            },
+                                function () {
+                                    location.reload();
+                                }
+                            );
+                        }
+                        else {
+                            swal("Error!", "Something went wrong.", "error");
+                        }
+                    });
+                    //swal("Deleted!", "Successfully deleted.", "success");
+                });
+            });
+        });
+    </script>
+}

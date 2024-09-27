@@ -1,0 +1,344 @@
+﻿<style>
+
+    .select2-drop-active {
+        margin-top: -25px;
+    }
+
+</style>
+@using System.Globalization;
+
+@model IEnumerable<ProvidentFund.Core.Models.InterestPostingModel>
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">Loan Interest Posting</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Loan Interest Posting</li>
+        </ol>
+    </div>
+</div>
+@if (TempData["InfoMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+
+            swal({
+
+                title: '@TempData["title"]',
+                text: '@TempData["InfoMessage"]',
+                type: "info",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        };
+
+
+    </script>
+}
+else if (TempData["SuccessMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+        @*  swal("Good job!", '@TempData["SuccessMessage"]', "success" ,timer: 2000);*@
+                swal({
+                    title: '@TempData["title"]',
+                    text: '@TempData["SuccessMessage"]',
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+        };
+
+    </script>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: '@TempData["title"]',
+                text: '@TempData["ErrorMessage"]',
+                type: "error",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        };
+    </script>
+}
+<!-- Row -->
+<div class="row row-sm">
+    <div class="col-lg-12">
+        <div class="card custom-card overflow-hidden">
+            <div class="card-body">
+                <div class="row row-sm">
+                   
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Tr. Date</label>
+                        </div>
+                        <div class="col-md-8 mg-t-3 mg-md-t-0">
+                            <input class="form-control" placeholder="" name="TransactionDate" id="trDate" type="date" value="@ViewData["Datum"]">
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-outline-success" id="selectAll"> <i class="bi bi-check2-circle"></i>  Select All</button>
+                        </div>
+
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-outline-danger" id="deselectAll"> <i class="bi bi-x-circle-fill"></i> Deselect All</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-nowrap border-bottom" id="basic-datatable">
+                            <thead>
+                                <tr>
+                                    <th>#SL</th>
+                                    <th class="wd-30p" style="display:none;" >LoanInfo ID</th>
+                                    <th class="wd-30p">Loan Type</th>
+                                    <th class="wd-30p">Loan No</th>
+                                    <th class="wd-30p">Empolyee Name</th>
+                                    <th class="wd-30p">Branch Name</th>
+                                    <th class="wd-30p">Balance</th>
+                                    <th class="wd-30p">Rate</th>
+                                    <th class="wd-30p">Interest Days</th>
+                                    <th class="wd-30p">Monthly Profit</th>
+                                    <th class="wd-30p">Provisional Profit</th>
+                                    <th class="wd-30p">Total Profit</th>
+                                    <th class="wd-40p text-center">Select</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               @{
+                                    int rowNo = 0;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    rowNo++;
+
+                                    <tr>
+                                        <td>@rowNo</td>
+                                        <td style="display:none;"> @Html.DisplayFor(modelItem => item.LoanInfoId)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.LoanTypeName)</td>
+                                        
+                                        <td>@Html.DisplayFor(modelItem => item.LoanNo)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.EmpolyeeName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.BranchName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Balance)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Rate)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.InterestDay)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.MonthlyProfit)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.ProvisonalProfit)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.TotalProfit)</td>
+                                        <td class="text-center">
+                                            <div class="checkbox">
+                                                <div class="custom-checkbox custom-control">
+                                                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input selected" id="checkbox-@rowNo">
+                                                    <label for="checkbox-@rowNo" class="custom-control-label mt-1"></label>
+                                                </div>
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6" class="text-center">
+                                        <button type="button" class="btn btn-primary save-btn" data-backUrl="@Url.Action("Index", "LoanInterestPosting")">Save</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /breadcrumb -->
+
+
+
+<div>
+  @*  <a asp-action="Index">Back to List</a>*@
+    <a asp-action="Index">
+        <button type="button" class="btn btn-outline-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-start-btn-fill" viewBox="0 0 16 16">
+                <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9.71-6.907L7 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407v-5a.5.5 0 0 0-.79-.407z"></path>
+            </svg>
+            Back to List
+        </button>
+    </a>
+</div>
+
+@section Scripts {
+ 
+    <script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+
+    <script>
+        //document.getElementById("OpeningDate").valueAsDate = new Date();
+
+        $(document).ready(function () {
+
+            // Function to handle the "Select All" button click
+            $('#selectAll').click(function () {
+                $('.selected').prop('checked', true);
+            });
+
+            // Function to handle the "Deselect All" button click
+            $('#deselectAll').click(function () {
+                $('.selected').prop('checked', false);
+            });
+
+            loadData($('#trDate').val())
+            $('#trDate').change(function () {
+                var transactionDate = $(this).val();
+                console.log('Transaction Date:', transactionDate);
+
+                // Pass the selected date to the loadData function
+                loadData(transactionDate);
+            });
+
+        function loadData(transactionDate) {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetLoanInterestGenerateData", "LoanInterestPosting")', // Replace YourControllerName with your actual controller name
+                    data: { transactionDate: transactionDate },
+                success: function (data) {
+                        console.log(data);
+                    // Clear existing rows in the table
+                    $('#basic-datatable tbody').empty();
+
+                    // Populate the table with the new data
+                    $.each(data, function (index, item) {
+                        var row = '<tr>' +
+                            '<td>' + (index + 1) + '</td>' +
+                                '<td style="display:none;">' + item.loanInfoId + '</td>' +
+                                '<td>' + item.loanTypeName + '</td>' +
+                                '<td>' + item.loanNo + '</td>' +
+                                '<td>' + item.empolyeeName + '</td>' +
+                                '<td>' + item.branchName + '</td>' +
+                                '<td>' + item.balance + '</td>' +
+                                '<td>' + item.rate + '</td>' +
+                                '<td>' + item.interestDay + '</td>' +
+                                '<td>' + item.monthlyProfit + '</td>' +
+                                '<td>' + item.provisonalProfit + '</td>' +
+                                '<td>' + item.totalProfit + '</td>' +
+                            '<td class="text-center">' +
+                            '<div class="checkbox">' +
+                            '<div class="custom-checkbox custom-control">' +
+                            '<input type="checkbox" data-checkboxes="mygroup" class="custom-control-input selected" id="checkbox-' + (index + 1) + '">' +
+                            '<label for="checkbox-' + (index + 1) + '" class="custom-control-label mt-1"></label>' +
+                            '</div>' +
+                            '</div>' +
+                            '</td>' +
+                            '</tr>';
+
+                        $('#basic-datatable tbody').append(row);
+                    });
+                },
+                error: function (error) {
+                    console.log(error);
+                    // Handle error if necessary
+                }
+            });
+        }
+
+            $('.save-btn').click(function () {
+               
+                console.log($('#trDate').val());
+                let backUrl = $(this).data('backurl');
+                $('body').removeClass('timer-alert');
+                swal({
+                    title: "Are you sure?",
+                    text: "You want to save?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn btn-success",
+                    confirmButtonText: "Yes, Save it!",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    let selectedInterestPosting= [];
+                    $('.selected').each(function () {
+                        if ($(this).is(':checked')) {
+                            selectedInterestPosting.push({
+                                transactionDate: $('#trDate').val(),                               
+                                loanInfoId: $(this).closest("tr").find("td:eq(1)").html(),
+                                loanTypeName: $(this).closest("tr").find("td:eq(2)").html(),
+                                loanNo: $(this).closest("tr").find("td:eq(3)").html(),
+                                balance: $(this).closest("tr").find("td:eq(6)").html(),
+                                rate: $(this).closest("tr").find("td:eq(7)").html(),
+                                interestDay: $(this).closest("tr").find("td:eq(8)").html(),                          
+                                monthlyProfit: $(this).closest("tr").find("td:eq(9)").html(),                             
+                                provisonalProfit: $(this).closest("tr").find("td:eq(10)").html(),                               
+                                totalProfit: $(this).closest("tr").find("td:eq(11)").html(),
+
+                            });
+                        }
+                    });
+                    console.log(selectedInterestPosting);
+
+                    $.post('@Url.Action("Create", "LoanInterestPosting")', { interestPosting: selectedInterestPosting }, function (data) {
+                        
+                        
+                        console.log(data);
+                        if (data >= 1) {
+                            swal({
+                                title: "Success!",
+                                text: "Successfully added",
+                                type: "success"
+                            }, function () {
+                                //return to backUrl page
+                                location.href = backUrl;
+                            }
+                            );
+                        }
+                        else {
+                            swal("Error!", "Something went wrong.", "error");
+                        }
+                    });
+                });
+            });
+        });
+
+        function decimalCheck(element, event) {
+            result = (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 46;
+            if (result) {
+                let t = element.value;
+                if (t === '' && event.charCode === 46) {
+                    return false;
+                }
+                let dotIndex = t.indexOf(".");
+                let valueLength = t.length;
+                if (dotIndex > 0) {
+                    if (dotIndex + 2 < valueLength) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else if (dotIndex === 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+    </script>
+}

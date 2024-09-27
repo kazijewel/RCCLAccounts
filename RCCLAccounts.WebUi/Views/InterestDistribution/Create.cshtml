@@ -1,0 +1,324 @@
+﻿<style>
+
+    .select2-drop-active {
+        margin-top: -25px;
+    }
+
+</style>
+@using System.Globalization;
+
+@model IEnumerable<ProvidentFund.Core.Models.EmployeeCpfledgerModel>
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">Own Profit Distribution</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Own Profit Distribution</li>
+        </ol>
+    </div>
+</div>
+@if (TempData["InfoMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+
+            swal({
+
+                title: '@TempData["title"]',
+                text: '@TempData["InfoMessage"]',
+                type: "info",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        };
+
+
+    </script>
+}
+else if (TempData["SuccessMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+        @*  swal("Good job!", '@TempData["SuccessMessage"]', "success" ,timer: 2000);*@
+                swal({
+                    title: '@TempData["title"]',
+                    text: '@TempData["SuccessMessage"]',
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+        };
+
+    </script>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: '@TempData["title"]',
+                text: '@TempData["ErrorMessage"]',
+                type: "error",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        };
+    </script>
+}
+<!-- Row -->
+<div class="row row-sm">
+    <div class="col-lg-12">
+        <div class="card custom-card overflow-hidden">
+            <div class="card-body">
+                <div class="row row-sm">
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-6">
+                            <label class="form-label mg-b-0">Percentage (%)</label>
+                        </div>
+                        <div class="col-md-6">                         
+                            <input autocomplete="off" type="number" class="form-control text-right" id="InterestPercentage" step="1" min="0"  />
+                            <span  class="text-danger" />
+                        </div>
+                    </div>
+
+                  <div class="col-md-2 mg-t-5 mg-lg-t-0">
+                    @*<div class="row row-xs align-items-center mg-b-20">*@
+                        <div class="col-md-12 input-group">
+                            <div class="input-group-text">
+                                <i class="typcn typcn-calendar-outline tx-24 lh--9 op-12"></i>
+                            </div>
+                            <select name="year" class="form-control form-select year" data-bs-placeholder="Select Year">
+                                @for (var i = 2015; i <= DateTime.Now.Year+1; i++)
+                                {
+                                    var selected = i == DateTime.Now.Year ? "selected" : "";
+                                    <option selected value="@i">@i</option>
+                                }
+                            </select>
+                        </div><!-- input-group -->
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Tr. Date</label>
+                        </div>
+                        <div class="col-md-8 mg-t-3 mg-md-t-0">
+                            <input class="form-control" placeholder="" name="transactionDate" id="trDate" type="date" value="@ViewData["Datum"]">
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-outline-success" id="selectAll"> <i class="bi bi-check2-circle"></i>  Select All</button>
+                        </div>
+
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-outline-danger" id="deselectAll"> <i class="bi bi-x-circle-fill"></i> Deselect All</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-nowrap border-bottom" id="basic-datatable">
+                            <thead>
+                                <tr>
+                                    <th>#SL</th>
+                                    <th class="wd-30p" style="display:none;" >Employee ID</th>
+                                    <th class="wd-30p">Employee No</th>
+                                    <th class="wd-30p">Employee Name</th>
+                                    <th class="wd-30p">Branch Name</th>
+                                    <th class="wd-30p">Balance</th>
+                                    <th class="wd-30p">Individual Percentage</th>
+                                    <th class="wd-30p">Interest Amount</th>
+
+                                    <th class="wd-40p text-center">Select</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                               @{
+                                    int rowNo = 0;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    rowNo++;
+
+                                    <tr>
+                                        <td>@rowNo</td>
+                                        <td style="display:none;" > @Html.DisplayFor(modelItem => item.EmpolyeeId)</td>
+                                        <td >@Html.DisplayFor(modelItem => item.EmpolyeeNo)</td>
+                                        <td >@Html.DisplayFor(modelItem => item.EmpolyeeName)</td>
+                                        <td >@Html.DisplayFor(modelItem => item.BranchName)</td>
+                                        <td >@Html.DisplayFor(modelItem => item.BasicSalary)</td>
+                                        <td> @Html.DisplayFor(modelItem => item.ContributionPercentage)</td>
+                                        <td >@Html.DisplayFor(modelItem => item.DrAmount)</td>
+                                        
+                                        <td class="text-center">
+                                            <div class="checkbox">
+                                                <div class="custom-checkbox custom-control">
+                                                    <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input selected" id="checkbox-@rowNo">
+                                                    <label for="checkbox-@rowNo" class="custom-control-label mt-1"></label>
+                                                </div>
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="6" class="text-center">
+                                        <button type="button" class="btn btn-primary save-btn" data-backUrl="@Url.Action("Index", "InterestDistribution")">Save</button>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /breadcrumb -->
+
+
+
+<div>
+  @*  <a asp-action="Index">Back to List</a>*@
+    <a asp-action="Index">
+        <button type="button" class="btn btn-outline-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-start-btn-fill" viewBox="0 0 16 16">
+                <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9.71-6.907L7 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407v-5a.5.5 0 0 0-.79-.407z"></path>
+            </svg>
+            Back to List
+        </button>
+    </a>
+</div>
+
+@section Scripts {
+ 
+    <script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+
+    <script>
+        //document.getElementById("OpeningDate").valueAsDate = new Date();
+
+        $(document).ready(function () {
+
+            // Function to handle the "Select All" button click
+            $('#selectAll').click(function () {
+                $('.selected').prop('checked', true);
+            });
+
+            // Function to handle the "Deselect All" button click
+            $('#deselectAll').click(function () {
+                $('.selected').prop('checked', false);
+            });
+
+
+            $('#InterestPercentage').change
+                (
+                    function () {
+                        var tbody = document.getElementById("basic-datatable");
+                        var InterestPercentage= $('#InterestPercentage').val();
+                            console.log($('#InterestPercentage').val());
+                    
+                        $('#basic-datatable tr').each(function (row, tr) {
+                         
+                            var balance = $(tr).find('td:eq(5)').text();
+                            console.log(balance);
+                            var interestamount = (Number(balance) * (Number(InterestPercentage) / 100)).toFixed(2);
+                            console.log(interestamount);
+                            $(tr).find('td:eq(6)').html(parseFloat(InterestPercentage).toFixed(2)) ;
+                            $(tr).find('td:eq(7)').html(parseFloat(interestamount).toFixed(2)) ;
+                        });
+
+                    }
+                );
+
+
+
+            $('.save-btn').click(function () {
+               
+                console.log($('#trDate').val());
+                let backUrl = $(this).data('backurl');
+                $('body').removeClass('timer-alert');
+                swal({
+                    title: "Are you sure?",
+                    text: "You want to save?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn btn-success",
+                    confirmButtonText: "Yes, Save it!",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    let selectedDeposits = [];
+                    $('.selected').each(function () {
+                        if ($(this).is(':checked')) {
+                            selectedDeposits.push({                              
+                                transactionDate: $('#trDate').val(),                             
+                                year: $('.year').val(),
+                                employeeid: $(this).closest("tr").find("td:eq(1)").html(),
+                                basicsalary: $(this).closest("tr").find("td:eq(5)").html(),
+                                interestPercentage: $(this).closest("tr").find("td:eq(6)").html(),
+                                interestAmount: $(this).closest("tr").find("td:eq(7)").html(),
+                            });
+                        }
+                    });
+                    console.log(selectedDeposits);
+                   // $.post('@Url.Action("SaveInterestDistribution", "InterestDistribution")', { interestDeposits: selectedDeposits }, function (data) {
+                    $.post('@Url.Action("Create", "InterestDistribution")', { interestDeposits: selectedDeposits }, function (data) {
+                        
+                        
+                        console.log(data);
+                        if (data >= 1) {
+                            swal({
+                                title: "Success!",
+                                text: "Successfully added",
+                                type: "success"
+                            }, function () {
+                                //return to backUrl page
+                                location.href = backUrl;
+                            }
+                            );
+                        }
+                        else {
+                            swal("Error!", "Something went wrong.", "error");
+                        }
+                    });
+                });
+            });
+        });
+
+        function decimalCheck(element, event) {
+            result = (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 46;
+            if (result) {
+                let t = element.value;
+                if (t === '' && event.charCode === 46) {
+                    return false;
+                }
+                let dotIndex = t.indexOf(".");
+                let valueLength = t.length;
+                if (dotIndex > 0) {
+                    if (dotIndex + 2 < valueLength) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else if (dotIndex === 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+    </script>
+}

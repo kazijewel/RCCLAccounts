@@ -1,0 +1,150 @@
+﻿@model ProvidentFund.Core.Models.EmployeeCPFOpeningModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">CPF Opening</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">CPF Opening</li>
+        </ol>
+    </div>
+</div>
+<!-- /breadcrumb -->
+<div class="row row-sm">
+    <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+        <div class="card  box-shadow-0">
+            <div class="card-header">
+                <h4 class="card-title mb-1">CPF Opening Entry</h4>
+                @*<p class="mb-2">It is Very Easy to Customize and it uses in your website apllication.</p>*@
+            </div>
+            <div class="card-body pt-0">
+                <form class="form-horizontal" asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                  
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Employee</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <select class="form-control form-select select2" data-bs-placeholder="Please Select Branch" asp-for="EmpolyeeId" asp-items="@(ViewBag.Employee as SelectList)">
+                            </select>
+                            <span asp-validation-for="EmpolyeeId" class="text-danger"> </span>
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0" asp-for="OpeningDate" ></label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <input class="form-control" placeholder="" asp-for="OpeningDate" id="OpeningDate" type="date">
+                        </div>
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Own Contribution</label>
+                        </div>
+                        <div class="col-md-4 mg-t-3 mg-md-t-0">
+                            <input asp-for="OpOwnDepositeAmt" autocomplete="off" type="number" class="form-control text-right" id="OpOwnDepositeAmt" step=".01" min="0" onkeypress="return decimalCheck(this, event);" />
+
+                            <span asp-validation-for="OpOwnDepositeAmt" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Own Profit</label>
+                        </div>
+                        <div class="col-md-4 mg-t-3 mg-md-t-0">
+                            <input asp-for="OpInterestDistributionAmt" autocomplete="off" type="number" class="form-control text-right" id="OpInterestDistributionAmt" step=".01" min="0" onkeypress="return decimalCheck(this, event);" />
+
+                            <span asp-validation-for="OpInterestDistributionAmt" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">RCCL Contribution</label>
+                        </div>
+                        <div class="col-md-4 mg-t-3 mg-md-t-0">
+                            <input asp-for="OpRCCLContributionAmt" autocomplete="off" type="number" class="form-control text-right" id="OpRCCLContributionAmt" step=".01" min="0" onkeypress="return decimalCheck(this, event);" />
+
+                            <span asp-validation-for="OpRCCLContributionAmt" class="text-danger"></span>
+                        </div>
+                    </div>
+           
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">RCCL Profit</label>
+                        </div>
+                        <div class="col-md-4 mg-t-3 mg-md-t-0">
+                            <input asp-for="OpRCCLInterestDistributionAmt" autocomplete="off" type="number" class="form-control text-right" id="OpRCCLInterestDistributionAmt" step=".01" min="0" onkeypress="return decimalCheck(this, event);" />
+
+                            <span asp-validation-for="OpRCCLInterestDistributionAmt" class="text-danger"></span>
+                        </div>
+                    </div>
+   
+
+                    <div class="form-group mb-0 mt-3 justify-content-end">
+                        <div>
+                            <button type="submit" class="btn btn-primary"> <i class="bi bi-check2-circle"></i>  Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+ @*   <a asp-action="Index"> <i class="bi bi-skip-backward-circle-fill"></i> Back to List</a>*@
+  <a asp-action="Index">
+        <button type="button" class="btn btn-outline-info">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-start-btn-fill" viewBox="0 0 16 16">
+            <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9.71-6.907L7 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407v-5a.5.5 0 0 0-.79-.407z"></path>
+        </svg>
+        Back to List
+        </button>  </a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+        //document.getElementById("OpeningDate").valueAsDate = new Date();
+        function decimalCheck(element, event) {
+            result = (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 46;
+            if (result) {
+                let t = element.value;
+                if (t === '' && event.charCode === 46) {
+                    return false;
+                }
+                let dotIndex = t.indexOf(".");
+                let valueLength = t.length;
+                if (dotIndex > 0) {
+                    if (dotIndex + 2 < valueLength) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else if (dotIndex === 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+    </script>
+}

@@ -1,0 +1,427 @@
+﻿@model ProvidentFund.Core.Models.EmployeeInfoVM
+@{
+    ViewData["Title"] = "Create Employee Information";
+}
+
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">Employee Info</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Employee</li>
+        </ol>
+    </div>
+</div>
+<!-- /breadcrumb -->
+<div class="row">
+    <div class="container">
+        <div class="col-lg-12 col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="main-content-label mg-b-5">
+                        Employee Information
+                    </div>
+                    <div class="pd-30 pd-sm-20">
+                        <form id="frmEmployee" method="post" asp-action="Create" enctype="multipart/form-data">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                                        
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="EmployeeNo"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Enter Emlployee No" type="text" asp-for="EmployeeNo">
+                                    <span asp-validation-for="EmployeeNo" class="text-danger"> </span>
+
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="EmployeeName"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Enter your Name" type="text" asp-for="EmployeeName">
+                                    <span asp-validation-for="EmployeeName" class="text-danger"> </span>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="FatherName"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Enter your Father Name" type="text" asp-for="FatherName">
+                                    <span asp-validation-for="FatherName" class="text-danger"> </span>
+                                </div>
+                            </div>
+                            
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="MotherName"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Enter your Father Name" type="text" asp-for="MotherName">
+                                    <span asp-validation-for="MotherName" class="text-danger"> </span>
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="Gender"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                                    <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="Gender" asp-items="@(ViewBag.Gender)">
+                                    </select>
+                                    <span asp-validation-for="Gender" class="text-danger"> </span>
+
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="MaritalStatus"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                                    <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="MaritalStatus" asp-items="@(ViewBag.MaritalStatus)">
+                                    </select>
+
+
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="SpouseName"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Spouse Name" type="text" asp-for="SpouseName">
+                                    <span asp-validation-for="SpouseName" class="text-danger"> </span>
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="MobileNo"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Mobile No" type="text" asp-for="MobileNo">
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="NID"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Enter your nid" type="text" asp-for="NID">
+                                    <span asp-validation-for="NID" class="text-danger"> </span>
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0">Email</label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Enter your email" type="email" asp-for="Email">
+                                    <span asp-validation-for="Email" class="text-danger"> </span>
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="DateOfBirth"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="" asp-for="DateOfBirth">
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="JoiningDate"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Joining Date" asp-for="JoiningDate" type="date">
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="RetiredMentDate"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="" asp-for="RetiredMentDate" type="date" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="PresentAddress"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <textarea class="form-control" placeholder="Present Address" rows="3" asp-for="PresentAddress"></textarea>
+                                    <span asp-validation-for="PresentAddress" class="text-danger"> </span>
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="PermanentAddress"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <textarea class="form-control" placeholder="Permanent Address" rows="3" asp-for="PermanentAddress"></textarea>
+                                    <span asp-validation-for="PermanentAddress" class="text-danger"> </span>
+                                </div>
+                            </div>
+                          
+                                            
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="DepartmentId"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                                    <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="DepartmentId" asp-items="@(ViewBag.Departments)">
+                                    </select>
+                                    <span asp-validation-for="DepartmentId" class="text-danger"> </span>
+
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="DesignationId"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                                    <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="DesignationId" asp-items="@(ViewBag.Designations as SelectList)">
+                                    </select>
+                                    <span asp-validation-for="DesignationId" class="text-danger"> </span>
+
+                                </div>
+                            </div>
+                           
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="BranchId"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                                    <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="BranchId" asp-items="@(ViewBag.Branches)">
+                                    </select>
+                                    <span asp-validation-for="BranchId" class="text-danger"> </span>
+
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="BasicSalary"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control only-number" placeholder="Basic Salary" type="text" asp-for="BasicSalary">
+                                    <span asp-validation-for="BasicSalary" />
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="GrossSalary"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control only-number" placeholder="Gross Salary" type="text" asp-for="GrossSalary">
+                                    <span asp-validation-for="GrossSalary" />
+                                </div>
+                            </div>
+
+                           
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="OwnContPer"> Own Contribution (%) </label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control only-number" placeholder="" type="text" asp-for="OwnContPer">
+                                    <span asp-validation-for="OwnContPer" />
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="CompanyContPer"> Company Contribution (%) </label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control only-number" placeholder="" type="text" asp-for="CompanyContPer">
+                                    <span asp-validation-for="CompanyContPer" />
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="@Model.CpfStartDate"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Cpf Start Date" asp-for="@Model.CpfStartDate" type="date" readonly>
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="Cpfstatus"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                                  @*  <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="Cpfstatus" asp-items="@(ViewBag.Status)">
+                                    </select>*@
+                                    <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="Cpfstatus">
+                                        <option value=1>Active</option>
+                                        <option value=0>InActive</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="Nominee"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Nominee" type="text" asp-for="Nominee">
+                                    <span asp-validation-for="Nominee" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="Relation"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" placeholder="Relation" type="text" asp-for="Relation">
+                                    <span asp-validation-for="Relation" class="text-danger"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="EmployeeStatus"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                                    @* <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="EmployeeStatus" asp-items="@(ViewBag.Status)">
+                                    </select>
+                                      *@
+                                    <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="EmployeeStatus">
+                                        <option value=1>Active</option>
+                                         <option value=0>InActive</option>
+                                    </select>
+
+                                </div>
+                            </div>
+
+
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="Image"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                                    <input class="form-control" type="file" asp-for="Image">
+
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="Signature"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                                    <input class="form-control" type="file" asp-for="Signature">
+
+                                </div>
+                            </div>
+
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-4">
+                                    <label class="form-label mg-b-0" asp-for="Nid"></label>
+                                </div>
+                                <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                                    <input class="form-control" type="file" asp-for="Nid">
+
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" type="submit">Register</button>
+                            <button class="btn btn-secondary pd-x-30 mg-t-5" asp-action="Index">Cancel</button>
+
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<div>
+    @*  <a asp-action="Index">Back to List</a>*@
+    <a asp-action="Index">
+        <button type="button" class="btn btn-outline-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-start-btn-fill" viewBox="0 0 16 16">
+                <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9.71-6.907L7 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407v-5a.5.5 0 0 0-.79-.407z"></path>
+            </svg>
+            Back to List
+        </button>
+    </a>
+</div>
+
+@section Scripts 
+{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    
+    <script>
+
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+        
+        $('input.only-number').on('keypress', function (e) {
+            return (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) ? false : true;
+        });
+        $('.only-number').each(function () {
+            $(this).val((new Number($(this).val().replace(/\,/g, ''))).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+        });
+
+        $('#DateOfBirth').change
+        (
+            function()
+            {
+                    var currentDate = new Date($('#DateOfBirth').val());
+                    var numberOfYears = 63;               
+                    var newDate = new Date(currentDate.getFullYear() + numberOfYears, currentDate.getMonth(), currentDate.getDate());                  
+                    var formattedDate = newDate.toISOString().slice(0, 10);                
+                    $('#RetiredMentDate').val(formattedDate);
+                    
+            }
+        );
+
+        $('#JoiningDate').change
+            (
+                function () {
+                    var currentDate = new Date($('#JoiningDate').val());
+                    var numberOfMonth = 3;
+                    var newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + numberOfMonth, currentDate.getDate());
+                    var formattedDate = newDate.toISOString().slice(0, 10);
+                    $('#CpfStartDate').val(formattedDate);
+
+                }
+            );
+
+    </script>
+   
+
+}

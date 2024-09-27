@@ -1,0 +1,268 @@
+﻿@model ProvidentFund.Core.Models.BankAccountInfoModel
+@{
+    ViewData["Title"] = "CreateAsync";
+}
+
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">Bank Account Info</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bank Account Info</li>
+        </ol>
+    </div>
+</div>
+<!-- /breadcrumb -->
+<div class="row row-sm">
+    <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+        <div class="card  box-shadow-0">
+            <div class="card-header">
+                <h4 class="card-title mb-1">Bank Account Info Entry</h4>
+                @*<p class="mb-2">It is Very Easy to Customize and it uses in your website apllication.</p>*@
+            </div>
+            <div class="card-body pt-0">
+                <form class="form-horizontal" asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">RCCL Branch</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <select class="form-control form-select select2" data-bs-placeholder="Please Select Branch" asp-for="BranchId" asp-items="@(ViewBag.Branch as SelectList)">
+                            </select>
+                            <span asp-validation-for="BranchId" class="text-danger"> </span>
+                        </div>
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4">
+                        <label class="form-label mg-b-0">Bank Name</label>
+                    </div>
+                            <div class="col-md-8 mg-t-5 mg-md-t-0">
+                                <select class="form-control form-select select2" data-bs-placeholder="Please Select Bank" asp-for="BankId" asp-items="@(ViewBag.Bank as SelectList)">
+                                </select>
+                                <span asp-validation-for="BankId" class="text-danger"> </span>
+                            </div>                      
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Bank Branch Name</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                            <select class="form-control form-select select2" data-bs-placeholder="Please Select Bank Branch" asp-for="BankBranchId" asp-items="@(ViewBag.BankBranch as SelectList)">
+                            </select>
+                            <span asp-validation-for="BankBranchId" class="text-danger"> </span>
+
+                        </div>
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Account Type</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+
+                            <select class="form-control form-select select2" data-bs-placeholder="Please Select Bank Branch" asp-for="AccountTypeId" asp-items="@ViewBag.AccountTypes">
+                            </select>
+                            <span asp-validation-for="AccountTypeId" class="text-danger"> </span>
+
+                        </div>
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Account No</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <input class="form-control" asp-for="AccountNo" placeholder="Enter Account No" type="text">
+                            <span asp-validation-for="AccountNo" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Account Name</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <input class="form-control" asp-for="AccountName" placeholder="Enter Account Name" type="text">
+                            <span asp-validation-for="AccountName" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Opening Date</label>
+                        </div>
+                        <div class="col-md-5 mg-t-5 mg-md-t-0">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input asp-for="OpeningDate" type="date" id="OpeningDate" class="form-control" style="padding-left: 5px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;" required />
+                            </div>
+                            <span asp-validation-for="OpeningDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Duration Month</label>
+                        </div>
+                        <div class="col-md-4 mg-t-3 mg-md-t-0">
+                            <input class="form-control text-right" asp-for="DurationMonth" id="DurationMonth" type="number" min="1" autocomplete="off" onkeypress="return isNumberKey(event);" />
+                            <span asp-validation-for="DurationMonth" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Expiry Date</label>
+                        </div>
+                        <div class="col-md-5 mg-t-5 mg-md-t-0">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input asp-for="ExpiryDate" type="date"  id="ExpiryDate" class="form-control" style="padding-left: 5px; padding-right: 0px; padding-top: 0px; padding-bottom: 0px;" required />
+                            </div>
+                            <span asp-validation-for="ExpiryDate" class="text-danger"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Rate Of Interest</label>
+                        </div>
+                        <div class="col-md-4 mg-t-3 mg-md-t-0">
+                            @*<input class="form-control text-right" asp-for="RateOfInterest" type="number" min="1" autocomplete="off" onkeypress="return isNumberKey(event)>*@
+                            <input asp-for="RateOfInterest"  autocomplete="off" type="number" class="form-control text-right" id="RateOfInterest" step=".01" min="0" onkeypress="return decimalCheck(this, event);" />
+
+                             <span asp-validation-for="RateOfInterest" class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+      
+                    <div class="form-group mb-0 mt-3 justify-content-end">
+                        <div>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+        document.getElementById("OpeningDate").valueAsDate = new Date();
+        document.getElementById("ExpiryDate").valueAsDate = new Date();
+        document.getElementById("ExpiryDate").disabled = true;
+
+        document.getElementById("OpeningDate").onchange = function () {
+
+            var x;
+            var element = document.getElementById("DurationMonth").value;
+            console.log(element);
+            if (element != null && element.trim().length !== 0) {
+                x = parseInt(document.getElementById("DurationMonth").value);
+            }
+            else {
+                x = 0;
+            }
+            console.log("element " + element);
+            console.log("df "+x);
+            var CurrentDate = new Date(this.value);
+            console.log(CurrentDate);
+            CurrentDate.setMonth(CurrentDate.getMonth() + x);
+            document.getElementById("ExpiryDate").valueAsDate = CurrentDate;
+
+            console.log(dateFormat(CurrentDate))
+            
+         }
+        document.getElementById("DurationMonth").onchange = function () {
+
+            var x;
+            var element = document.getElementById("DurationMonth").value;
+            console.log(element);
+            if (element != null &&  element.trim().length !== 0) {
+                x = parseInt(document.getElementById("DurationMonth").value);
+            }
+            else {
+                x = 0;
+            }
+            console.log("df2 " + x);
+            var CurrentDate = new Date(document.getElementById("OpeningDate").value);
+            console.log(CurrentDate);
+            CurrentDate.setMonth(CurrentDate.getMonth() + x);
+           // document.getElementById("ExpiryDate").valueAsDate = dateFormat(CurrentDate);
+            document.getElementById("ExpiryDate").valueAsDate = CurrentDate;
+            console.log(dateFormat(CurrentDate))
+
+        }
+        
+       
+
+        function dateFormat(date) {
+
+            const year = date.getFullYear();
+            const month = ('0' + (date.getMonth() + 1)).slice(-2)
+            const day = ('0' + date.getDate()).slice(-2)
+
+            return `${year}-${month}-${day}`;
+        }
+
+        
+
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+        function decimalCheck(element, event) {
+            result = (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 46;
+            if (result) {
+                let t = element.value;
+                if (t === '' && event.charCode === 46) {
+                    return false;
+                }
+                let dotIndex = t.indexOf(".");
+                let valueLength = t.length;
+                if (dotIndex > 0) {
+                    if (dotIndex + 2 < valueLength) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else if (dotIndex === 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+
+    </script>
+}

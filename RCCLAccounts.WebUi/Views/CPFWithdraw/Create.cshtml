@@ -1,0 +1,288 @@
+﻿<style>
+
+    .select2-drop-active {
+        margin-top: -25px;
+    }
+
+</style>
+
+
+@model ProvidentFund.Core.Models.EmployeeCpfledgerModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">CPF Withdraw</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">CPF Withdraw</li>
+        </ol>
+    </div>
+</div>
+<!-- /breadcrumb -->
+@if (TempData["InfoMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+
+            swal({
+                
+                title: '@TempData["title"]',
+                text: '@TempData["InfoMessage"]',
+                type: "info",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        };
+
+
+    </script>
+}
+else if (TempData["SuccessMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+        @*  swal("Good job!", '@TempData["SuccessMessage"]', "success" ,timer: 2000);*@
+                swal({
+                    title: '@TempData["title"]',
+                    text: '@TempData["SuccessMessage"]',
+                    type: "success",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+        };
+
+    </script>
+}
+else if (TempData["ErrorMessage"] != null)
+{
+    <script type="text/javascript">
+        window.onload = function () {
+            swal({
+                title: '@TempData["title"]',
+                text: '@TempData["ErrorMessage"]',
+                type: "error",
+                showConfirmButton: false,
+                timer: 2000
+            });
+        };
+    </script>
+}
+
+<div class="row row-sm">
+    <div class="col-lg-6 col-xl-6 col-md-12 col-sm-12">
+        <div class="card  box-shadow-0">
+            <div class="card-header">
+                <h4 class="card-title mb-1">CPF Withdraw</h4>
+                @*<p class="mb-2">It is Very Easy to Customize and it uses in your website apllication.</p>*@
+            </div>
+            <div class="card-body pt-0">
+                <form class="form-horizontal" asp-action="Create" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">TransactionDate</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <input class="form-control" placeholder="" asp-for="TransactionDate" id="TransactionDate" type="date" value="@ViewData["Datum"]">
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Empolyee</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <select class="form-control form-select select2" data-bs-placeholder="Please Select Employee" Id="EmpolyeeId" asp-for="EmpolyeeId" asp-items="@(ViewBag.Empolyee as SelectList)">
+                            </select>
+                          
+                            <span asp-validation-for="EmpolyeeId" class="text-danger"> </span>
+                        </div>
+                    </div>
+                    
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Transaction Type</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="TransactionType" asp-items="@(ViewBag.TransactionType)">
+                            </select>
+                            <span asp-validation-for="TransactionType" class="text-danger"> </span>
+                        </div>
+                    </div>
+                    
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">Transaction Mode</label>
+                        </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                            <select class="form-control form-select select2" data-bs-placeholder="Please Select" asp-for="TransactionMode" asp-items="@(ViewBag.TransactionMode)">
+                            </select>
+                            <span asp-validation-for="TransactionMode" class="text-danger"> </span>
+                        </div>
+                    </div>
+
+                   
+
+                   
+                    <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4">
+                        <label class="form-label mg-b-0">Particulars</label>
+                    </div>
+                        <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <textarea class="form-control" placeholder="Particulars" rows="3" asp-for="Narration"></textarea>
+                        <span asp-validation-for="Narration" class="text-danger"> </span>
+                    </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <div class="col-md-4">
+                            <label class="form-label mg-b-0">CPF Balance</label>
+                        </div>
+                        <div class="col-md-4 mg-t-3 mg-md-t-0">
+                            @*<input class="form-control text-right" asp-for="RateOfInterest" type="number" min="1" autocomplete="off" onkeypress="return isNumberKey(event)>*@
+                            <input autocomplete="off" type="number" class="form-control text-right" id="Balance" step=".01" min="0" onkeypress="return decimalCheck(this, event);" readonly/>
+
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4">
+                        <label class="form-label mg-b-0" >Amount</label>
+                    </div>
+                    <div class="col-md-8">
+                        @*<input class="form-control only-currency" placeholder="Amount" type="text" asp-for="Amount">*@
+                            <input asp-for="DrAmount" autocomplete="off" type="number" class="form-control text-right" id="DrAmount" step=".01" min="0" onkeypress="return decimalCheck(this, event);" />
+                            <span asp-validation-for="DrAmount" class="text-danger" />
+                    </div>
+                    </div>
+
+                    <div class="form-group mb-0 mt-3 justify-content-end">
+                        <div>
+                            <button type="submit" class="btn btn-primary"><i class="bi bi-check2-circle"></i>    Save</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+  @*  <a asp-action="Index">Back to List</a>*@
+    <a asp-action="Index">
+        <button type="button" class="btn btn-outline-info">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-start-btn-fill" viewBox="0 0 16 16">
+                <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9.71-6.907L7 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407v-5a.5.5 0 0 0-.79-.407z"></path>
+            </svg>
+            Back to List
+        </button>
+    </a>
+</div>
+
+@section Scripts {
+    
+    <script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
+   
+
+
+    <script>
+        //document.getElementById("OpeningDate").valueAsDate = new Date();
+        $(document).ready(function () {
+            $('.select2').select2();
+
+            document.getElementById("DrAmount").onchange = function () {
+
+                const WithdrawAmount = parseFloat(document.getElementById('DrAmount').value);
+                const Balance = parseFloat(document.getElementById('Balance').value);
+
+                console.log(WithdrawAmount);
+                console.log(Balance);
+
+                if (WithdrawAmount > Balance) {
+
+                    document.getElementById('DrAmount').value=0;
+                   swal({
+                    title:    "Validation",
+                        text: "Withdraw Amount value is greater than the Balance.",
+                        type: "warning",
+                        
+                    showConfirmButton: false,
+                    timer: 2000
+                     });
+                   
+                 
+
+                } else if (WithdrawAmount < Balance) {
+                    console.log("WithdrawAmount value is less than the Balance.");
+                } else {
+                    console.log("WithdrawAmount value is equal to the Balance.");
+                }
+               
+
+
+                //console.log(dateFormat(CurrentDate))
+
+            }
+
+        });
+       
+        function decimalCheck(element, event) {
+            result = (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 46;
+            if (result) {
+                let t = element.value;
+                if (t === '' && event.charCode === 46) {
+                    return false;
+                }
+                let dotIndex = t.indexOf(".");
+                let valueLength = t.length;
+                if (dotIndex > 0) {
+                    if (dotIndex + 2 < valueLength) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else if (dotIndex === 0) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        }
+
+
+        $('#EmpolyeeId').change(function () {
+
+            var EmpId = $(this).val();
+            if (EmpId.length > 0) {
+                $.ajax({
+
+                    url: '/CPFWithdraw/GetEmployeeCPFBalance?EmpId=' + EmpId,
+                    method: 'post',
+                    dataType: 'json',
+
+                    success: function (res) {
+                        document.getElementById('Balance').value = res.maxId;
+
+                    },
+                    error: function (res) {
+
+                        alert('error : ' + res);
+                    }
+                });
+            }
+        });
+
+
+
+    </script>
+}

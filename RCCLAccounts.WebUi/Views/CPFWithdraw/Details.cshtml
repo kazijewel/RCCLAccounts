@@ -1,0 +1,66 @@
+﻿@model ProvidentFund.Core.Models.EmployeeCpfledgerModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Withdraw Transaction</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label class="form-label mg-b-0">Empolyee Name</label>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.EmpolyeeName)
+        </dd>
+        <dt class = "col-sm-2">
+            <label class="form-label mg-b-0">Transaction Date</label>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TransactionDate)
+        </dd>
+        <dt class = "col-sm-2">
+            <label class="form-label mg-b-0">Transaction Type</label>
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TransactionType)
+        </dd>
+       
+        <dt class="col-sm-2">
+            <label class="form-label mg-b-0">Transaction Mode</label>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TransactionMode)
+        </dd>
+
+        <dt class="col-sm-2">
+            <label class="form-label mg-b-0">Particulars</label>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Narration)
+        </dd>
+
+        <dt class="col-sm-2">
+            <label class="form-label mg-b-0">Withdraw Amount</label>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DrAmount)
+        </dd>
+     
+     
+    </dl>
+</div>
+<div>
+   
+    <a asp-action="Index">
+        <button type="button" class="btn btn-outline-info" data-mdb-ripple-color="dark" style="margin:15px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-skip-start-btn-fill" viewBox="0 0 16 16">
+                <path d="M0 12V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm9.71-6.907L7 7.028V5.5a.5.5 0 0 0-1 0v5a.5.5 0 0 0 1 0V8.972l2.71 1.935a.5.5 0 0 0 .79-.407v-5a.5.5 0 0 0-.79-.407z"></path>
+            </svg>
+            Back to List
+        </button>
+    </a>
+</div>

@@ -1,0 +1,166 @@
+﻿@model ProvidentFund.Core.Models.UserProfileModel
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">User Profile</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+        </ol>
+    </div>
+</div>
+<div class="row row-sm">
+     <div class="card  box-shadow-0">
+            <div class="card-header">
+                <h4 class="card-title mb-1">User Profile</h4>
+                @*<p class="mb-2">It is Very Easy to Customize and it uses in your website apllication.</p>*@
+            </div>
+            <div class="card-body pt-0">
+            <form class="form-horizontal" asp-action="UserProfile" method="post" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4">
+                        <label class="form-label mg-b-0">User Name :</label>
+                    </div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input id="FullName" asp-for="FullName" style="max-width:250px;" class="form-control" disabled required />
+                        <span asp-validation-for="FullName" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4">
+                        <label class="form-label mg-b-0">Email :</label>
+                    </div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input id="Email" asp-for="Email" style="max-width:250px;" class="form-control" disabled required />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4">
+                        <label class="form-label mg-b-0">Phone Number :</label>
+                    </div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <input id="PhoneNumber" asp-for="PhoneNumber" style="max-width:250px;" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="row row-xs align-items-center mg-b-20">
+                    <div class="col-md-4">
+                        <label class="form-label mg-b-0">Image :</label>
+                        <div class="form-group invisible">
+                            <input type="file" data-filesize="5000" asp-for="ImageUp" name="imageUp" id="imageUp" accept="image/*" onchange="loadImg(event)" multiple class="form-control" runat="server" />
+                        </div>
+                    </div>
+                    <div class="col-md-8 mg-t-5 mg-md-t-0">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <style>
+                                    .imageShow {
+                                        position: relative;
+                                        width: 100%;
+                                    }
+
+                                    .imagePad {
+                                        opacity: 1;
+                                        display: block;
+                                        width: 100%;
+                                        height: auto;
+                                        transition: .5s ease;
+                                        backface-visibility: hidden;
+                                    }
+
+                                    .middle {
+                                        transition: .5s ease;
+                                        opacity: 0;
+                                        position: absolute;
+                                        top: 0;
+                                        left: 0;
+                                        -ms-transform: translate(-50%, -50%);
+                                        text-align: center;
+                                    }
+
+                                    .imageShow:hover .image {
+                                        opacity: 0.3;
+                                    }
+
+                                    .imageShow:hover .middle {
+                                        opacity: 1;
+                                    }
+
+                                    .imgTemp {
+                                        background-color: #9c9c9ca6;
+                                        color: white;
+                                        font-size: 16px;
+                                        padding: 16px 32px;
+                                        width: 195px;
+                                        height: 200px;
+                                        border-radius: 100px;
+                                    }
+                                </style>
+                                <div class="col-sm-9 col-sm-offset-3" style="display: flex;">
+                                    <div class="imageShow">
+                                       
+                                        @if (Model.UserImage != null)
+                                        {
+                                            <img id="outputImg" src="@("/"+Model.UserImage)" class="imagePad" style="border-radius:100px; border:3px solid; width:195px; height:200px;" />
+                                        }
+                                        else
+                                        {
+                                            <img id="outputImg" src="~/images/defult_user.jpg" class="imagePad" style="border-radius:100px; border:3px solid; width:195px; height:200px;" />
+                                        }
+                                        <div class="middle">
+                                            <!--<img  onclick="imageUp.click();" src="~/images/defult_user.jpg" />!-->
+                                            <div class="imgTemp"><i class="fa fa-camera" onclick="imageUp.click();" style="font-size: 60px;margin-top: 55px;" area-hidden="true"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button class="btn btn-primary pd-x-30 mg-r-5 mg-t-5" type="submit">Update</button>
+                <button class="btn btn-secondary pd-x-30 mg-t-5" asp-controller="Home" asp-action="Index">Back</button>
+
+                </form>
+
+        </div>
+
+            </div>
+
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+
+        $(function () {
+            $('#btn').on('click', function () {
+                var name = $('#profileImage').val().split('\\').pop();
+                name = name.split('.')[0];
+                $('#fname').html(name);
+            });
+        })();
+        function loadImg(event) {
+            var output = document.getElementById('outputImg');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src) // free memory
+            }
+        };
+    </script>
+}

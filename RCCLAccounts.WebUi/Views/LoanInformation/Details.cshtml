@@ -1,0 +1,57 @@
+﻿@model ProvidentFund.Core.Models.LoanInformationModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Loan Information</h4>
+    <hr />
+    <dl class="row">
+
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LoanTypeName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LoanTypeName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LoanNo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LoanNo)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SenctionDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SenctionDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.SenctionAmount)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SenctionAmount)
+        </dd>
+        <dt class="col-sm-2">
+            Provision Interest
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.SusInterestAmount)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ExpiryDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ExpiryDate)
+        </dd>
+        
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.LoanInfoId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
