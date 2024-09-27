@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace ProvidentFund.Data.Migrations
+namespace RCCLAccounts.Data.Migrations
 {
     /// <inheritdoc />
     public partial class First : Migration
@@ -31,6 +31,8 @@ namespace ProvidentFund.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastLoginDateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -535,6 +537,7 @@ namespace ProvidentFund.Data.Migrations
                     UserIp = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EntryTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CpfStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    NID = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DesignationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -711,6 +714,61 @@ namespace ProvidentFund.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EmployeeTransferHistory",
+                columns: table => new
+                {
+                    EmpolyeeTransferId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TranserEmpolyeeId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FatherName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MotherName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MobileNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MaritalStatus = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SpouseName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nominee = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Relation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PicturePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SigniturePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NidPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    JoiningDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    RetiredMentDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    PresentAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PermanentAddress = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DepartmentId = table.Column<int>(type: "int", nullable: true),
+                    BasicSalary = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    GrossSalary = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    OwnContPer = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    CompanyContPer = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    BranchId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeStatus = table.Column<int>(type: "int", nullable: false),
+                    Cpfstatus = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserIp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CpfStartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DesignationId = table.Column<int>(type: "int", nullable: false),
+                    UdFlag = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostingDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    LeaveDate = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EmployeeTransferHistory", x => x.EmpolyeeTransferId);
+                    table.ForeignKey(
+                        name: "FK_EmployeeTransferHistory_EmployeeInfos_TranserEmpolyeeId",
+                        column: x => x.TranserEmpolyeeId,
+                        principalTable: "EmployeeInfos",
+                        principalColumn: "EmpolyeeId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "LoanInformation",
                 columns: table => new
                 {
@@ -741,7 +799,11 @@ namespace ProvidentFund.Data.Migrations
                     LastTransDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserIp = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EntryTime = table.Column<DateTime>(type: "datetime2", nullable: true)
+                    EntryTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    SusInterestAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    InterestFlag = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    InterestApplyDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ApplyUserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -836,6 +898,41 @@ namespace ProvidentFund.Data.Migrations
                     table.PrimaryKey("PK_CPFLoanLedger", x => x.CPFLedgerId);
                     table.ForeignKey(
                         name: "FK_CPFLoanLedger_LoanInformation_LoanInfoId",
+                        column: x => x.LoanInfoId,
+                        principalTable: "LoanInformation",
+                        principalColumn: "LoanInfoId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InterestPosting",
+                columns: table => new
+                {
+                    InterestAutoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TransactionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    LoanInfoId = table.Column<int>(type: "int", nullable: false),
+                    LoanTypeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LoanNo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    InterestDay = table.Column<int>(type: "int", nullable: false),
+                    MonthlyProfit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ProvisonalProfit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    TotalProfit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    InterestStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserIp = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    EntryTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    InterestApplyDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ApplyUserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterestPosting", x => x.InterestAutoId);
+                    table.ForeignKey(
+                        name: "FK_InterestPosting_LoanInformation_LoanInfoId",
                         column: x => x.LoanInfoId,
                         principalTable: "LoanInformation",
                         principalColumn: "LoanInfoId",
@@ -1015,6 +1112,16 @@ namespace ProvidentFund.Data.Migrations
                 column: "DesignationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EmployeeTransferHistory_TranserEmpolyeeId",
+                table: "EmployeeTransferHistory",
+                column: "TranserEmpolyeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterestPosting_LoanInfoId",
+                table: "InterestPosting",
+                column: "LoanInfoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LedgerOpeningBalances_PKLegerId",
                 table: "LedgerOpeningBalances",
                 column: "PKLegerId");
@@ -1099,7 +1206,13 @@ namespace ProvidentFund.Data.Migrations
                 name: "EmployeeCPFOpening");
 
             migrationBuilder.DropTable(
+                name: "EmployeeTransferHistory");
+
+            migrationBuilder.DropTable(
                 name: "FiscalYears");
+
+            migrationBuilder.DropTable(
+                name: "InterestPosting");
 
             migrationBuilder.DropTable(
                 name: "LedgerOpeningBalances");
@@ -1123,10 +1236,10 @@ namespace ProvidentFund.Data.Migrations
                 name: "BankAccountInfo");
 
             migrationBuilder.DropTable(
-                name: "LoanInformation");
+                name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "LoanInformation");
 
             migrationBuilder.DropTable(
                 name: "Ledgers");

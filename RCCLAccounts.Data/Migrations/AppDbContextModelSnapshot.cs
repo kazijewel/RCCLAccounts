@@ -8,7 +8,7 @@ using ProvidentFund.Data;
 
 #nullable disable
 
-namespace ProvidentFund.Data.Migrations
+namespace RCCLAccounts.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot

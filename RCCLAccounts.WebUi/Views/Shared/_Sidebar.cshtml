@@ -14,7 +14,7 @@
                <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z" /></svg>               
             </div>
             <ul class="side-menu">
-                <li class="side-item side-item-category">Main</li>
+                <li class="side-item side-item-category">ACCOUNTS MODULE</li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" asp-controller="Home" asp-action="Index">
                         @*<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24">
@@ -26,8 +26,32 @@
                     </a>
                 </li>
                
-                <li class="side-item side-item-category">SETUP MODULE</li> 
+                <li class="side-item side-item-category">ACCOUNTS SETUP </li> 
                 <li class="slide">
+
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                        <i class="bi bi-person-lines-fill" style="color:crimson"></i>
+                        <span class="side-menu__label">&nbsp; &nbsp;Master Setup</span><i class="angle fe fe-chevron-right"></i>
+                    </a>
+                    <ul class="slide-menu">
+                        <li class="side-menu__label1"><a href="javascript:void(0);">Employee</a></li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" asp-action="Index" asp-controller="Emp">
+                                <i class="bi bi-people" style="color:coral"></i>
+                                <span class="side-menu__label">&nbsp; &nbsp;Primary Group Info</span>
+                            </a>
+                        </li>
+                        <li class="slide">
+                            <a class="side-menu__item" data-bs-toggle="slide" asp-action="Index" asp-controller="EmployeeTransfer">
+                                <i class="bi bi-person-circle" style="color:fuchsia"></i>
+                                <span class="side-menu__label">&nbsp; &nbsp;Main Group Info</span>
+                            </a>
+                        </li>
+                    </ul>
+
+
+
+
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                         <i class="bi bi-person-lines-fill" style="color:crimson"></i>
                         <span class="side-menu__label">&nbsp; &nbsp;Employee</span><i class="angle fe fe-chevron-right"></i>
@@ -89,7 +113,7 @@
                     </ul>:
                     </li>
 
-                <li class="side-item side-item-category">CPF MODULE</li>
+                <li class="side-item side-item-category">ACCOUNTS TRANSACTION </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                     @*    <i class="bi bi-person-lines-fill" style="color:darkorange"></i>*@
@@ -174,7 +198,7 @@
                     </ul>
                 </li>
 
-                <li class="side-item side-item-category">REPORTS</li>
+                <li class="side-item side-item-category">ACCOUNTS REPORTS</li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" asp-action="Index" asp-controller="Report">
                        <i class="bi bi-file-earmark-pdf" style="color:tomato"></i>

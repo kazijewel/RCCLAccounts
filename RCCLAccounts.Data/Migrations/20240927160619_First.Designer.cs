@@ -9,11 +9,11 @@ using ProvidentFund.Data;
 
 #nullable disable
 
-namespace ProvidentFund.Data.Migrations
+namespace RCCLAccounts.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231026155513_columnAddEmpTransfer")]
-    partial class columnAddEmpTransfer
+    [Migration("20240927160619_First")]
+    partial class First
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -194,6 +194,9 @@ namespace ProvidentFund.Data.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("LastLoginDateTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -222,6 +225,9 @@ namespace ProvidentFund.Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
+
+                    b.Property<string>("UserImage")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -864,6 +870,9 @@ namespace ProvidentFund.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NID")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("NidPath")
                         .HasColumnType("nvarchar(max)");
 
@@ -1084,6 +1093,76 @@ namespace ProvidentFund.Data.Migrations
                     b.ToTable("FiscalYears");
                 });
 
+            modelBuilder.Entity("ProvidentFund.Data.Entities.InterestPosting", b =>
+                {
+                    b.Property<int>("InterestAutoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("InterestAutoId"));
+
+                    b.Property<string>("ApplyUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Balance")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("EntryTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("InterestApplyDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("InterestDay")
+                        .HasColumnType("int");
+
+                    b.Property<string>("InterestStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LoanInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LoanNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LoanTypeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("MonthlyProfit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ProvisonalProfit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalProfit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("TransactionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TransactionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserIp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("InterestAutoId");
+
+                    b.HasIndex("LoanInfoId");
+
+                    b.ToTable("InterestPosting");
+                });
+
             modelBuilder.Entity("ProvidentFund.Data.Entities.Ledger", b =>
                 {
                     b.Property<int>("AutoId")
@@ -1245,6 +1324,9 @@ namespace ProvidentFund.Data.Migrations
                     b.Property<decimal>("AmountPerInstallment")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("ApplyUserName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("BankBranchId")
                         .HasColumnType("int");
 
@@ -1270,6 +1352,9 @@ namespace ProvidentFund.Data.Migrations
                     b.Property<string>("FieldOfficerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("InterestApplyDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("InterestFlag")
                         .HasColumnType("nvarchar(max)");
@@ -2120,6 +2205,17 @@ namespace ProvidentFund.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("employeeInfo");
+                });
+
+            modelBuilder.Entity("ProvidentFund.Data.Entities.InterestPosting", b =>
+                {
+                    b.HasOne("ProvidentFund.Data.Entities.LoanInformation", "loanInfo")
+                        .WithMany()
+                        .HasForeignKey("LoanInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("loanInfo");
                 });
 
             modelBuilder.Entity("ProvidentFund.Data.Entities.Ledger", b =>
