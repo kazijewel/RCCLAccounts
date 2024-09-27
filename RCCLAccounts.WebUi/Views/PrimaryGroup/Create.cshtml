@@ -1,0 +1,80 @@
+﻿<div class="modal fade" id="primaryGroup" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Primary Group Info</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-bordered" autocomplete="off">
+                    <input type="hidden" id="autoId" />
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Type:</label>
+                        <div class="col-sm-8">
+                            <label class="radio-inline">
+                                <input type="radio" id="radio1" value="Asset" name="assetName" checked>Asset
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" id="radio2" value="Liability" name="assetName">Liability
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" id="radio3" value="Income" name="assetName">Income
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" id="radio4" value="Expense" name="assetName">Expense
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Primary Group:</label>
+                        <div class="col-sm-3">
+                            <input type="text" name="primaryGroupId" id="primaryGroupId"
+                                   class="form-control input-sm" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Code :</label>
+                        <div class="col-sm-3">
+                            <input id="PCode" class="form-control input-sm" readonly />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Name :</label>
+                        <div class="col-sm-6">
+                            <input id="nameId" class="form-control input-sm" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Assets/Liabilities Category:</label>
+                        <div class="col-md-6">
+                            <select data-plugin-selectTwo id="itemTypeId" class="form-control-populate">
+                                <option value="Current Assets">Current Assets</option>
+                                <option value="Non-current Assets">Non-current Assets</option>
+                                <option value="Shareholders' Equity">Shareholders' Equity</option>
+                                <option value="Current Liabilities">Current Liabilities</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="CheckBox" class="form-group">
+                        <label class="col-sm-4 control-label">Note No :</label>
+                        <div class="col-sm-3">
+                            <input id="noteNoId" onkeypress="return amount(event);" class="form-control input-sm" />
+
+                            <span id="message"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer customFooter">
+                <div id="add">
+                    <partial name="_ModalButtonCreate" />
+                </div>
+                <div id="edit">
+                    <partial name="_ModalButtonEdit" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

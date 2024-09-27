@@ -1,0 +1,51 @@
+﻿<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">Primary Group List</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Primary Group List</li>
+        </ol>
+    </div>
+</div>
+
+<div>
+    <button type="button" asp-action="Create" class="btn btn-info"><a asp-action="Create">Create New</a></button>
+    <br /><br />
+</div>
+
+<section class="panel">
+    
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-md">
+                    <button type="button" asp-action="Create" class="btn btn-info"><a asp-action="Create">Create New</a></button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" id="tbPrimaryGroup" width="100%">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Primary Group Code</th>
+                    <th>Primary Group Name</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+
+@section Scripts{
+   @* <partial name="/Areas/Accounts/Views/PrimaryGroup/_PrimaryGroup.cshtml" />
+    <script asp-append-version="true" src="~/js/JSAccounts/primaryGroupList.js"></script>
+    <script asp-append-version="true" src="~/js/JSAccounts/primaryGroupService.js"></script>*@
+}
