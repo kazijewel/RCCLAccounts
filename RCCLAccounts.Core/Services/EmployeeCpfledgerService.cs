@@ -1,12 +1,12 @@
 ﻿using Mapster;
-using ProvidentFund.Core.Interfaces;
-using ProvidentFund.Core.Models;
-using ProvidentFund.Core.Models.CpfDeposit;
-using ProvidentFund.Data.Entities;
-using ProvidentFund.Data.Interfaces;
-using ProvidentFund.Data.Repositories;
+using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Core.Models;
+using RCCLAccounts.Core.Models.CpfDeposit;
+using RCCLAccounts.Data.Entities;
+using RCCLAccounts.Data.Interfaces;
+using RCCLAccounts.Data.Repositories;
 
-namespace ProvidentFund.Core.Services
+namespace RCCLAccounts.Core.Services
 {
     public class EmployeeCpfledgerService : IEmployeeCpfledgerService
     {

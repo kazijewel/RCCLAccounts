@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProvidentFund.WebUi.Reports
+namespace RCCLAccounts.WebUi.Reports
 {
     public class ReportDbConnection
     {

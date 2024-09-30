@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ProvidentFund.WebUi.Controllers
+namespace RCCLAccounts.WebUi.Controllers
 {
 	public class UiController : Controller
 	{

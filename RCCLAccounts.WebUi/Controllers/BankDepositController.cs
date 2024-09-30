@@ -3,17 +3,17 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ProvidentFund.Core.Interfaces;
-using ProvidentFund.Core.Models;
-using ProvidentFund.Data;
-using ProvidentFund.Data.Entities;
-using ProvidentFund.WebUi.Common;
-using ProvidentFund.WebUi.Models;
+using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Core.Models;
+using RCCLAccounts.Data;
+using RCCLAccounts.Data.Entities;
+using RCCLAccounts.WebUi.Common;
+using RCCLAccounts.WebUi.Models;
 using System.Linq.Expressions;
 using System.Net;
 using System.Xml;
 
-namespace ProvidentFund.WebUi.Controllers
+namespace RCCLAccounts.WebUi.Controllers
 {
     public class BankDepositController : Controller
     {

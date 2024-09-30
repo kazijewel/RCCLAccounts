@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ProvidentFund.Data.Entities;
+namespace RCCLAccounts.Data.Entities;
 
 public class EmployeeCpfledger
 {

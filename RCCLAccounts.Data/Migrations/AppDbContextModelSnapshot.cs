@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProvidentFund.Data;
+using RCCLAccounts.Data;
 
 #nullable disable
 
@@ -140,7 +140,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.ApplicationRole", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.ApplicationRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -168,7 +168,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,7 +243,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.BankAccountInfo", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.BankAccountInfo", b =>
                 {
                     b.Property<int>("BankAcInfoId")
                         .ValueGeneratedOnAdd()
@@ -312,7 +312,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("BankAccountInfo");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.BankBranch", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.BankBranch", b =>
                 {
                     b.Property<int>("BankBranchId")
                         .ValueGeneratedOnAdd()
@@ -353,7 +353,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("BankBranch");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.BankDeposit", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.BankDeposit", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -411,7 +411,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("BankDeposits");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.BankName", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.BankName", b =>
                 {
                     b.Property<int>("BankId")
                         .ValueGeneratedOnAdd()
@@ -449,7 +449,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("BankName");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.BranchInformation", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.BranchInformation", b =>
                 {
                     b.Property<int>("BranchId")
                         .ValueGeneratedOnAdd()
@@ -531,7 +531,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("BranchInformation");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.CPFLoanLedger", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.CPFLoanLedger", b =>
                 {
                     b.Property<int>("CPFLedgerId")
                         .ValueGeneratedOnAdd()
@@ -613,7 +613,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("CPFLoanLedger");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.Department", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.Department", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -630,7 +630,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("Departments");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.Designation", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.Designation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -658,7 +658,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("Designations");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.Employee", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.Employee", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -679,7 +679,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.EmployeeCPFOpening", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.EmployeeCPFOpening", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -724,7 +724,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("EmployeeCPFOpening");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.EmployeeCpfledger", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.EmployeeCpfledger", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -796,7 +796,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("EmployeeCpfledgers");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.EmployeeInfo", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.EmployeeInfo", b =>
                 {
                     b.Property<int>("EmpolyeeId")
                         .ValueGeneratedOnAdd()
@@ -925,7 +925,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("EmployeeInfos");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.EmployeeTransferHistory", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.EmployeeTransferHistory", b =>
                 {
                     b.Property<int>("EmpolyeeTransferId")
                         .ValueGeneratedOnAdd()
@@ -1052,7 +1052,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("EmployeeTransferHistory");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.FiscalYear", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.FiscalYear", b =>
                 {
                     b.Property<string>("FiscalYearId")
                         .HasColumnType("nvarchar(450)");
@@ -1090,7 +1090,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("FiscalYears");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.InterestPosting", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.InterestPosting", b =>
                 {
                     b.Property<int>("InterestAutoId")
                         .ValueGeneratedOnAdd()
@@ -1160,7 +1160,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("InterestPosting");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.Ledger", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.Ledger", b =>
                 {
                     b.Property<int>("AutoId")
                         .ValueGeneratedOnAdd()
@@ -1252,7 +1252,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("Ledgers");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.LedgerOpeningBalance", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.LedgerOpeningBalance", b =>
                 {
                     b.Property<int>("LedgerOpId")
                         .ValueGeneratedOnAdd()
@@ -1306,7 +1306,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("LedgerOpeningBalances");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.LoanInformation", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.LoanInformation", b =>
                 {
                     b.Property<int>("LoanInfoId")
                         .ValueGeneratedOnAdd()
@@ -1424,7 +1424,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("LoanInformation");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.MainGroup", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.MainGroup", b =>
                 {
                     b.Property<int>("MainId")
                         .ValueGeneratedOnAdd()
@@ -1483,7 +1483,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("MainGroups");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.PrimaryGroup", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.PrimaryGroup", b =>
                 {
                     b.Property<int>("PrimaryId")
                         .ValueGeneratedOnAdd()
@@ -1536,7 +1536,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("PrimaryGroups");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.SubGroup", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.SubGroup", b =>
                 {
                     b.Property<int>("SubId")
                         .ValueGeneratedOnAdd()
@@ -1608,7 +1608,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("SubGroups");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.UdLedger", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.UdLedger", b =>
                 {
                     b.Property<int>("AutoId")
                         .ValueGeneratedOnAdd()
@@ -1693,7 +1693,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("UdLedgers");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.UdVoucher", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.UdVoucher", b =>
                 {
                     b.Property<long>("AutoId")
                         .ValueGeneratedOnAdd()
@@ -1863,7 +1863,7 @@ namespace RCCLAccounts.Data.Migrations
                     b.ToTable("UdVouchers");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.Voucher", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.Voucher", b =>
                 {
                     b.Property<long>("AutoId")
                         .ValueGeneratedOnAdd()
@@ -2031,13 +2031,13 @@ namespace RCCLAccounts.Data.Migrations
 
             modelBuilder.Entity("DepartmentEmployee", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.Department", null)
+                    b.HasOne("RCCLAccounts.Data.Entities.Department", null)
                         .WithMany()
                         .HasForeignKey("DepartmentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProvidentFund.Data.Entities.Employee", null)
+                    b.HasOne("RCCLAccounts.Data.Entities.Employee", null)
                         .WithMany()
                         .HasForeignKey("EmployeesId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2046,7 +2046,7 @@ namespace RCCLAccounts.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.ApplicationRole", null)
+                    b.HasOne("RCCLAccounts.Data.Entities.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2055,7 +2055,7 @@ namespace RCCLAccounts.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<System.Guid>", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.ApplicationUser", null)
+                    b.HasOne("RCCLAccounts.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2064,7 +2064,7 @@ namespace RCCLAccounts.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.ApplicationUser", null)
+                    b.HasOne("RCCLAccounts.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2073,13 +2073,13 @@ namespace RCCLAccounts.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.ApplicationRole", null)
+                    b.HasOne("RCCLAccounts.Data.Entities.ApplicationRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProvidentFund.Data.Entities.ApplicationUser", null)
+                    b.HasOne("RCCLAccounts.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2088,28 +2088,28 @@ namespace RCCLAccounts.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.ApplicationUser", null)
+                    b.HasOne("RCCLAccounts.Data.Entities.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.BankAccountInfo", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.BankAccountInfo", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.BankBranch", "bankBranch")
+                    b.HasOne("RCCLAccounts.Data.Entities.BankBranch", "bankBranch")
                         .WithMany()
                         .HasForeignKey("BankBranchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProvidentFund.Data.Entities.BankName", "bankName")
+                    b.HasOne("RCCLAccounts.Data.Entities.BankName", "bankName")
                         .WithMany()
                         .HasForeignKey("BankId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProvidentFund.Data.Entities.BranchInformation", "branchInformation")
+                    b.HasOne("RCCLAccounts.Data.Entities.BranchInformation", "branchInformation")
                         .WithMany()
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2122,9 +2122,9 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("branchInformation");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.BankDeposit", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.BankDeposit", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.BankAccountInfo", "AccountInfo")
+                    b.HasOne("RCCLAccounts.Data.Entities.BankAccountInfo", "AccountInfo")
                         .WithMany()
                         .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2133,9 +2133,9 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("AccountInfo");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.CPFLoanLedger", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.CPFLoanLedger", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.LoanInformation", "loanInfo")
+                    b.HasOne("RCCLAccounts.Data.Entities.LoanInformation", "loanInfo")
                         .WithMany()
                         .HasForeignKey("LoanInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2144,9 +2144,9 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("loanInfo");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.EmployeeCPFOpening", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.EmployeeCPFOpening", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.EmployeeInfo", "employeeInfo")
+                    b.HasOne("RCCLAccounts.Data.Entities.EmployeeInfo", "employeeInfo")
                         .WithMany()
                         .HasForeignKey("EmpolyeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2155,9 +2155,9 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("employeeInfo");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.EmployeeCpfledger", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.EmployeeCpfledger", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.EmployeeInfo", "EmployeeInfo")
+                    b.HasOne("RCCLAccounts.Data.Entities.EmployeeInfo", "EmployeeInfo")
                         .WithMany()
                         .HasForeignKey("EmpolyeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2166,21 +2166,21 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("EmployeeInfo");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.EmployeeInfo", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.EmployeeInfo", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.BranchInformation", "branch")
+                    b.HasOne("RCCLAccounts.Data.Entities.BranchInformation", "branch")
                         .WithMany()
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProvidentFund.Data.Entities.Department", "department")
+                    b.HasOne("RCCLAccounts.Data.Entities.Department", "department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProvidentFund.Data.Entities.Designation", "designation")
+                    b.HasOne("RCCLAccounts.Data.Entities.Designation", "designation")
                         .WithMany()
                         .HasForeignKey("DesignationId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2193,9 +2193,9 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("designation");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.EmployeeTransferHistory", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.EmployeeTransferHistory", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.EmployeeInfo", "employeeInfo")
+                    b.HasOne("RCCLAccounts.Data.Entities.EmployeeInfo", "employeeInfo")
                         .WithMany()
                         .HasForeignKey("TranserEmpolyeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2204,9 +2204,9 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("employeeInfo");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.InterestPosting", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.InterestPosting", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.LoanInformation", "loanInfo")
+                    b.HasOne("RCCLAccounts.Data.Entities.LoanInformation", "loanInfo")
                         .WithMany()
                         .HasForeignKey("LoanInfoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2215,17 +2215,17 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("loanInfo");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.Ledger", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.Ledger", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.MainGroup", "MainGroup")
+                    b.HasOne("RCCLAccounts.Data.Entities.MainGroup", "MainGroup")
                         .WithMany()
                         .HasForeignKey("MainId");
 
-                    b.HasOne("ProvidentFund.Data.Entities.PrimaryGroup", "PrimaryGroup")
+                    b.HasOne("RCCLAccounts.Data.Entities.PrimaryGroup", "PrimaryGroup")
                         .WithMany()
                         .HasForeignKey("PrimaryId");
 
-                    b.HasOne("ProvidentFund.Data.Entities.SubGroup", "SubGroup")
+                    b.HasOne("RCCLAccounts.Data.Entities.SubGroup", "SubGroup")
                         .WithMany()
                         .HasForeignKey("SubId");
 
@@ -2236,9 +2236,9 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("SubGroup");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.LedgerOpeningBalance", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.LedgerOpeningBalance", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.Ledger", "Ledger")
+                    b.HasOne("RCCLAccounts.Data.Entities.Ledger", "Ledger")
                         .WithMany()
                         .HasForeignKey("PKLegerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2247,21 +2247,21 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("Ledger");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.LoanInformation", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.LoanInformation", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.BankBranch", "bankBranch")
+                    b.HasOne("RCCLAccounts.Data.Entities.BankBranch", "bankBranch")
                         .WithMany()
                         .HasForeignKey("BankBranchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProvidentFund.Data.Entities.BankName", "bankName")
+                    b.HasOne("RCCLAccounts.Data.Entities.BankName", "bankName")
                         .WithMany()
                         .HasForeignKey("BankId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ProvidentFund.Data.Entities.EmployeeInfo", "employeeInfo")
+                    b.HasOne("RCCLAccounts.Data.Entities.EmployeeInfo", "employeeInfo")
                         .WithMany()
                         .HasForeignKey("EmpolyeeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2274,9 +2274,9 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("employeeInfo");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.MainGroup", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.MainGroup", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.PrimaryGroup", "PrimaryGroup")
+                    b.HasOne("RCCLAccounts.Data.Entities.PrimaryGroup", "PrimaryGroup")
                         .WithMany()
                         .HasForeignKey("PrimaryId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2285,13 +2285,13 @@ namespace RCCLAccounts.Data.Migrations
                     b.Navigation("PrimaryGroup");
                 });
 
-            modelBuilder.Entity("ProvidentFund.Data.Entities.SubGroup", b =>
+            modelBuilder.Entity("RCCLAccounts.Data.Entities.SubGroup", b =>
                 {
-                    b.HasOne("ProvidentFund.Data.Entities.MainGroup", "MainGroup")
+                    b.HasOne("RCCLAccounts.Data.Entities.MainGroup", "MainGroup")
                         .WithMany()
                         .HasForeignKey("MainId");
 
-                    b.HasOne("ProvidentFund.Data.Entities.PrimaryGroup", "PrimaryGroup")
+                    b.HasOne("RCCLAccounts.Data.Entities.PrimaryGroup", "PrimaryGroup")
                         .WithMany()
                         .HasForeignKey("PrimaryId");
 

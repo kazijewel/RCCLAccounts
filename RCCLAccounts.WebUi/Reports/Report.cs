@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 
-namespace ProvidentFund.WebUi.Reports
+namespace RCCLAccounts.WebUi.Reports
 {
     public class Report
     {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProvidentFund.Core.Models
+namespace RCCLAccounts.Core.Models
 {
     public class UserProfileModel
     {

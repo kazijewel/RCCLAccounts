@@ -1,7 +1,7 @@
-﻿using ProvidentFund.Core.Models;
-using ProvidentFund.Core.Models.CpfDeposit;
+﻿using RCCLAccounts.Core.Models;
+using RCCLAccounts.Core.Models.CpfDeposit;
 
-namespace ProvidentFund.Core.Interfaces
+namespace RCCLAccounts.Core.Interfaces
 {
 	public interface IEmployeeCpfledgerService
 	{

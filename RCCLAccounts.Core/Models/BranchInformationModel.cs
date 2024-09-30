@@ -1,4 +1,4 @@
-﻿namespace ProvidentFund.Core.Models
+﻿namespace RCCLAccounts.Core.Models
 {
     public class BranchInformationModel
     {

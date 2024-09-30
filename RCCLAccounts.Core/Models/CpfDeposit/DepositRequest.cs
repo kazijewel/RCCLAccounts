@@ -1,4 +1,4 @@
-﻿namespace ProvidentFund.Core.Models.CpfDeposit
+﻿namespace RCCLAccounts.Core.Models.CpfDeposit
 {
     public class DepositRequest
     {

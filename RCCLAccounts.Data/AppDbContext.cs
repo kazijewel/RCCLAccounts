@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProvidentFund.Data.Entities;
+using RCCLAccounts.Data.Entities;
 using System.Collections.Generic;
 
-namespace ProvidentFund.Data
+namespace RCCLAccounts.Data
 {
     public class AppDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {

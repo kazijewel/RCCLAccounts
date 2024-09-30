@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProvidentFund.Data.Entities
+namespace RCCLAccounts.Data.Entities
 {
     public class BankDeposit
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
-using ProvidentFund.Core;
+using RCCLAccounts.Core;
 
-namespace ProvidentFund.WebUi
+namespace RCCLAccounts.WebUi
 {
     public static class DependencyInjection
     {

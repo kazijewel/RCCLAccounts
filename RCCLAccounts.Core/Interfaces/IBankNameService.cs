@@ -1,7 +1,7 @@
-﻿using ProvidentFund.Core.Models;
+﻿using RCCLAccounts.Core.Models;
 
 
-namespace ProvidentFund.Core.Interfaces
+namespace RCCLAccounts.Core.Interfaces
 {
     public interface IBankNameService
     {

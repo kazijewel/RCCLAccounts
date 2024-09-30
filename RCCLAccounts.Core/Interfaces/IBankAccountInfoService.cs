@@ -1,13 +1,13 @@
 ﻿
-using ProvidentFund.Core.Models;
-using ProvidentFund.Data.Entities;
+using RCCLAccounts.Core.Models;
+using RCCLAccounts.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProvidentFund.Core.Interfaces
+namespace RCCLAccounts.Core.Interfaces
 {
     public interface IBankAccountInfoService
     {

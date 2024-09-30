@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ProvidentFund.Data;
+using RCCLAccounts.Data;
+using RCCLAccounts.WebUi.Services;
 
 namespace ESL.Areas.Accounts.Controllers
 {
@@ -22,7 +23,7 @@ namespace ESL.Areas.Accounts.Controllers
         private IHttpContextAccessor _accessor;
         private AppDbContext _db;
         String sqlCon = "";
-       // PrimaryGroupService service;
+        PrimaryGroupService service;
        // private commonService commonService;
         public PrimaryGroupController(
             //IUnitAccounts unitAccounts, 
@@ -37,7 +38,7 @@ namespace ESL.Areas.Accounts.Controllers
             _accessor = accessor;
             _logger = logger;
             _db = db;
-            //service = new PrimaryGroupService(_unitOfWork, _unitAccounts, _accessor,_db);
+            service = new PrimaryGroupService( _accessor,_db);
             //commonService = new commonService(_unitOfWork, _unitAccounts, _accessor, _db);
             sqlCon = _db.Database.GetDbConnection().ConnectionString;
         }
@@ -67,7 +68,7 @@ namespace ESL.Areas.Accounts.Controllers
         //        }
         //        obj.EntryTime = DateTime.Now;
         //        obj.CompanyId = Convert.ToInt32(commonService.getSession().GetString("companyId"));
-                
+
         //        if (obj.Id == 0)
         //        {
         //            msg = "Information save successfully!";
@@ -84,26 +85,26 @@ namespace ESL.Areas.Accounts.Controllers
         //    }
         //    return Json(new { success = false, isUpdate = isUpdate, message = msg });
         //}
-        //public IActionResult getMaxPrimaryCode(string group, string code)
-        //{
-        //    _logger.LogInformation(" Group: "+group+" code: "+ code);
-        //    string maxId = service.maxPCode(group,code);
-        //    if (maxId == "0")
-        //    {
-        //        return Json(new { maxData = "0" });
-        //    }
-        //    return Json(new { maxData = maxId });
-        //}
-        //public IActionResult getMax(string id)
-        //{
-        //    _logger.LogInformation(id);
-        //    string maxId =id+ service.max(id);
-        //    if(maxId=="0")
-        //    {
-        //        return Json(new { maxData="0"});
-        //    }
-        //    return Json(new { maxData = maxId});
-        //}
+        public IActionResult getMaxPrimaryCode(string group, string code)
+        {
+            _logger.LogInformation(" Group: " + group + " code: " + code);
+            string maxId = service.maxPCode(group, code);
+            if (maxId == "0")
+            {
+                return Json(new { maxData = "0" });
+            }
+            return Json(new { maxData = maxId });
+        }
+        public IActionResult getMax(string id)
+        {
+            _logger.LogInformation(id);
+            string maxId = id + service.max(id);
+            if (maxId == "0")
+            {
+                return Json(new { maxData = "0" });
+            }
+            return Json(new { maxData = maxId });
+        }
         //public IActionResult nameCheck(string name)
         //{
         //    var obj = _unitAccounts.PrimaryGroup.GetFirstOrDefault(x => x.Name.Equals(name));
@@ -113,7 +114,7 @@ namespace ESL.Areas.Accounts.Controllers
         //        return Json(new { isFind = true });
         //    }
         //    return Json(new { isFind = false });
-       // }
+        // }
         //public IActionResult findData(int id)
         //{
         //    var obj = _unitAccounts.PrimaryGroup.GetFirstOrDefault(x=>x.Id==id);

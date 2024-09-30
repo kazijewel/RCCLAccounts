@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProvidentFund.Data.Entities;
+namespace RCCLAccounts.Data.Entities;
 
 public partial class UdVoucher
 {

@@ -1,4 +1,4 @@
-﻿using ProvidentFund.Data.Entities;
+﻿using RCCLAccounts.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProvidentFund.Core.Models
+namespace RCCLAccounts.Core.Models
 {
     public class LoanInformationModel
     {

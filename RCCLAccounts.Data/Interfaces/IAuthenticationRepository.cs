@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProvidentFund.Data.Interfaces
+namespace RCCLAccounts.Data.Interfaces
 {
     public interface IAuthenticationRepository
     {

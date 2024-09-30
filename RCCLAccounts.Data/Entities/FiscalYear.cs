@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProvidentFund.Data.Entities;
+namespace RCCLAccounts.Data.Entities;
 
 public partial class FiscalYear
 {

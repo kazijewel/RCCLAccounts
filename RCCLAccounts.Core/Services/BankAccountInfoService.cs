@@ -1,19 +1,19 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProvidentFund.Core.Interfaces;
-using ProvidentFund.Data.Entities;
-using ProvidentFund.Data.Interfaces;
-using ProvidentFund.Data;
+using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Data.Entities;
+using RCCLAccounts.Data.Interfaces;
+using RCCLAccounts.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MapsterMapper;
-using ProvidentFund.Data.Repositories;
-using ProvidentFund.Core.Models;
+using RCCLAccounts.Data.Repositories;
+using RCCLAccounts.Core.Models;
 using Mapster;
 
-namespace ProvidentFund.Core.Services
+namespace RCCLAccounts.Core.Services
 {
     public class BankAccountInfoService : IBankAccountInfoService
     {

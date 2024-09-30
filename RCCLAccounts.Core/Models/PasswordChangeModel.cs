@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProvidentFund.Core.Models
+namespace RCCLAccounts.Core.Models
 {
     public class  PasswordChangeModel
     {

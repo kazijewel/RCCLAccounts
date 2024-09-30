@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using ProvidentFund.Data.Interfaces;
-using ProvidentFund.Data.Repositories;
+using RCCLAccounts.Data.Interfaces;
+using RCCLAccounts.Data.Repositories;
 
 
-namespace ProvidentFund.Data
+namespace RCCLAccounts.Data
 {
     public static class DependencyInjection
     {

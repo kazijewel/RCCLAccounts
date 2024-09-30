@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProvidentFund.Data.Entities;
-using ProvidentFund.Data.Interfaces;
+using RCCLAccounts.Data.Entities;
+using RCCLAccounts.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProvidentFund.Data.Repositories
+namespace RCCLAccounts.Data.Repositories
 {
     public class LoanInformationRepository : ILoanInformationRepository
     {

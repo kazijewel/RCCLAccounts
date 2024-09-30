@@ -1,6 +1,6 @@
-﻿using ProvidentFund.Data.Entities;
+﻿using RCCLAccounts.Data.Entities;
 
-namespace ProvidentFund.Data.Interfaces
+namespace RCCLAccounts.Data.Interfaces
 {
     public interface IBankNameRepository
     {

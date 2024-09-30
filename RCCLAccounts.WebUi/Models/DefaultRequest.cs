@@ -1,4 +1,4 @@
-﻿namespace ProvidentFund.WebUi.Models
+﻿namespace RCCLAccounts.WebUi.Models
 {
     public class DefaultRequest
     {

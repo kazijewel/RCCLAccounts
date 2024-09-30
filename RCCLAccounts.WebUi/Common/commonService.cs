@@ -3,14 +3,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
-using ProvidentFund.Data;
+using RCCLAccounts.Data;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProvidentFund.WebUi.Common
+namespace RCCLAccounts.WebUi.Common
 {
     public class commonService
     {

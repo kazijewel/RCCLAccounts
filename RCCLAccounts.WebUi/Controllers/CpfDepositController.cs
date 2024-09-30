@@ -2,16 +2,16 @@
 using Humanizer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ProvidentFund.Core.Interfaces;
-using ProvidentFund.Core.Models.CpfDeposit;
-using ProvidentFund.Core.Services;
-using ProvidentFund.Data;
-using ProvidentFund.Data.Entities;
-using ProvidentFund.WebUi.Common;
-using ProvidentFund.WebUi.Models;
+using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Core.Models.CpfDeposit;
+using RCCLAccounts.Core.Services;
+using RCCLAccounts.Data;
+using RCCLAccounts.Data.Entities;
+using RCCLAccounts.WebUi.Common;
+using RCCLAccounts.WebUi.Models;
 using System.Net;
 
-namespace ProvidentFund.WebUi.Controllers
+namespace RCCLAccounts.WebUi.Controllers
 {
 	public class CpfDepositController : Controller
 	{

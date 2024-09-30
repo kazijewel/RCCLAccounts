@@ -1,7 +1,7 @@
-﻿using ProvidentFund.Data.Interfaces;
+﻿using RCCLAccounts.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 
-namespace ProvidentFund.Data.Repositories
+namespace RCCLAccounts.Data.Repositories
 {
     public class AuthenticationRepository : IAuthenticationRepository
     {

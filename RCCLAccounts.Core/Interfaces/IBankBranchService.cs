@@ -1,7 +1,7 @@
-﻿using ProvidentFund.Core.Models;
-using ProvidentFund.Data.Entities;
+﻿using RCCLAccounts.Core.Models;
+using RCCLAccounts.Data.Entities;
 
-namespace ProvidentFund.Core.Interfaces
+namespace RCCLAccounts.Core.Interfaces
 {
     public interface IBankBranchService
     {

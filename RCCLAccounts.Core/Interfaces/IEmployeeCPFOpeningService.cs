@@ -1,8 +1,8 @@
-﻿using ProvidentFund.Core.Models;
-using ProvidentFund.Data.Entities;
-using ProvidentFund.Data.Interfaces;
+﻿using RCCLAccounts.Core.Models;
+using RCCLAccounts.Data.Entities;
+using RCCLAccounts.Data.Interfaces;
 
-namespace ProvidentFund.Core.Interfaces
+namespace RCCLAccounts.Core.Interfaces
 {
     public interface IEmployeeCPFOpeningService
 	{

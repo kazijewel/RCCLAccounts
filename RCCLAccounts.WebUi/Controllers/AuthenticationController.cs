@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using ProvidentFund.Core.Models;
-using ProvidentFund.Core.Services;
-using ProvidentFund.Data.Entities;
+using RCCLAccounts.Core.Models;
+using RCCLAccounts.Core.Services;
+using RCCLAccounts.Data.Entities;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 
-namespace ProvidentFund.WebUi.Controllers
+namespace RCCLAccounts.WebUi.Controllers
 {
 	public class AuthenticationController : Controller
 	{

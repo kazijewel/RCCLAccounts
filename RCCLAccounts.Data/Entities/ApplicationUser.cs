@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace ProvidentFund.Data.Entities
+namespace RCCLAccounts.Data.Entities
 {
     public class ApplicationUser : IdentityUser<Guid>
     {

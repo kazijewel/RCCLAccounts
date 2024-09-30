@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProvidentFund.Core.Interfaces;
-using ProvidentFund.Core.Models;
-using ProvidentFund.Core.Services;
-using ProvidentFund.WebUi.Models;
+using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Core.Models;
+using RCCLAccounts.Core.Services;
+using RCCLAccounts.WebUi.Models;
 
-namespace ProvidentFund.WebUi.Controllers
+namespace RCCLAccounts.WebUi.Controllers
 {
     public class BankNameController: Controller
     {

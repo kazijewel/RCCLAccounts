@@ -1,6 +1,6 @@
-﻿using ProvidentFund.Data.Entities;
+﻿using RCCLAccounts.Data.Entities;
 
-namespace ProvidentFund.Core.Models
+namespace RCCLAccounts.Core.Models
 {
 	public class EmployeeCpfledgerModel
 	{

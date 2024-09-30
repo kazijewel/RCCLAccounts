@@ -35,8 +35,10 @@
     <link href="~/assets/switcher/css/switcher.css" rel="stylesheet" />
     <link href="~/assets/switcher/demo.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link href="~/assets/vendor/pnotify/jewel.pnotify.custom.css" rel="stylesheet" />
 
-
+    @*<link href="~/assets/vendor/pnotify/pnotify.custom.css" rel="stylesheet" />
+*@
     @RenderSection("css",required : false)
 
 </head>
@@ -1110,7 +1112,9 @@
     <!-- custom js -->
     <script src="~/assets/js/custom1.js"></script>
 
-
+   
+    <script src="~/assets/vendor/pnotify/pnotify.custom.js"></script>
+    <script asp-append-version="true" src="~/assets/js/notifyshare.js"></script>
     @RenderSection("scripts",required : false)
 
 

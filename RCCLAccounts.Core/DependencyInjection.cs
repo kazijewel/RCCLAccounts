@@ -1,13 +1,13 @@
-﻿using ProvidentFund.Data;
-using ProvidentFund.Core.Interfaces;
-using ProvidentFund.Core.Services;
+﻿using RCCLAccounts.Data;
+using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Core.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mapster;
 using MapsterMapper;
 using System.Reflection;
 
-namespace ProvidentFund.Core
+namespace RCCLAccounts.Core
 {
     public static class DependencyInjection
     {

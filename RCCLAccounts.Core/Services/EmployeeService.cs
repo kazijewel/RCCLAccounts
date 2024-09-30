@@ -1,11 +1,11 @@
 ﻿using Mapster;
 using MapsterMapper;
-using ProvidentFund.Core.Interfaces;
-using ProvidentFund.Core.Models;
-using ProvidentFund.Data.Entities;
-using ProvidentFund.Data.Interfaces;
+using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Core.Models;
+using RCCLAccounts.Data.Entities;
+using RCCLAccounts.Data.Interfaces;
 
-namespace ProvidentFund.Core.Services
+namespace RCCLAccounts.Core.Services
 {
     public class EmployeeService : IEmployeeService
     {

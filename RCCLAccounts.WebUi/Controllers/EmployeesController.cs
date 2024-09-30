@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProvidentFund.WebUi.Models;
-using ProvidentFund.Core.Interfaces;
-using ProvidentFund.Core.Models;
+using RCCLAccounts.WebUi.Models;
+using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Core.Models;
 
-namespace ProvidentFund.WebUi.Controllers
+namespace RCCLAccounts.WebUi.Controllers
 {
     public class EmployeesController : Controller
     {

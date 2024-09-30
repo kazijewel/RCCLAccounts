@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ProvidentFund.Data;
-using ProvidentFund.WebUi.Models;
+using RCCLAccounts.Data;
+using RCCLAccounts.WebUi.Models;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 
-namespace ProvidentFund.WebUi.Controllers
+namespace RCCLAccounts.WebUi.Controllers
 {
     public class HomeController : Controller
     {

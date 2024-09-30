@@ -5,20 +5,20 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ProvidentFund.Core.Interfaces;
-using ProvidentFund.Core.Models;
-using ProvidentFund.Core.Models.CpfDeposit;
-using ProvidentFund.Core.Services;
-using ProvidentFund.Data;
-using ProvidentFund.Data.Entities;
-using ProvidentFund.WebUi.Models;
+using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Core.Models;
+using RCCLAccounts.Core.Models.CpfDeposit;
+using RCCLAccounts.Core.Services;
+using RCCLAccounts.Data;
+using RCCLAccounts.Data.Entities;
+using RCCLAccounts.WebUi.Models;
 using System.Data;
 using System.Data.SqlClient;
 using System.Net;
 using System.Security.Claims;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace ProvidentFund.WebUi.Controllers
+namespace RCCLAccounts.WebUi.Controllers
 {
     public class LoanInterestPostingController : Controller
     {
@@ -71,7 +71,7 @@ namespace ProvidentFund.WebUi.Controllers
         {
     
             ViewBag.Datum = DateTime.Now.ToString("yyyy-MM-dd");
-            var initialData = new List<ProvidentFund.Core.Models.InterestPostingModel>
+            var initialData = new List<RCCLAccounts.Core.Models.InterestPostingModel>
     {
             new InterestPostingModel
             {

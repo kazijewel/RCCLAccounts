@@ -1,8 +1,8 @@
-﻿using ProvidentFund.Data.Entities;
+﻿using RCCLAccounts.Data.Entities;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ProvidentFund.Core.Models
+namespace RCCLAccounts.Core.Models
 {
     public class CPFLoanLedgerModel
     {

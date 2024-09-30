@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ProvidentFund.Data.Entities;
-using ProvidentFund.Data.Interfaces;
+using RCCLAccounts.Data.Entities;
+using RCCLAccounts.Data.Interfaces;
 
-namespace ProvidentFund.Data.Repositories
+namespace RCCLAccounts.Data.Repositories
 {
 	public class EmployeeCpfledgerRepository : IEmployeeCpfledgerRepository
 	{

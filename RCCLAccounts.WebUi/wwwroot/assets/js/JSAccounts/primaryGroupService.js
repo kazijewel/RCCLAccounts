@@ -25,7 +25,7 @@
     });*/
 });
 function maxId(id) {
-    var url = "/Accounts/PrimaryGroup/getMax?id=" + id;
+    var url = "/PrimaryGroup/getMax?id=" + id;
     var result = "";
     $.ajax({
         url: url,
@@ -38,7 +38,7 @@ function maxId(id) {
     return result;
 }
 function nameCheck(name) {
-    var url = "/Accounts/PrimaryGroup/nameCheck?name=" + name;
+    var url = "/PrimaryGroup/nameCheck?name=" + name;
     var result = false;
     $.ajax({
         url: url,
@@ -50,7 +50,7 @@ function nameCheck(name) {
     return result;
 }
 function maxPCode(id, isCode) {
-    var url = "/Accounts/PrimaryGroup/getMaxPrimaryCode";
+    var url = "/PrimaryGroup/getMaxPrimaryCode";
     console.log("Console , Url : " + url);
 
     var result = "";
@@ -270,6 +270,7 @@ function checkValidation() {
         }
     }
     else {
+       
         warningNotify("Please primary group id ");
         return false;
     }

@@ -1,8 +1,8 @@
-﻿using ProvidentFund.Core.Interfaces;
-using ProvidentFund.Core.Models;
-using ProvidentFund.Data.Interfaces;
+﻿using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Core.Models;
+using RCCLAccounts.Data.Interfaces;
 
-namespace ProvidentFund.Core.Services
+namespace RCCLAccounts.Core.Services
 {
     public class AuthenticationService : IAuthenticationService
     {
