@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mapster;
 using MapsterMapper;
 using System.Reflection;
+using RCCLAccounts.Data.Repositories;
 
 namespace RCCLAccounts.Core
 {
@@ -25,7 +26,9 @@ namespace RCCLAccounts.Core
             services.AddScoped<ILoanInformationService, LoanInformationService>();
             services.AddScoped<IEmployeeCpfledgerService, EmployeeCpfledgerService>();
 			services.AddScoped<IEmployeeCPFOpeningService, EmployeeCPFOpeningService>();
-			return services;
+
+            services.AddScoped<IPrimaryGroupService, PrimaryGroupService>();
+            return services;
         }
         public static IServiceCollection AddMappings(this IServiceCollection services)
         {

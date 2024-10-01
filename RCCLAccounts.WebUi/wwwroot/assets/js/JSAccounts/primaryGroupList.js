@@ -9,14 +9,14 @@ function loadDataTable(type) {
     dataTable = $('#tbPrimaryGroup').DataTable({
         paging: false,
         "ajax": {
-            "url": "/Accounts/PrimaryGroup/GetAll?type=" + type
+            "url": "/PrimaryGroup/GetAll"
         },
         "columns": [
-            { "data": "type", "width": "20%", className: "text-center"},
-            { "data": "code", "width": "20%", className: "text-center"},
-            { "data": "name", "width": "40%" },
+            { "data": "itemOf", "width": "20%", className: "text-center"},
+            { "data": "primaryGroupCode", "width": "20%", className: "text-center"},
+            { "data": "primaryGroupName", "width": "40%" },
             {
-                "data": "id",
+                "data": "primaryId",
                 "render": function (data) {
                     return `
                             <div class="text-center">

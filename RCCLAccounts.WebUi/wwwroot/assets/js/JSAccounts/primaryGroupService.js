@@ -151,7 +151,7 @@ $(document).ready(function () {
 function findWork(id) {
     if (id != "0" && id != "") {
         $.ajax({
-            url: "/Accounts/PrimaryGroup/findData",
+            url: "/PrimaryGroup/findData",
             data: { id: id },
             async: false,
             success: function (res) {
@@ -176,7 +176,7 @@ function findWork(id) {
 function isData(id) {
     var ret = false;
     $.ajax({
-        url: "/Accounts/PrimaryGroup/findData",
+        url: "/PrimaryGroup/findData",
         data: { id: id },
         async: false,
         success: function (res) {
@@ -211,12 +211,12 @@ function saveWork(isNew,isEdit) {
     }
 
     var jsonData = {
-        Id: id, Type: type, Code: code, Name: name,
-        GroupType: groupType, NoteNo: noteNo, PrimaryGroupId: primaryGroupId
+        PrimaryId: id, ItemOf: type, PrimaryGroupCode: code, PrimaryGroupName: name,
+        GroupName: groupType, NoteNo: noteNo, PrimaryGroupId: primaryGroupId
     }
     $.ajax({
         type:"POST",
-        url: "/Accounts/PrimaryGroup/primarySave",
+        url: "/PrimaryGroup/primarySave",
         data: jsonData,
         async: false,
         success: function (res) {

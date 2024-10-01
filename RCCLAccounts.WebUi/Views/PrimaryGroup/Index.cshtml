@@ -18,67 +18,8 @@
 </div>
 
 
-<!-- Row -->
-<div class="row row-sm">
-    <div class="col-lg-12">
-        <div class="card custom-card overflow-hidden">
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered text-nowrap border-bottom" id="tbPrimaryGroup">
-                        <thead>
-                            <tr>
-                            @*    <th class="wd-30p">@Html.DisplayNameFor(model => model.BankNames)</th>
-                                <th class="wd-30p">@Html.DisplayNameFor(model => model.Address)</th>
-                                <th class="wd-30p">@Html.DisplayNameFor(model => model.TelephoneNo)</th>
-                                <th class="wd-30p">@Html.DisplayNameFor(model => model.ManagingDirector)</th>
-                                <th class="wd-30p">@Html.DisplayNameFor(model => model.MobileNo)</th>
-                                <th class="wd-40p text-center">Action</th>*@
-
-                                <th>Type</th>
-                                <th>Primary Group Code</th>
-                                <th>Primary Group Name</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                          @*  @foreach (var item in Model)
-                            {*@
-                                <tr>
-                                    <td>
-                                   @*     @Html.DisplayFor(modelItem => item.BankNames)*@
-                                    </td>
-                                    <td>
-                                       @* @Html.DisplayFor(modelItem => item.Address)*@
-                                    </td>
-                                    <td>
-                                     @*   @Html.DisplayFor(modelItem => item.TelephoneNo)*@
-                                    </td>
-                                                                  
-
-                                    <td class="text-center">
-                                        @*<a asp-action="Edit" asp-route-id="@item.BankId">Edit</a> |
-                                        <a asp-action="Details" asp-route-id="@item.BankId">Details</a> |
-                                        <a href="javascript:void(0)" class="delete-btn" data-id="@item.BankId">Delete</a>*@
-                                    </td>
-                                </tr>
-                            @*}*@
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-    
-@*
     <div class="panel-body">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="mb-md">
-                    <button type="button" asp-action="Create" class="btn btn-info"><a asp-action="Create">Create New</a></button>
-                </div>
-            </div>
-        </div>
+        
         <table class="table table-bordered table-striped" id="tbPrimaryGroup" width="100%">
             <thead>
                 <tr>
@@ -91,7 +32,7 @@
             <tbody>
             </tbody>
         </table>
-    </div>*@
+    </div>
 
 
 
@@ -106,6 +47,7 @@
     <script asp-append-version="true" src="~/assets/js/modal.js"></script>
     <script asp-append-version="true" src="~/assets/js/jsaccounts/primarygrouplist.js"></script>
     <script asp-append-version="true" src="~/assets/js/jsaccounts/primarygroupservice.js"></script>
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/service.js"></script>
     <script asp-append-version="true" type="text/javascript">
 
 

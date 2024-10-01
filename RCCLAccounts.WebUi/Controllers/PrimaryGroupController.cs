@@ -7,40 +7,44 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using RCCLAccounts.Core.Interfaces;
+using RCCLAccounts.Core.Services;
 using RCCLAccounts.Data;
+using RCCLAccounts.Data.Entities;
 using RCCLAccounts.WebUi.Services;
+using System.Net;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace ESL.Areas.Accounts.Controllers
 {
     public class PrimaryGroupController : Controller
     {
-       // private readonly IUnitAccounts _unitAccounts;
+ 
         private readonly ILogger<PrimaryGroupController> _logger;
-       // private readonly IUnitOfWork _unitOfWork;
         private IHttpContextAccessor _accessor;
         private AppDbContext _db;
         String sqlCon = "";
-        PrimaryGroupService service;
-       // private commonService commonService;
-        public PrimaryGroupController(
-            //IUnitAccounts unitAccounts, 
+        PrimaryGroupServiceWebUi service;
+        public IPrimaryGroupService primaryGroupService { get; set; }
+        private UserManager<ApplicationUser> _userManager;
+        public PrimaryGroupController(IPrimaryGroupService _primaryGroupService,
             IHttpContextAccessor accessor,
             ILogger<PrimaryGroupController>  logger,
-			//IUnitOfWork unitOfWork,
-			AppDbContext db
+			AppDbContext db,
+             UserManager<ApplicationUser> userManager
             )
         {
-            //_unitAccounts = unitAccounts;
-           // _unitOfWork = unitOfWork;
+            this.primaryGroupService = _primaryGroupService;
             _accessor = accessor;
             _logger = logger;
             _db = db;
-            service = new PrimaryGroupService( _accessor,_db);
-            //commonService = new commonService(_unitOfWork, _unitAccounts, _accessor, _db);
+            service = new PrimaryGroupServiceWebUi( _accessor,_db);
             sqlCon = _db.Database.GetDbConnection().ConnectionString;
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -52,39 +56,62 @@ namespace ESL.Areas.Accounts.Controllers
         //    return View(obj);
 
         //}
-        //public IActionResult primarySave(PrimaryGroup obj)
-        //{
-        //    bool isUpdate = false;
-        //    string msg = "Unable to save!";
-        //    if (!string.IsNullOrEmpty(obj.Code) && !string.IsNullOrEmpty(obj.Name))
-        //    {
-        //        obj.UserIp = SD.getIp();
-        //        obj.UserId = _accessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //        var objUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(x=>x.Id==obj.UserId);
+        public async Task<IActionResult> primarySave(PrimaryGroup obj)
+        {
+            bool isUpdate = false;
+            string msg = "Unable to save!";
+            if (!string.IsNullOrEmpty(obj.PrimaryGroupCode) && !string.IsNullOrEmpty(obj.PrimaryGroupName))
+            {
+                var addlist = Dns.GetHostEntry(Dns.GetHostName());
+                string GetHostName = addlist.HostName.ToString();
+                string GetIPV6 = addlist.AddressList[0].ToString();
+                string GetIPV4 = addlist.AddressList[1].ToString();
+                var user = await _userManager.GetUserAsync(User);
+                string UserName = user.FullName.ToString();
 
-        //        if (objUser!=null)
-        //        {
-        //            obj.UserName = objUser.Name;
-        //        }
-        //        obj.EntryTime = DateTime.Now;
-        //        obj.CompanyId = Convert.ToInt32(commonService.getSession().GetString("companyId"));
+                obj.UserIp = GetIPV4;
 
-        //        if (obj.Id == 0)
-        //        {
-        //            msg = "Information save successfully!";
-        //            _unitAccounts.PrimaryGroup.Add(obj);
-        //        }
-        //        else
-        //        {
-        //            isUpdate = true;
-        //            msg = "Information update successfully!";
-        //            _unitAccounts.PrimaryGroup.Update(obj);
-        //        }
-        //        _unitAccounts.Save();
-        //        return Json(new { success=true,isUpdate=isUpdate,message=msg});
-        //    }
-        //    return Json(new { success = false, isUpdate = isUpdate, message = msg });
-        //}
+                obj.UserName = UserName;
+               
+                obj.EntryTime = DateTime.Now;
+                obj.CompanyId = "B-1";
+
+                var PrGroupCreate = new PrimaryGroup
+                {
+                    PrimaryGroupId=obj.PrimaryGroupId,
+                    PrimaryGroupName=obj.PrimaryGroupName,
+                    PrimaryGroupCode=obj.PrimaryGroupCode,
+                    GroupName=obj.GroupName,
+                    NoteNo=obj.NoteNo,
+                    Active=1,
+                    ItemOf=obj.ItemOf,
+                    CompanyId=obj.CompanyId,
+                    UserName=obj.UserName,
+                    UserIp=obj.UserIp,
+                    EntryTime=obj.EntryTime
+
+
+                };
+
+                if (obj.PrimaryId == 0)
+                {
+                                
+                    _db.PrimaryGroups.Add(PrGroupCreate);            
+                    // Save changes to the database
+                    await _db.SaveChangesAsync();
+                    msg = "Information save successfully!";
+                }
+                else
+                {
+                    isUpdate = true;
+                    msg = "Information update successfully!";
+                  //  _unitAccounts.PrimaryGroup.Update(obj);
+                }
+                //_unitAccounts.Save();
+                return Json(new { success = true, isUpdate = isUpdate, message = msg });
+            }
+            return Json(new { success = false, isUpdate = isUpdate, message = msg });
+        }
         public IActionResult getMaxPrimaryCode(string group, string code)
         {
             _logger.LogInformation(" Group: " + group + " code: " + code);
@@ -105,32 +132,34 @@ namespace ESL.Areas.Accounts.Controllers
             }
             return Json(new { maxData = maxId });
         }
-        //public IActionResult nameCheck(string name)
-        //{
-        //    var obj = _unitAccounts.PrimaryGroup.GetFirstOrDefault(x => x.Name.Equals(name));
-
-        //    if (obj != null)
-        //    {
-        //        return Json(new { isFind = true });
-        //    }
-        //    return Json(new { isFind = false });
-        // }
-        //public IActionResult findData(int id)
-        //{
-        //    var obj = _unitAccounts.PrimaryGroup.GetFirstOrDefault(x=>x.Id==id);
-        //    if (obj != null)
-        //    {
-        //        return Json(new { data=obj,isFind=true});
-        //    }
-        //    return Json(new { isFind=false});
-        //}
+        public async Task<IActionResult> nameCheck(string name)
+        {
+            // var obj = _unitAccounts.PrimaryGroup.GetFirstOrDefault(x => x.Name.Equals(name));
+            var obj = await primaryGroupService.GetAllPrimaryGroup();
+            if (obj != null)
+            {
+                return Json(new { isFind = true });
+            }
+            return Json(new { isFind = false });
+        }
+        public async Task <IActionResult> findData(int id)
+        {
+            // var obj = _unitAccounts.PrimaryGroup.GetFirstOrDefault(x => x.Id == id);
+            var obj = await primaryGroupService.GetByIdAsync(id);
+            if (obj != null)
+            {
+                return Json(new { data = obj, isFind = true });
+            }
+            return Json(new { isFind = false });
+        }
         #region API CALLS
-        //[HttpGet]
-        //public IActionResult GetAll()
-        //{
-        //    var allObj = _unitAccounts.PrimaryGroup.GetAll();
-        //    return Json(new { data = allObj });
-        //}
+        [HttpGet]
+        public async Task<IActionResult>   GetAll()
+        {
+            //var allObj = _unitAccounts.PrimaryGroup.GetAll();
+            var allObj = await primaryGroupService.GetAllPrimaryGroup();
+            return Json(new { data = allObj });
+        }
         #endregion
     }
 }

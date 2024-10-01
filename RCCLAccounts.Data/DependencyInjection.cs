@@ -25,7 +25,9 @@ namespace RCCLAccounts.Data
             services.AddScoped<ILoanInformationRepository, LoanInformationRepository>();
             services.AddScoped<IEmployeeCpfledgerRepository, EmployeeCpfledgerRepository>();
 			services.AddScoped<IEmployeeCPFOpeningRepository, EmployeeCPFOpeningRepository>();
-			return services;
+
+            services.AddScoped<IPrimaryGroupRepository, PrimaryGroupRepository>();
+            return services;
         }
     }
 }

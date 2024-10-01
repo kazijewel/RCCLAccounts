@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace RCCLAccounts.WebUi.Services
 {
-    public class PrimaryGroupService
+    public class PrimaryGroupServiceWebUi
     {
       
         private IHttpContextAccessor _accessor;
@@ -20,7 +20,7 @@ namespace RCCLAccounts.WebUi.Services
         private readonly AppDbContext _dbContext;
         string sqlCon;
         private commonService commonService;
-        public PrimaryGroupService(IHttpContextAccessor accessor, AppDbContext dbContext)
+        public PrimaryGroupServiceWebUi(IHttpContextAccessor accessor, AppDbContext dbContext)
         {
             
             _accessor = accessor;
