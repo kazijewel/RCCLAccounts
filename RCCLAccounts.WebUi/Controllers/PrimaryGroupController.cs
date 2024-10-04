@@ -70,32 +70,31 @@ namespace ESL.Areas.Accounts.Controllers
                 string UserName = user.FullName.ToString();
 
                 obj.UserIp = GetIPV4;
-
-                obj.UserName = UserName;
-               
+                obj.UserName = UserName;               
                 obj.EntryTime = DateTime.Now;
                 obj.CompanyId = "B-1";
 
-                var PrGroupCreate = new PrimaryGroup
-                {
-                    PrimaryGroupId=obj.PrimaryGroupId,
-                    PrimaryGroupName=obj.PrimaryGroupName,
-                    PrimaryGroupCode=obj.PrimaryGroupCode,
-                    GroupName=obj.GroupName,
-                    NoteNo=obj.NoteNo,
-                    Active=1,
-                    ItemOf=obj.ItemOf,
-                    CompanyId=obj.CompanyId,
-                    UserName=obj.UserName,
-                    UserIp=obj.UserIp,
-                    EntryTime=obj.EntryTime
-
-
-                };
+    
 
                 if (obj.PrimaryId == 0)
                 {
-                                
+                    var PrGroupCreate = new PrimaryGroup
+                    {
+                        PrimaryGroupId = obj.PrimaryGroupId,
+                        PrimaryGroupName = obj.PrimaryGroupName,
+                        PrimaryGroupCode = obj.PrimaryGroupCode,
+                        GroupName = obj.GroupName,
+                        NoteNo = obj.NoteNo,
+                        Active = 1,
+                        ItemOf = obj.ItemOf,
+                        CompanyId = obj.CompanyId,
+                        UserName = obj.UserName,
+                        UserIp = obj.UserIp,
+                        EntryTime = obj.EntryTime
+
+
+                    };
+
                     _db.PrimaryGroups.Add(PrGroupCreate);            
                     // Save changes to the database
                     await _db.SaveChangesAsync();
@@ -104,10 +103,48 @@ namespace ESL.Areas.Accounts.Controllers
                 else
                 {
                     isUpdate = true;
-                    msg = "Information update successfully!";
-                  //  _unitAccounts.PrimaryGroup.Update(obj);
+
+                    //var PrGroupEdit = new PrimaryGroup
+                    //{
+
+                    //    PrimaryGroupName = obj.PrimaryGroupName,               
+                    //    GroupName = obj.GroupName,
+                    //    NoteNo = obj.NoteNo,       
+                    //    UserName = obj.UserName,
+                    //    UserIp = obj.UserIp,
+                    //    EntryTime = obj.EntryTime
+
+                    //};
+                    //_db.PrimaryGroups.Update(PrGroupEdit);
+                    //await _db.SaveChangesAsync();
+                    //msg = "Information update successfully!";
+
+                    var existingGroup = await _db.PrimaryGroups.FindAsync(obj.PrimaryId);
+                    if (existingGroup != null)
+                    {
+                        // Update existing entity's properties with new values
+                        existingGroup.PrimaryGroupName = obj.PrimaryGroupName;
+                       
+                        existingGroup.GroupName = obj.GroupName;
+                        existingGroup.NoteNo = obj.NoteNo;
+       
+                        existingGroup.UserName = obj.UserName;
+                        existingGroup.UserIp = obj.UserIp;
+                        existingGroup.EntryTime = obj.EntryTime;
+
+                        _db.PrimaryGroups.Update(existingGroup);
+                        await _db.SaveChangesAsync();
+                        msg = "Information updated successfully!";
+                        isUpdate = true;
+                    }
+                    else
+                    {
+                        msg = "PrimaryGroup not found!";
+                        return Json(new { success = false, isUpdate = isUpdate, message = msg });
+                    }
+
                 }
-                //_unitAccounts.Save();
+               
                 return Json(new { success = true, isUpdate = isUpdate, message = msg });
             }
             return Json(new { success = false, isUpdate = isUpdate, message = msg });
@@ -135,17 +172,19 @@ namespace ESL.Areas.Accounts.Controllers
         public async Task<IActionResult> nameCheck(string name)
         {
             // var obj = _unitAccounts.PrimaryGroup.GetFirstOrDefault(x => x.Name.Equals(name));
-            var obj = await primaryGroupService.GetAllPrimaryGroup();
+ 
+            var obj = await _db.PrimaryGroups.FirstOrDefaultAsync(x => x.PrimaryGroupName == name);
+
             if (obj != null)
             {
                 return Json(new { isFind = true });
             }
             return Json(new { isFind = false });
         }
-        public async Task <IActionResult> findData(int id)
+        public async Task <IActionResult> findData(int primaryId)
         {
             // var obj = _unitAccounts.PrimaryGroup.GetFirstOrDefault(x => x.Id == id);
-            var obj = await primaryGroupService.GetByIdAsync(id);
+            var obj = await primaryGroupService.GetByIdAsync(primaryId);
             if (obj != null)
             {
                 return Json(new { data = obj, isFind = true });

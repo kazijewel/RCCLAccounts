@@ -14,7 +14,7 @@
             expenseSet();
         }
     });
-   /* $("#nameId").change(function () {
+   $("#nameId").change(function () {
         if (nameCheck($(this).val())) {
             $("#nameId").val("");
             $("#nameId").focus();
@@ -22,7 +22,7 @@
         }
         else {
         }
-    });*/
+    });
 });
 function maxId(id) {
     var url = "/PrimaryGroup/getMax?id=" + id;
@@ -117,8 +117,8 @@ $(document).ready(function () {
             tr = $(this).closest('tr').get(0);
         var data = $("#tbPrimaryGroup").dataTable().fnGetData(tr);
         
-        if (isData(data.id)) {
-            findWork(data.id);
+        if (isData(data.primaryId)) {
+            findWork(data.primaryId);
             $("#primaryGroup").modal('show');
         }
         else {
@@ -140,7 +140,12 @@ $(document).ready(function () {
             saveWork(true,false);
         }
     });
-    $("#btnCancel").click(function () {
+    //$("#btnCancel").click(function () {
+    //    $('#tbPrimaryGroup').DataTable().ajax.reload();
+    //    $('#primaryGroup').modal('hide');
+    //});
+
+    $(document).on('click', '#btnCancel', function () {
         $('#tbPrimaryGroup').DataTable().ajax.reload();
         $('#primaryGroup').modal('hide');
     });
@@ -148,22 +153,22 @@ $(document).ready(function () {
         $('#tbPrimaryGroup').DataTable().ajax.reload();
     });
 });
-function findWork(id) {
-    if (id != "0" && id != "") {
+function findWork(primaryId) {
+    if (primaryId != "0" && primaryId != "") {
         $.ajax({
             url: "/PrimaryGroup/findData",
-            data: { id: id },
+            data: { PrimaryId: primaryId },
             async: false,
             success: function (res) {
                 if (res.isFind) {
                     if (!isEmpty(res.data)) {
-                        $("#autoId").val(res.data.id);
-                        $('#itemTypeId').select2('data', { id: res.data.groupType, text: res.data.groupType });
-                        $("#PCode").val(res.data.code);
-                        $("#nameId").val(res.data.name);
+                        $("#autoId").val(res.data.primaryId);
+                        $('#itemTypeId').select2('data', { id: res.data.groupName, text: res.data.groupName });
+                        $("#PCode").val(res.data.primaryGroupCode);
+                        $("#nameId").val(res.data.primaryGroupName);
                         $("#noteNoId").val(res.data.noteNo);
                         $("#primaryGroupId").val(res.data.primaryGroupId);
-                        $("input[name=assetName][value=" + res.data.type + "]").prop('checked', true);
+                        $("input[name=assetName][value=" + res.data.itemOf + "]").prop('checked', true);
                     }
                 }
                 else {
@@ -173,11 +178,11 @@ function findWork(id) {
         });
     }
 }
-function isData(id) {
+function isData(primaryId) {
     var ret = false;
     $.ajax({
         url: "/PrimaryGroup/findData",
-        data: { id: id },
+        data: { PrimaryId: primaryId },
         async: false,
         success: function (res) {
             ret = res.isFind;
