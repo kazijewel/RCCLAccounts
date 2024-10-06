@@ -19,7 +19,7 @@ using RCCLAccounts.WebUi.Services;
 using System.Net;
 using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace ESL.Areas.Accounts.Controllers
+namespace RCCLAccounts.WebUi.Controllers
 {
     public class PrimaryGroupController : Controller
     {

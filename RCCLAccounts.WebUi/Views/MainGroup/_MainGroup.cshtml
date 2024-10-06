@@ -1,0 +1,66 @@
+﻿<div class="modal fade" id="mainGroup" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Main Group Info</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-bordered" autocomplete="off">
+                    <input type="hidden" id="autoId" />
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <label class="col-sm-4 control-label">Primary Group:</label>
+                        <div class="col-sm-6" style="display: flex;">
+                           @* <select data-plugin-selectTwo id="primaryGroupId" class="form-control input-sm col-sm-10">*@
+
+                            <select class="form-control form-select select2" id="primaryGroupId" class="form-control-populate">
+                            </select>
+                            <div style="line-height: 2.8; padding-left:6px;">
+                                <a href="/PrimaryGroup/Index" id="btnAddPrimary"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <label class="col-sm-4 control-label">Main Group Path :</label>
+                        <div class="col-sm-8">
+                            <input id="mainGroupPath" class="form-control input-sm" readonly />
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="mainGroupId" class="form-control input-sm" readonly />
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <label class="col-sm-4 control-label">Main Group Code :</label>
+                        <div class="col-sm-3">
+                            <input id="mainGroupCode" class="form-control input-sm" readonly />
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <label class="col-sm-4 control-label">Name :</label>
+                        <div class="col-sm-6">
+                            <input id="nameId" class="form-control input-sm" />
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <label class="col-sm-4 control-label"><span style="color: #FF0000;">*</span>Status :</label>
+                        <div class="col-sm-3">
+                            <div class="checkbox-custom chekbox-primary  control-label">
+                                <input id="chkActive" type="checkbox" checked />
+                                <label for="chkActive"></label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer customFooter">
+                <div id="add">
+                    <partial name="_ModalButtonCreate" />
+                </div>
+                <div id="edit">
+                    <partial name="_ModalButtonEdit" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

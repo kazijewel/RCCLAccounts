@@ -397,5 +397,34 @@ namespace RCCLAccounts.WebUi.Common
 
             return list;
         }
+
+        public string fiscalYearIdTrans(string voucherDate)
+        {
+            SqlConnection con = new SqlConnection(sqlCon);
+
+
+            string sql = "Select vFiscalYearIdTrans from [dbo].[funFiscalYearInfo]('" + voucherDate + "',"
+                     + " '" + voucherDate + "', '" + _accessor.HttpContext.Session.GetString("companyName") + "')";
+
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    if (reader.Read())
+                    {
+                        return reader["vFiscalYearIdTrans"].ToString();
+                    }
+                }
+            }
+            finally
+            {
+                con.Close();
+            }
+            return "0";
+        }
+
     }
 }

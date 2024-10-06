@@ -1,0 +1,99 @@
+﻿
+  @*  <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="fa fa-caret-down"></a>
+        </div>
+        <h2 class="panel-title">Main Group</h2>
+    </header>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-md">
+                    <a class="btn btn-primary" id="btnAdd">Add <i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+        </div>
+*@
+<!-- breadcrumb -->
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">Main Group</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Main Group</li>
+        </ol>
+    </div>
+</div>
+
+<div>
+    @*  <button type="button" asp-action="Create" class="btn btn-info"><a asp-action="Create">Create New</a></button>*@
+    <a class="btn btn-primary" id="btnAdd">Create New <i class="fa fa-plus"></i></a>
+    <br /><br />
+</div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group" style="padding-bottom:10px;">
+                    <label class="radio-inline">
+                        <input type="radio" id="radio1" value="Asset" name="assetName" checked>Asset
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="radio2" value="Liability" name="assetName">Liability
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="radio3" value="Income" name="assetName">Income
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="radio4" value="Expense" name="assetName">Expense
+                    </label>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" id="tbMainGroup" width="100%">
+            <thead>
+                <tr>
+                    <th class="no-sort">Type</th>
+                    <th class="no-sort">Primary Group Code</th>
+                    <th class="no-sort">Primary Group Name</th>
+                    <th class="no-sort">Main Group Code</th>
+                    <th class="no-sort">Main Group Name</th>
+                    <th class="no-sort">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+
+
+@section Scripts{
+
+ 
+    <partial name="_MainGroup" />
+    <script src="~/assets/plugins/magnific-popup/magnific-popup.js"></script>
+    <script asp-append-version="true" src="~/assets/js/modal.js"></script>
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/mainGroupList.js"></script>
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/mainGroupService.js"></script>
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/service.js"></script>
+
+    <script asp-append-version="true" type="text/javascript">
+
+
+
+        $(document).ready(function () {
+
+        });
+
+        $('.close').click(function () {
+            $('#mainGroup').modal('hide');
+        });
+
+
+
+    </script>
+
+}
