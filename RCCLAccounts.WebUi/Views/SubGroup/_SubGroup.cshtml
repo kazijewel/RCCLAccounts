@@ -1,20 +1,18 @@
-﻿<div class="modal fade" id="mainGroup" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+﻿<div class="modal fade" id="subGroup" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Main Group Info</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                
+                <h4 class="modal-title">Sub Group Info</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>        
             </div>
             <div class="modal-body">
                 <form class="form-horizontal form-bordered" autocomplete="off">
                     <input type="hidden" id="autoId" />
                     <div class="row row-xs align-items-center mg-b-20">
-                        <label class="col-sm-4 control-label">Primary Group:</label>
+                        <label class="col-sm-4 control-label">Primary Group :</label>
                         <div class="col-sm-6" style="display: flex;">
-                           @* <select data-plugin-selectTwo id="primaryGroupId" class="form-control input-sm col-sm-10">*@
-
-                            <select class="form-control form-select select2" id="primaryGroupId">
+                            <select class="form-control form-select select2" id="primaryGroupId"  data-bs-placeholder="Please Select" >
+                          @*  <select data-plugin-selectTwo id="primaryGroupId" class="form-control input-sm col-sm-10">*@
                             </select>
                             <div style="line-height: 2.8; padding-left:6px;">
                                 <a href="/PrimaryGroup/Index" id="btnAddPrimary"><i class="fa fa-plus"></i></a>
@@ -22,18 +20,30 @@
                         </div>
                     </div>
                     <div class="row row-xs align-items-center mg-b-20">
-                        <label class="col-sm-4 control-label">Main Group Path :</label>
+                        <label class="col-sm-4 control-label">Main Group :</label>
+                        <div class="col-sm-6" style="display: flex;">
+                          @*  <select data-plugin-selectTwo id="mainGroupId" class="form-control input-sm col-sm-10">*@
+                            <select class="form-control form-select select2" id="mainGroupId" >
+                            </select>
+                            <div style="line-height: 2.8; padding-left:6px;">
+                                <a href="/MainGroup/Index" id="btnAddMain"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <label class="col-sm-4 control-label">Sub Group Path :</label>
                         <div class="col-sm-8">
-                            <input id="mainGroupPath" class="form-control input-sm" readonly />
+                            <input id="subGroupPath" class="form-control input-sm" readonly />
                         </div>
                     </div>
 
-                    <input type="hidden" id="mainGroupId" class="form-control input-sm" readonly />
+                          <input id="subGroupId" class="form-control input-sm" type ="hidden" readonly />
 
                     <div class="row row-xs align-items-center mg-b-20">
-                        <label class="col-sm-4 control-label">Main Group Code :</label>
+                        <label class="col-sm-4 control-label">Sub Group Code :</label>
                         <div class="col-sm-3">
-                            <input id="mainGroupCode" class="form-control input-sm" readonly />
+                            <input id="subGroupCode" class="form-control input-sm" readonly />
                         </div>
                     </div>
                     <div class="row row-xs align-items-center mg-b-20">
@@ -46,7 +56,7 @@
                         <label class="col-sm-4 control-label"><span style="color: #FF0000;">*</span>Status :</label>
                         <div class="col-sm-3">
                             <div class="checkbox-custom chekbox-primary  control-label">
-                                <input id="chkActive" type="checkbox" checked />
+                                <input id="chkActive" type="checkbox" checked/>
                                 <label for="chkActive"></label>
                             </div>
                         </div>
