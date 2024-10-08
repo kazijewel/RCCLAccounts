@@ -18,8 +18,8 @@
         var data = $("#tbSubGroup").dataTable().fnGetData(tr);
 
         if (isData(data.id)) {
-            $("#primaryGroupId").prop('disabled', true);
-            $("#mainGroupId").prop('disabled', true);
+           //$("#primaryGroupId").prop('disabled', true);
+            //$("#mainGroupId").prop('disabled', true);
             findWork(data.id);
             $("#subGroup").modal('show');
         }
@@ -43,8 +43,13 @@
         }
     });
 
-    $("#btnCancel").click(function () {
-        $("tbSubGroup").DataTable().ajax.reload();
+    //$("#btnCancel").click(function () {
+    //    $("tbSubGroup").DataTable().ajax.reload();
+    //});
+
+    $(document).on('click', '#btnCancel', function () {
+        $('#tbSubGroup').DataTable().ajax.reload();
+        $('#subGroup').modal('hide');
     });
     $("#subGroup").on('hidden.bs.model', function () {
         $("tbSubGroup").DataTable().ajax.reload();
@@ -247,26 +252,7 @@ function findWork(id) {
                     // Corrected the issue with creating a new option for main group
                     //var mainGroupOption = new Option(mgCaption + "-" + mgCaption2, mgId, true, true);
                     //$('#mainGroupId').empty().append(mainGroupOption).trigger('change');
-                    //$('#mainGroupId').trigger('select2:select');
-                    //console.log("Option:" + $('#mainGroupId').val());
-
-                    $('#mainGroupId').empty();
-
-                    // Check if Main Group data is valid
-                    if (mgId && mgCaption && mgCaption2) {
-                        // Create a new option for the main group
-                        var mainGroupOption = new Option(mgCaption + "-" + mgCaption2, mgId, true, true);
-                        $('#mainGroupId').append(mainGroupOption);
-
-                        // Manually trigger a change event to refresh the select2 display
-                        $('#mainGroupId').val(mgId).trigger('change');
-
-                        // Log to check the selected value and text display
-                        console.log("Main Group Option Added:", $('#mainGroupId').val());
-                    } else {
-                        console.warn("Main Group data is missing or invalid.");
-                    }
-
+                                      
                         $("#subGroupId").val(res.data.subGroupId);
                         $("#subGroupCode").val(res.data.subGroupCode);
                         $("#nameId").val(res.data.subGroupName);
@@ -282,7 +268,11 @@ function findWork(id) {
                             console.log("Active2:" + res.data.active);
                             $('#chkActive').prop('checked', false);
                         }
-                        console.log("Active3:" + res.data.active);
+                    console.log("Active3:" + res.data.active);
+
+                    var mainGroupOption = new Option(mgCaption + "-" + mgCaption2, mgId, true, true);
+                    $('#mainGroupId').empty().append(mainGroupOption).trigger('change');
+
                    // }
                 }
                 else {
@@ -428,16 +418,22 @@ function primaryGroupData() {
     });
 }
 function mainGroupData(id) {
+    
     var url = "/SubGroup/getMainGroup?id=" + id;
-    $('#mainGroupId').select2('data', { id: '0', text: 'Choose a Main Group' });
-    $.getJSON(url, function (data) {
-        var item = "";
-        $("#mainGroupId").empty();
-        item += '<option value="' + 0 + '">Choose a Main Group</option>'
-        $("#mainGroupId").html(item);
-        $.each(data, function (i, opt) {
-            item += '<option value="' + opt.value + '">' + opt.text + '</option>'
+    //$('#mainGroupId').select2('data', { id: '0', text: 'Choose a Main Group' });
+
+   
+    if ($("#autoId").val() == 0) {
+        $.getJSON(url, function (data) {
+            var item = "";
+            $("#mainGroupId").empty();
+            item += '<option value="' + 0 + '">Choose a Main Group</option>'
+            $("#mainGroupId").html(item);
+            $.each(data, function (i, opt) {
+                item += '<option value="' + opt.value + '">' + opt.text + '</option>'
+            });
+            $("#mainGroupId").html(item);
         });
-        $("#mainGroupId").html(item);
-    });
+    }
+   
 }
