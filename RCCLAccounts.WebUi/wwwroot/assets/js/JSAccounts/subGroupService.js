@@ -18,8 +18,8 @@
         var data = $("#tbSubGroup").dataTable().fnGetData(tr);
 
         if (isData(data.id)) {
-           //$("#primaryGroupId").prop('disabled', true);
-            //$("#mainGroupId").prop('disabled', true);
+           $("#primaryGroupId").prop('disabled', true);
+           $("#mainGroupId").prop('disabled', true);
             findWork(data.id);
             $("#subGroup").modal('show');
         }
@@ -105,7 +105,7 @@ function setCode() {
     if (
         (data != "" && data!= "0")
         && (mainData!= "" && mainData!= "0")
-        && (subGroupId != "" && subGroupId != "0")
+        && (subGroupId != "" && subGroupId != "0") 
     ) {
         Code = codeWork(type.substring(0, 1), sId, type);
     }
@@ -177,17 +177,22 @@ function init() {
 }
 function maxCode(sId, code, type) {
     var url = "/SubGroup/getMaxCode?group=" + sId + "&code=" + code + "&type=" + type;
-    var result = "";
-    $.ajax({
-        url: url,
-        async: false,
-        success: function (res) {
-            console.log("max:" + JSON.stringify(res));
-            result = res.maxData;
-        }
-    });
-    console.log("Result : " + result);
-    return result;
+    if ($("#autoId").val() == 0) {
+        var result = "";
+
+        $.ajax({
+            url: url,
+            async: false,
+            success: function (res) {
+                console.log("max:" + JSON.stringify(res));
+                result = res.maxData;
+            }
+        });
+
+        console.log("Result : " + result);
+        return result;
+    }
+    return $("#subGroupCode").val();
 }
 function maxId() {
     var url = "/SubGroup/getMaxId";

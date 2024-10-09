@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ESL.Services
+namespace RCCLAccounts.WebUi.Services
 {
     public class SubGroupServiceWebUi
     {

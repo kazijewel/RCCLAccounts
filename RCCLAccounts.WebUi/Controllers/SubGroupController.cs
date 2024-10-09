@@ -123,7 +123,7 @@ namespace RCCLAccounts.WebUi.Controllers
                         existingSubGroup.MainGroupName =  mainGroup.MainGroupName;
 
                         existingSubGroup.SubGroupName = obj.SubGroupName;
-                        existingSubGroup.SubGroupCode = obj.SubGroupCode;
+                       // existingSubGroup.SubGroupCode = obj.SubGroupCode;
 
                         existingSubGroup.Active = obj.Active;
 

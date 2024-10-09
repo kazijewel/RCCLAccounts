@@ -1,0 +1,133 @@
+﻿<div class="modal fade" id="ledger" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="margin-top:-5px;">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" style="margin-bottom: -10px;">Ledger Info.</h4>
+            </div>
+            <div class="modal-body" style="margin-top: -10px;">
+                <form class="form-horizontal form-bordered" autocomplete="off">
+                    <input type="hidden" id="autoId" />
+                    <input type="hidden" id="ledgerId" />
+                    <input type="hidden" id="openingId" />
+                    <input type="hidden" id="companyId" />
+                    <input type="hidden" id="branchId" />
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Primary Group:</label>
+                        <div class="col-sm-6" style="display: flex;">
+                            <select data-plugin-selectTwo id="primaryGroupId" class="form-control input-sm">
+                            </select>
+                            <div style="line-height: 2.8; padding-left:6px;">
+                                <a href="/Accounts/PrimaryGroup/Index" id="btnAddPrimary"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Main Group:</label>
+                        <div class="col-sm-6" style="display: flex;">
+                            <select data-plugin-selectTwo id="mainGroupId" class="form-control input-sm">
+                            </select>
+                            <div style="line-height: 2.8; padding-left:6px;">
+                                <a href="/Accounts/MainGroup/Index" id="btnAddMain"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Sub Group:</label>
+                        <div class="col-sm-6" style="display: flex;">
+                            <select data-plugin-selectTwo id="subGroupId" class="form-control input-sm">
+                            </select>
+                            <div style="line-height: 2.8; padding-left:6px;">
+                                <a href="/Accounts/SubGroup/Index" id="btnAddSub"><i class="fa fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Ledger Path :</label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control input-sm" id="ledgerPath" rows="1" data-plugin-maxlength maxlength="140" readonly></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Ledger Code :</label>
+                        <div class="col-sm-4">
+                            <input id="ledgerCode" class="form-control input-sm" readonly />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><span style="color: #FF0000;">*</span>Ledger Name :</label>
+                        <div class="col-sm-6">
+                            <input id="ledgerName" class="form-control input-sm" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">Opening Amount :</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="debit" onkeypress="return amount(event);" placeholder="Debit amount" class="form-control input-sm" />
+                        </div>
+                        <label class="col-sm-1 control-label" style="margin-left: -30px ">Dr</label>
+                        <div class="col-sm-3" style="margin-left: -16px;">
+                            <input type="text" id="credit" onkeypress="return amount(event);" placeholder="Credit amount" class="form-control input-sm" />
+                        </div>
+                        <label class="col-sm-1 control-label" style="margin-left: -30px">Cr</label>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><span style="color: #FF0000;">*</span>Opening Date :</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input type="text" id="openingDate" class="form-control input-sm datepick" />
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><span style="color: #FF0000;">*</span>Ledger Type :</label>
+                        <div class="col-sm-5">
+                            <div class="form-group" style="text-align: center">
+                                <label class="radio-inline">
+                                    <input type="radio" id="General" value="General" name="ledgerType" checked>General
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" id="Cash" value="Cash" name="ledgerType">Cash
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" id="Bank" value="Bank" name="ledgerType">Bank
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"><span style="color: #FF0000;">*</span>Status :</label>
+                        <div class="col-sm-3" style="padding-left: 16px; margin-top: 13px;">
+                            <div class="checkbox-custom chekbox-primary  control-label">
+                                <input id="chkActive" type="checkbox" checked />
+                                <label for="chkActive"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label"></label>
+                        <div class="col-sm-6">
+                            (<span style="color: #FF0000;">*</span>) <span style="font-style:italic;">All asterisk are mendatory</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer customFooter" style="margin-top: -28px;">
+                <div id="add" style="margin-bottom: -6px; margin-top: -6px;">
+                    <partial name="_ModalButtonCreate" />
+                </div>
+                <div id="edit">
+                    <partial name="_ModalButtonEdit" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

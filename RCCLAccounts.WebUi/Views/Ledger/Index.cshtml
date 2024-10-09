@@ -1,0 +1,58 @@
+﻿<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="fa fa-caret-down"></a>
+        </div>
+        <h2 class="panel-title">Ledger</h2>
+    </header>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="mb-md">
+                    <a class="btn btn-primary" id="btnAdd">Add <i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group" style="padding-bottom:10px;">
+                    <label class="radio-inline">
+                        <input type="radio" id="radio1" value="Asset" name="assetName" checked>Asset
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="radio2" value="Liability" name="assetName">Liability
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="radio3" value="Income" name="assetName">Income
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="radio4" value="Expense" name="assetName">Expense
+                    </label>
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-striped" id="tbLedger" width="100%">
+            <thead>
+                <tr>
+                    <th class="no-sort">Type</th>
+                    <th class="no-sort">Primary Group</th>
+                    <th class="no-sort">Main Group</th>
+                    <th class="no-sort">Sub Group</th>
+                    @*<th class="no-sort">Ledger Code</th>*@
+                    <th class="no-sort">Ledger Name</th>
+                    <th class="no-sort">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+@section Scripts{
+    <partial name="/Areas/Accounts/Views/Ledger/_Ledger.cshtml" />
+    <script asp-append-version="true" src="~/js/JSAccounts/LedgerList.js"></script>
+    <script asp-append-version="true" src="~/js/JSAccounts/ledgerService.js"></script>
+}
