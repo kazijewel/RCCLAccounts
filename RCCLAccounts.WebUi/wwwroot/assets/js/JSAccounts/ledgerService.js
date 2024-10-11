@@ -122,7 +122,7 @@ function path_Id_Code() {
     $("#ledgerPath").val(path);
 }
 function getPrimaryGroupId(id) {
-    var url = "/Accounts/Ledger/getPrimaryGroupId?id=" + id;
+    var url = "/Ledger/getPrimaryGroupId?id=" + id;
     var result = false;
     $.ajax({
         url: url,
@@ -134,7 +134,7 @@ function getPrimaryGroupId(id) {
     return result;
 }
 function getMainGroupId(id) {
-    var url = "/Accounts/Ledger/getMainGroupId?id=" + id;
+    var url = "/Ledger/getMainGroupId?id=" + id;
     var result = false;
     $.ajax({
         url: url,
@@ -146,7 +146,7 @@ function getMainGroupId(id) {
     return result;
 }
 function getSubGroupId(id) {
-    var url = "/Accounts/Ledger/getSubGroupId?id=" + id;
+    var url = "/Ledger/getSubGroupId?id=" + id;
     var result = false;
     $.ajax({
         url: url,
@@ -158,7 +158,7 @@ function getSubGroupId(id) {
     return result;
 }
 function getMaxId(id) {
-    var url = "/Accounts/Ledger/getMaxId?pId=" + id;
+    var url = "/Ledger/getMaxId?pId=" + id;
     var result = false;
     $.ajax({
         url: url,
@@ -170,7 +170,7 @@ function getMaxId(id) {
     return result;
 }
 function nameCheck(name) {
-    var url = "/Accounts/MainGroup/nameCheck?name=" + name;
+    var url = "/MainGroup/nameCheck?name=" + name;
     var result = false;
     $.ajax({
         url: url,
@@ -201,19 +201,20 @@ function init() {
     primaryGroupData();
     mainGroupData("%");
     subGroupData("%", "%");
-    var opdate = getCDay() + '-' + getCMonth() + '-' + getCYear();
+/*    var opdate = getCDay() + '-' + getCMonth() + '-' + getCYear();*/
     $.ajax({
-        url: "/Accounts/FiscalYearInfo/GetFiscaleYearDate",
+        url: "/FiscalYearInfo/GetFiscaleYearDate",
         async: false,
         success: function (res) {
             // console.log(res.opening);
             opdate = res.opening;
         }
     });
-    $("#openingDate").val(opdate);
+    //$("#openingDate").val(opdate);
+    $("#openingDate").val(new Date());
 }
 function maxCode(pId, mId, sId) {
-    var url = "/Accounts/Ledger/getMaxCode?pId=" + pId + "&mId=" + mId + "&sId=" + sId;
+    var url = "/Ledger/getMaxCode?pId=" + pId + "&mId=" + mId + "&sId=" + sId;
     var result = "";
     console.log("Url:" + url);
     $.ajax({
@@ -227,7 +228,7 @@ function maxCode(pId, mId, sId) {
     return result;
 }
 function maxId() {
-    var url = "/Accounts/Ledger/getMaxId";
+    var url = "/Ledger/getMaxId";
     console.log("Url : " + url);
 
     var result = "";
@@ -261,7 +262,7 @@ function groupPathAction(isNew) {
 function findWork(id) {
     if (id != "0" && id != "") {
         $.ajax({
-            url: "/Accounts/Ledger/findData",
+            url: "/Ledger/findData",
             data: { id: id },
             async: false,
             success: function (res) {
@@ -314,7 +315,7 @@ function findWork(id) {
 function isData(id) {
     var ret = false;
     $.ajax({
-        url: "/Accounts/Ledger/findData",
+        url: "/Ledger/findData",
         data: { id: id },
         async: false,
         success: function (res) {
@@ -377,7 +378,7 @@ function saveWork(isNew, isEdit) {
 
     $.ajax({
         type: "POST",
-        url: "/Accounts/Ledger/ledgerSave",
+        url: "/Ledger/ledgerSave",
         data: { obj: jsonData, debit: debit, credit: credit, openingId: openingId },
         async: false,
         success: function (res) {
@@ -401,7 +402,7 @@ function clear() {
     $("#primaryGroupId").prop('disabled', false);
     $("#mainGroupId").prop('disabled', false);
     $("#subGroupId").prop('disabled', false);
-    var today = getCDay() + '-' + getCMonth() + '-' + getCYear();
+ /*   var today = getCDay() + '-' + getCMonth() + '-' + getCYear();*/
     $("#companyId").val("0");
     $("#branchId").val("");
     $("#autoId").val(0);
@@ -412,7 +413,10 @@ function clear() {
     $("#debit").val("0");
     $("#credit").val("0");
     $("#openingId").val("");
-    $("#openingDate").val(today);
+    //$("#openingDate").val(today);
+    //document.getElementById("LastTrDate").valueAsDate = new Date();
+  //  $("#openingDate").val(new Date());
+    document.getElementById("openingDate").valueAsDate = new Date();
     $('#chkActive').prop('checked', true);
     $('#primaryGroupId').select2('data', { id: '', text: 'Choose a Primary Group' });
     $('#mainGroupId').select2('data', { id: '', text: 'Choose a Main Group' });
@@ -489,7 +493,7 @@ function checkSubValidation() {
     }
 }
 function isMainGroup(primaryId) {
-    var url = "/Accounts/Ledger/isMainGroup";
+    var url = "/Ledger/isMainGroup";
     var ret = false;
     $.ajax({
         url: url,
@@ -504,7 +508,7 @@ function isMainGroup(primaryId) {
     return ret;
 }
 function isSubGroup(primaryId, mainId) {
-    var url = "/Accounts/Ledger/isSubGroup";
+    var url = "/Ledger/isSubGroup";
     var ret = false;
     $.ajax({
         url: url,
@@ -519,7 +523,7 @@ function isSubGroup(primaryId, mainId) {
     return ret;
 }
 function primaryGroupData() {
-    var url = "/Accounts/Ledger/getPrimaryGroup";
+    var url = "/Ledger/getPrimaryGroup";
     $('#primaryGroupId').select2('data', { id: '', text: 'Choose a Primary Group' });
     $.getJSON(url, function (data) {
         var item = "";
@@ -533,7 +537,7 @@ function primaryGroupData() {
     });
 }
 function mainGroupData(pId) {
-    var url = "/Accounts/Ledger/getMainGroup?pId=" + pId;
+    var url = "/Ledger/getMainGroup?pId=" + pId;
     $('#mainGroupId').select2('data', { id: '', text: 'Choose a Main Group' });
     $('#subGroupId').select2('data', { id: '', text: 'Choose a Sub Group' });
     $.getJSON(url, function (data) {
@@ -548,7 +552,7 @@ function mainGroupData(pId) {
     });
 }
 function subGroupData(pId, mId) {
-    var url = "/Accounts/Ledger/getSubGroup?pId=" + pId + "&mId=" + mId;
+    var url = "/Ledger/getSubGroup?pId=" + pId + "&mId=" + mId;
     $('#subGroupId').select2('data', { id: '', text: 'Choose a Sub Group' });
     $.getJSON(url, function (data) {
         var item = "";

@@ -29,8 +29,8 @@ namespace RCCLAccounts.WebUi.Common
             _db = db;
             sqlCon= _db.Database.GetDbConnection().ConnectionString;
         }
-    
-        
+
+
         //public string getLedgerId(int id)
         //{
         //    var obj = _unitAccounts.Ledger.GetFirstOrDefault(x=>x.Id==id);
@@ -52,6 +52,7 @@ namespace RCCLAccounts.WebUi.Common
         //    }
         //    return ledgerName;
         //}
+
 
         // Check Date interval in the same Fiscal Year
         public string getSameFiscalYearDateCheck(string fromDate,string toDate, string branchID)
@@ -425,6 +426,40 @@ namespace RCCLAccounts.WebUi.Common
             }
             return "0";
         }
+
+        public object getFiscalYearDate()
+        {
+
+            var obj = new Object();
+            SqlConnection con = new SqlConnection(sqlCon);
+            try
+            {
+                con.Open();
+                string sql = "select Top(1) convert(date,OpeningDate)OpeningDate,convert(date,ClosingDate)ClosingDate from FiscalYears Where RunningFlag=1 and IsClosed=0 order by Id desc";
+                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlDataReader sqlData = cmd.ExecuteReader();
+                if (sqlData.Read())
+                {
+                    if (sqlData.HasRows)
+                    {
+                        obj = new
+                        {
+                            Opening = ((DateTime)sqlData["OpeningDate"]).ToString("dd-MM-yyyy"),
+                            Closing = ((DateTime)sqlData["ClosingDate"]).ToString("dd-MM-yyyy")
+
+                    };
+
+
+                    }
+                }
+            }
+            finally
+            {
+                con.Close();
+            }
+            return obj;
+        }
+
 
     }
 }
