@@ -138,9 +138,9 @@ namespace RCCLAccounts.WebUi.Services
             SqlConnection con = new SqlConnection(sqlCon);
 
             string sql = "select c.PrimaryGroupId pId,c.PrimaryGroupCode+'-'+c.PrimaryGroupName primaryData,d.MainGroupId mId,d.MainGroupCode+'-'+d.MainGroupName mainData," +
-            " e.SubId sId, e.SubGroupCode + '-' + e.SubGroupName subData,a.AutoId autoId, b.LedgerOpId openingId, a.LedgerId,a.LedgerCode," +
+            " e.SubGroupId sId, e.SubGroupCode + '-' + e.SubGroupName subData,a.AutoId autoId, b.LedgerOpId openingId, a.LedgerId,a.LedgerCode," +
             " a.LedgerName,CAST(b.DrAmount as float)DrAmount,CAST(b.CrAmount as float)CrAmount," +
-            " CONVERT(varchar,a.OpeningDate,105)OpeningDate,a.Active,a.LedgerType,a.CompanyId " +  //,a.BranchId 
+            " CONVERT(VARCHAR(10), a.OpeningDate, 120)OpeningDate,a.Active,a.LedgerType,a.CompanyId " +  //,a.BranchId 
             " from Ledgers a " +
             " inner join LedgerOpeningBalances b on a.LedgerId = b.LedgerId " +
             " inner join PrimaryGroups c on a.PrimaryGroupId = c.PrimaryGroupId " +
@@ -442,7 +442,7 @@ namespace RCCLAccounts.WebUi.Services
             }
             return "";
         }
-        public int openingBalanceSave(Ledger obj,decimal debit,decimal credit,int id)
+        public int openingBalanceSave(Ledger obj,decimal debit,decimal credit,int id,int ledgerAutoId)
         {
             //ISession session = commonService.getSession();
             //var companyId = session.GetString("companyId");
@@ -450,9 +450,9 @@ namespace RCCLAccounts.WebUi.Services
             //,[PKLegerId]  ,[LedgerCode]
             var companyId = "B-1";
             int ret=0;
-            string sql = "INSERT into dbo.LedgerOpeningBalances(FiscalYearId,LedgerId,LedgerName,DrAmount,CrAmount,OpeningDate,CompanyId," +
+            string sql = "INSERT into dbo.LedgerOpeningBalances(PKLegerId,FiscalYearId,LedgerId,LedgerCode,LedgerName,DrAmount,CrAmount,OpeningDate,CompanyId," +
                         " Flag,UserName,UserIp,EntryTime) " + //,BranchId
-                        " values(@fiscalYear,@ledgerId,@ledgerName,@drAmount,@crAmount,@openingDate,@companyId,@flag,@userName,@userIp,@entryTime)";//,@branchId
+                        " values(@ledgerAutoId,@fiscalYear,@ledgerId,@ledgerCode,@ledgerName,@drAmount,@crAmount,@openingDate,@companyId,@flag,@userName,@userIp,@entryTime)";//,@branchId
             if (id!=0)
             {
                 sql = "update LedgerOpeningBalances set LedgerName=@ledgerName,DrAmount=@drAmount,CrAmount=@crAmount,OpeningDate=@openingDate," +
@@ -463,7 +463,9 @@ namespace RCCLAccounts.WebUi.Services
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@ledgerAutoId", ledgerAutoId);
                 cmd.Parameters.AddWithValue("@ledgerName", obj.LedgerName);
+                cmd.Parameters.AddWithValue("@ledgerCode", obj.LedgerCode);
                 cmd.Parameters.AddWithValue("@drAmount", debit);
                 cmd.Parameters.AddWithValue("@crAmount", credit);
                 cmd.Parameters.AddWithValue("@openingDate", obj.OpeningDate);

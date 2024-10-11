@@ -4,14 +4,17 @@ $(document).ready(function () {
     mainGroupData("%");
     subGroupData("%", "%");
     $("#primaryGroupId").change(function () {
-        var primaryData = $('#primaryGroupId').select2('data');
-        mainGroupData(primaryData.id);
+        //var primaryData = $('#primaryGroupId').select2('data');
+        var primaryData = $('#primaryGroupId').val();
+        mainGroupData(primaryData);
         path_Id_Code();
     });
     $("#mainGroupId").change(function () {
-        var primaryData = $('#primaryGroupId').select2('data');
-        var mainData = $('#mainGroupId').select2('data');
-        subGroupData(primaryData.id, mainData.id);
+        //var primaryData = $('#primaryGroupId').select2('data');
+        var primaryData = $('#primaryGroupId').val();
+       // var mainData = $('#mainGroupId').select2('data');
+        var mainData = $('#mainGroupId').val();
+        subGroupData(primaryData, mainData);
         path_Id_Code();
     });
     $("#subGroupId").change(function () {
@@ -72,8 +75,12 @@ $(document).ready(function () {
         }
     });
 
-    $("#btnCancel").click(function () {
+    //$("#btnCancel").click(function () {
+    //    $('#tbLedger').DataTable().ajax.reload();
+    //});
+    $(document).on('click', '#btnCancel', function () {
         $('#tbLedger').DataTable().ajax.reload();
+        $('#ledger').modal('hide');
     });
     $("#ledger").on('hidden.bs.model', function () {
         $("tbLedger").DataTable().ajax.reload();
@@ -91,26 +98,31 @@ function buttonSet(isEdit) {
 }
 function path_Id_Code() {
     var pri = "", path = "", primary = "", main = "", sub = "", name = $("#nameId").val();
-    var primaryData = $('#primaryGroupId').select2('data');
-    var mainData = $('#mainGroupId').select2('data');
-    var subData = $('#subGroupId').select2('data');
+   // var primaryData = $('#primaryGroupId').select2('data');
+    var primaryData = $("#primaryGroupId").val();
+    //var mainData = $('#mainGroupId').select2('data');
 
-    var lId = getMaxId(primaryData.id);
+    var mainData = $('#mainGroupId').val();
+  //  var subData = $('#subGroupId').select2('data');
+    var subData = $('#subGroupId').val();
 
-    if (primaryData.id != "") {
-        primary = primaryData.text;
+  //  var lId = getMaxId(primaryData.id);
+    var lId = getMaxId(primaryData);
+
+    if (primaryData != "") {
+        primary = $('#primaryGroupId').find("option:selected").text();
     }
-    if (mainData.id != "") {
-        main = mainData.text;
+    if (mainData!= "") {
+        main = $('#mainGroupId').find("option:selected").text();
     }
-    if (subData.id != "") {
-        sub = subData.text;
+    if (subData != "") {
+        sub = $('#subGroupId').find("option:selected").text();
     }
     if (name == undefined) {
         name = "";
     }
-    var code = maxCode(primaryData.id, mainData.id, subData.id);
-    var str = primaryData.id.substring(0, 1);
+    var code = maxCode(primaryData, mainData, subData);
+    var str = primaryData.substring(0, 1);
     pri = getType(str);
 
     path = pri + " / " + primary + " / " + main + " / " + sub + " / " + name;
@@ -203,7 +215,7 @@ function init() {
     subGroupData("%", "%");
 /*    var opdate = getCDay() + '-' + getCMonth() + '-' + getCYear();*/
     $.ajax({
-        url: "/FiscalYearInfo/GetFiscaleYearDate",
+        url: "/Ledger/GetFiscaleYearDate",
         async: false,
         success: function (res) {
             // console.log(res.opening);
@@ -279,15 +291,21 @@ function findWork(id) {
                         console.log(pgId);
                         console.log(pgCaption);
                         $("#autoId").val(res.data.autoId);
-                        $('#primaryGroupId').select2('data', { id: pgId, text: pgCaption });
-                        $('#mainGroupId').select2('data', { id: mgId, text: mgCaption });
-                        $('#subGroupId').select2('data', { id: sgId, text: sgCaption });
+                        //$('#primaryGroupId').select2('data', { id: pgId, text: pgCaption });
+                        //$('#mainGroupId').select2('data', { id: mgId, text: mgCaption });
+                        //$('#subGroupId').select2('data', { id: sgId, text: sgCaption });
+
+                        $('#primaryGroupId').val(pgId).trigger('change');
+                        $('#mainGroupId').val(mgId).trigger('change');
+                        $('#subGroupId').val(sgId).trigger('change');
+
                         $("#ledgerId").val(res.data.ledgerId);
                         $("#ledgerCode").val(res.data.ledgerCode);
                         $("#ledgerName").val(res.data.ledgerName);
                         $("#debit").val(res.data.drAmount);
                         $("#credit").val(res.data.crAmount);
                         $("#openingDate").val(res.data.openingDate);
+
                         $("#openingId").val(res.data.openingId);
                         $("#companyId").val(res.data.companyId);
                         $("#branchId").val(res.data.branchId);
@@ -297,7 +315,7 @@ function findWork(id) {
                         var path = getType(str) + " / " + pgCaption + " / " + mgCaption + " / " + sgCaption + " / " + res.data.ledgerName;
 
                         $("#ledgerPath").val(path);
-                        if (res.data.active == "True") {
+                        if (res.data.active == 1) {
                             $('#chkActive').prop('checked', true);
                         }
                         else {
@@ -325,7 +343,7 @@ function isData(id) {
     return ret;
 }
 function saveWork(isNew, isEdit) {
-    var companyId = $("#companyId").val();
+    var companyId = "B-1";//$("#companyId").val();
     var branchId = $("#branchId").val();
     var parentId = "", createForm = "";
     var id = $("#autoId").val();
@@ -335,30 +353,34 @@ function saveWork(isNew, isEdit) {
     var name = $("#ledgerName").val();
     var debit = $("#debit").val();
     var credit = $("#credit").val();
-    var active = $('#chkActive').prop('checked');
+   // var active = $('#chkActive').prop('checked');
+    var active = $('#chkActive').prop('checked') ? 1 : 0;
     var openingDate = $("#openingDate").val();
 
-    var dbOpening = getBdToDbFormat(openingDate);
+   // var dbOpening = getBdToDbFormat(openingDate);
 
-    var primaryData = $('#primaryGroupId').select2('data');
-    var mainData = $('#mainGroupId').select2('data');
-    var subData = $('#subGroupId').select2('data');
+    //var primaryData = $('#primaryGroupId').select2('data');
+    var primaryData = $('#primaryGroupId').val();
+    //var mainData = $('#mainGroupId').select2('data
+    var mainData = $('#mainGroupId').val();
+    //var subData = $('#subGroupId').select2('data');
+    var subData = $('#subGroupId').val();
 
-    var str = primaryData.id.substring(0, 1);
+    var str = primaryData.substring(0, 1);
 
     var type = getType(str);
 
-    if (primaryData.id != "") {
-        parentId = primaryData.id;
+    if (primaryData != "") {
+        parentId = primaryData;
         createForm = parentId;
     }
-    if (mainData.id != "") {
-        parentId = primaryData.id;
-        createForm = parentId + "-" + mainData.id;
+    if (mainData != "") {
+        parentId = primaryData;
+        createForm = parentId + "-" + mainData;
     }
     if (subData.id != "") {
-        parentId = primaryData.id;
-        createForm = parentId + "-" + mainData.id + "-" + subData.id;
+        parentId = primaryData;
+        createForm = parentId + "-" + mainData + "-" + subData;
     }
     console.log("Parent:" + parentId + " create form:" + createForm);
 
@@ -366,14 +388,14 @@ function saveWork(isNew, isEdit) {
 
 
     if (!isEdit) {
-        ledgerId = getMaxId(primaryData.id);
-        ledgerCode = maxCode(primaryData.id, mainData.id, subData.id);
+        ledgerId = getMaxId(primaryData);
+        ledgerCode = maxCode(primaryData, mainData, subData);
     }
-
+    //     , Type: type,  Type: type,    , BranchId: branchId
     var jsonData = {
-        Id: id, OpeningDate: dbOpening, Type: type, PrimaryGroupId: primaryData.id, MainGroupId: mainData.id, SubGroupId: subData.id,
+        AutoId: id, OpeningDate: openingDate,  PrimaryGroupId: primaryData, MainGroupId: mainData, SubGroupId: subData,
         LedgerId: ledgerId, LedgerCode: ledgerCode, LedgerName: name, ParentId: parentId, CreateFrom: createForm, LedgerType: ledgerType,
-        Active: active, EntryFrom: 'Ledger Information', Type: type, CompanyId: companyId, BranchId: branchId
+        Active: active, EntryFrom: 'Ledger Information' ,CompanyId: companyId
     }
 
     $.ajax({
@@ -524,44 +546,51 @@ function isSubGroup(primaryId, mainId) {
 }
 function primaryGroupData() {
     var url = "/Ledger/getPrimaryGroup";
-    $('#primaryGroupId').select2('data', { id: '', text: 'Choose a Primary Group' });
-    $.getJSON(url, function (data) {
-        var item = "";
-        $("#primaryGroupId").empty();
-        item += '<option value="">Choose a Primary Group</option>'
-        $("#primaryGroupId").html(item);
-        $.each(data, function (i, opt) {
-            item += '<option value="' + opt.value + '">' + opt.text + '</option>'
+    //$('#primaryGroupId').select2('data', { id: '', text: 'Choose a Primary Group' });
+    if ($("#autoId").val() == 0) {
+        $.getJSON(url, function (data) {
+            var item = "";
+            $("#primaryGroupId").empty();
+            item += '<option value="">Choose a Primary Group</option>'
+            $("#primaryGroupId").html(item);
+            $.each(data, function (i, opt) {
+                item += '<option value="' + opt.value + '">' + opt.text + '</option>'
+            });
+            $("#primaryGroupId").html(item);
         });
-        $("#primaryGroupId").html(item);
-    });
+    }
 }
 function mainGroupData(pId) {
     var url = "/Ledger/getMainGroup?pId=" + pId;
-    $('#mainGroupId').select2('data', { id: '', text: 'Choose a Main Group' });
-    $('#subGroupId').select2('data', { id: '', text: 'Choose a Sub Group' });
-    $.getJSON(url, function (data) {
-        var item = "";
-        $("#mainGroupId").empty();
-        item += '<option value="">Choose a Main Group</option>'
-        $("#mainGroupId").html(item);
-        $.each(data, function (i, opt) {
-            item += '<option value="' + opt.value + '">' + opt.text + '</option>'
+    //$('#mainGroupId').select2('data', { id: '', text: 'Choose a Main Group' });
+    //$('#subGroupId').select2('data', { id: '', text: 'Choose a Sub Group' });
+
+    if ($("#autoId").val() == 0) {
+        $.getJSON(url, function (data) {
+            var item = "";
+            $("#mainGroupId").empty();
+            item += '<option value="">Choose a Main Group</option>'
+            $("#mainGroupId").html(item);
+            $.each(data, function (i, opt) {
+                item += '<option value="' + opt.value + '">' + opt.text + '</option>'
+            });
+            $("#mainGroupId").html(item);
         });
-        $("#mainGroupId").html(item);
-    });
+    }
 }
 function subGroupData(pId, mId) {
     var url = "/Ledger/getSubGroup?pId=" + pId + "&mId=" + mId;
-    $('#subGroupId').select2('data', { id: '', text: 'Choose a Sub Group' });
-    $.getJSON(url, function (data) {
-        var item = "";
-        $("#subGroupId").empty();
-        item += '<option value="">Choose a Sub Group</option>'
-        $("#subGroupId").html(item);
-        $.each(data, function (i, opt) {
-            item += '<option value="' + opt.value + '">' + opt.text + '</option>'
+    //$('#subGroupId').select2('data', { id: '', text: 'Choose a Sub Group' });
+    if ($("#autoId").val() == 0) {
+        $.getJSON(url, function (data) {
+            var item = "";
+            $("#subGroupId").empty();
+            item += '<option value="">Choose a Sub Group</option>'
+            $("#subGroupId").html(item);
+            $.each(data, function (i, opt) {
+                item += '<option value="' + opt.value + '">' + opt.text + '</option>'
+            });
+            $("#subGroupId").html(item);
         });
-        $("#subGroupId").html(item);
-    });
+    }
 }

@@ -13,7 +13,9 @@ using RCCLAccounts.WebUi.Common;
 using RCCLAccounts.WebUi.Services;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -32,12 +34,14 @@ namespace RCCLAccounts.WebUi.Controllers
         LedgerServiceWebUi service;
         private commonService commonService;
         string sqlCon = "";
+        private UserManager<ApplicationUser> _userManager;
         public LedgerController(
             IHttpContextAccessor accessor,
             //<IdentityUser> userManager,
             ILogger<LedgerController> logger,
              //IBackgroundTaskQueue backgroundTaskQueue,
-             AppDbContext db)
+             AppDbContext db,
+              UserManager<ApplicationUser> userManager)
         {
             
             _accessor = accessor;
@@ -48,6 +52,7 @@ namespace RCCLAccounts.WebUi.Controllers
             service = new LedgerServiceWebUi(_accessor, _db);
             sqlCon = _db.Database.GetDbConnection().ConnectionString;
             commonService = new commonService(_accessor, _db);
+            _userManager = userManager;
         }
         public IActionResult Index()
         {
@@ -56,46 +61,104 @@ namespace RCCLAccounts.WebUi.Controllers
             ViewBag.isEdit = menu.IsEdit;*/
             return View();
         }
-        public IActionResult ledgerSave(Ledger obj,decimal debit,decimal credit,int openingId)
+        public async Task<IActionResult> ledgerSave(Ledger obj,decimal debit,decimal credit,int openingId)
         {
             bool isUpdate = false;
             string msg = "Unable to save!";
-            //if (isValidModel(obj))
-            //{
+            int LedgerAutoId = 0; // AutoId will be used after Ledger insert
+            if (isValidModel(obj))
+            {
 
-            //    obj.UserIp = SD.getIp();
-            //    obj.UserId = _accessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-            //    var objUser = _unitOfWork.ApplicationUser.GetFirstOrDefault(x => x.Id == obj.UserId);
-            //    obj.EntryTime = DateTime.Now;
-            //    if (objUser != null)
-            //    {
-            //        obj.UserName = objUser.Name;
-            //    }
-               
+                var addlist = Dns.GetHostEntry(Dns.GetHostName());
+                string GetHostName = addlist.HostName.ToString();
+                string GetIPV6 = addlist.AddressList[0].ToString();
+                string GetIPV4 = addlist.AddressList[1].ToString();
+                var user = await _userManager.GetUserAsync(User);
+                string UserName = user.FullName.ToString();
+                obj.UserIp = GetIPV4;
+                obj.UserName = UserName;
+                obj.EntryTime = DateTime.Now;
+
+                var primaryGroup = await _db.PrimaryGroups.FirstOrDefaultAsync(x => x.PrimaryGroupId == obj.PrimaryGroupId);
+                var mainGroup = await _db.MainGroups.FirstOrDefaultAsync(x => x.MainGroupId == obj.MainGroupId);
+                var subGroup = await _db.SubGroups.FirstOrDefaultAsync(x => x.SubGroupId == obj.SubGroupId);
+
+            
+                if (obj.AutoId == 0)
+                    {
+                    
+                    msg = "Information save successfully!";
+
+                    var LedgerCreate = new Ledger
+                    {
+                        OpeningDate = obj.OpeningDate,
+                        PrimaryId = primaryGroup.PrimaryId,
+                        PrimaryGroupId = obj.PrimaryGroupId,
+                        MainId = mainGroup?.MainId ?? null,
+                        MainGroupId = mainGroup?.MainGroupId ?? "",
+                        SubId = subGroup?.SubId ?? null,
+                        SubGroupId = subGroup?.SubGroupId ?? "",
+                        LedgerId = obj.LedgerId,
+                        LedgerCode = obj.LedgerCode,
+                        LedgerName = obj.LedgerName,
+                        ParentId = obj.ParentId,
+                        CreateFrom = obj.CreateFrom,
+                        LedgerType = obj.LedgerType,
+                        CreditLimit = 365,
+                        Active = obj.Active,
+                        CompanyId = obj.CompanyId,
+                        EntryFrom = obj.EntryFrom,                    
+                        UserName = obj.UserName,
+                        UserIp = obj.UserIp,
+                        EntryTime = obj.EntryTime
 
 
-            //    if (obj.Id == 0)
-            //    {
-            //        msg = "Information save successfully!";
-            //        ISession session = commonService.getSession();
-            //        var companyId = session.GetString("companyId");
-            //        var branchId = session.GetString("branchId");
-            //        obj.CompanyId = Convert.ToInt32(companyId);
-            //        //obj.BranchId = Convert.ToInt32(branchId);
-            //        obj = _unitAccounts.Ledger.Add(obj);
-            //    }
-            //    else
-            //    {
-            //        isUpdate = true;
-            //        msg = "Information update successfully!";
-            //        _unitAccounts.Ledger.Update(obj);
-            //    }
-            //    _unitAccounts.Save();
-            //    int opening = service.openingBalanceSave(obj,debit,credit,openingId);
-               
-            //    return Json(new { success = true, isUpdate = isUpdate, message = msg });
+                    };
+
+                    _db.Ledgers.Add(LedgerCreate);
+                    // Save changes to the database
+                    await _db.SaveChangesAsync();
+                    LedgerAutoId = LedgerCreate.AutoId;
+
+                }
+                    else
+                    {
+                        isUpdate = true;
+                        
+                    var existingLedger = await _db.Ledgers.FindAsync(obj.AutoId);
+
+                    if (existingLedger != null)
+                    {
+                        // Update existing entity's properties with new values
+    
+                        existingLedger.LedgerName = obj.LedgerName;
+                        existingLedger.LedgerType = obj.LedgerType;
+                        existingLedger.OpeningDate = obj.OpeningDate;
+                        existingLedger.Active = obj.Active;
+
+                        existingLedger.UserName = obj.UserName;
+                        existingLedger.UserIp = obj.UserIp;
+                        existingLedger.EntryTime = obj.EntryTime;
+
+                        _db.Ledgers.Update(existingLedger);
+                        await _db.SaveChangesAsync();
+                        msg = "Information updated successfully!";
+                        isUpdate = true;
+
+                        LedgerAutoId = obj.AutoId;
+                    }
+                    else
+                    {
+                        msg = "Sub Group not found!";
+                        return Json(new { success = false, isUpdate = isUpdate, message = msg });
+                    }
+                }
+                //    _unitAccounts.Save();
+                   int opening = service.openingBalanceSave(obj,debit,credit,openingId, LedgerAutoId);
+
+                return Json(new { success = true, isUpdate = isUpdate, message = msg });
                 
-            //}
+            }
             return Json(new { success = false, isUpdate = isUpdate, message = msg });
         }
         public bool isValidModel(Ledger obj)

@@ -18,7 +18,7 @@ function loadDataTable(type) {
         "pageLength": 100,
         "columnDefs": [{ targets: 'no-sort', orderable: false }],
         "ajax": {
-            "url": "/Accounts/Ledger/GetData?type="+type
+            "url": "/Ledger/GetData?type="+type
         },
         "columns": [
             { "data": "type" },
