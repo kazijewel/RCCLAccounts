@@ -1,0 +1,62 @@
+﻿@*<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="fa fa-caret-down"></a>
+        </div>
+        <h2 class="panel-title">Narration Information</h2>
+    </header>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+
+                    <div class="mb-md">
+                    <a class="btn btn-primary" id="btnAdd">Create New <i class="fa fa-plus"></i></a>
+                    </div>
+             
+            </div>
+        </div>*@
+<div class="breadcrumb-header justify-content-between">
+    <div class="left-content">
+        <span class="main-content-title mg-b-0 mg-b-lg-1">Narration Information</span>
+    </div>
+    <div class="justify-content-center mt-2">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item tx-15"><a asp-action="Index" asp-controller="Home">Dashboard</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Narration Information</li>
+        </ol>
+    </div>
+</div>
+
+<div>
+    @*  <button type="button" asp-action="Create" class="btn btn-info"><a asp-action="Create">Create New</a></button>*@
+    <a class="btn btn-primary" id="btnAdd">Create New <i class="fa fa-plus"></i></a>
+    <br /><br />
+</div>
+        <table  class="table table-bordered table-striped" id="tblNarration">
+            <thead>
+                <tr>
+                    <th>Voucher Type</th>
+                    <th>Narration</th>                  
+                    <th>Edit</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    
+
+@*</section>*@
+
+@section Scripts{
+
+    <partial name="_Narration" />
+    <script src="~/assets/plugins/magnific-popup/magnific-popup.js"></script>
+    <script asp-append-version="true" src="~/assets/js/modal.js"></script>
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/NarrationInfoList.js"></script>
+    <script asp-append-version="true"  src="~/assets/js/jsaccounts/narrationservice.js"></script>
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/service.js"></script>
+
+   
+}

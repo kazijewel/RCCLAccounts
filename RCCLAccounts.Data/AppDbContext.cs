@@ -35,6 +35,7 @@ namespace RCCLAccounts.Data
 
         public DbSet<UdVoucher> UdVouchers { get; set; }
         public DbSet<Voucher> Vouchers { get; set; }
+        public DbSet<Narration> Narrations { get; set; }
         public DbSet<Department> Departments { get; set; }
 
         public DbSet<Designation> Designations { get; set; }

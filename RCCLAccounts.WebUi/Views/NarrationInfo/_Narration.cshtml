@@ -1,0 +1,59 @@
+﻿<div class="modal fade" id="narration" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Narration Info</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-bordered" autocomplete="off">
+                    <input type="hidden" id="autoId" />
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <label class="col-sm-4 control-label">Voucher Type</label>
+                        <div class="col-sm-6" style="display: flex;">
+            
+                            <select class="form-control form-select select2" data-bs-placeholder="Please Select Voucher Type" id="voucherType">
+                                <option value="Cash Payment">Cash Payment</option>
+                                <option value="Cash Receipt">Cash Receipt</option>
+                                <option value="Journal Voucher">Journal Voucher</option>
+                            </select>
+                            
+                        </div>
+                    </div>
+                   
+
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <label class="col-sm-4 control-label">Narration Code :</label>
+                        <div class="col-sm-3">
+                            <input id="narrationCode" class="form-control input-sm" readonly />
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <label class="col-sm-4 control-label">Narration :</label>
+                        <div class="col-sm-6">
+                            <input id="narrationName" class="form-control input-sm" />
+                        </div>
+                    </div>
+                    <div class="row row-xs align-items-center mg-b-20">
+                        <label class="col-sm-4 control-label"><span style="color: #FF0000;">*</span>Status :</label>
+                        <div class="col-sm-3">
+                            <div class="checkbox-custom chekbox-primary  control-label">
+                                <input id="chkActive" type="checkbox" checked />
+                                <label for="chkActive"></label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer customFooter">
+                <div id="add">
+                    <partial name="_ModalButtonCreate" />
+                </div>
+                <div id="edit">
+                    <partial name="_ModalButtonEdit" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
