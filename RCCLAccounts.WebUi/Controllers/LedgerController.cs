@@ -20,12 +20,9 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RCCLAccounts.WebUi.Controllers
-{
-  
+{ 
     public class LedgerController : Controller
-    {
-
-        
+    {       
         //private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LedgerController> _logger;
        // private IBackgroundTaskQueue _backgroundTaskQueue;

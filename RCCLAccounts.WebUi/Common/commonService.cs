@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using RCCLAccounts.Data;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,11 +32,13 @@ namespace RCCLAccounts.WebUi.Common
         }
 
 
-        //public string getLedgerId(int id)
-        //{
-        //    var obj = _unitAccounts.Ledger.GetFirstOrDefault(x=>x.Id==id);
-        //    return obj.LedgerId;
-        //}
+        public async Task<string> getLedgerId(int id)
+        {
+            //var obj = _unitAccounts.Ledger.GetFirstOrDefault(x => x.Id == id);
+            var obj = await _db.Ledgers.FirstOrDefaultAsync(x => x.AutoId == id );
+            return obj.LedgerId;
+        }
+
         //public string getLedgerName(string id) 
         //{
         //    string ledgerName = "";
@@ -322,25 +325,26 @@ namespace RCCLAccounts.WebUi.Common
 
             return returnData;
         }
-        //public object LedgerBudgetBalance(int id, string voucherDate)
-        //{
-        //    var returnData = new Object();
-        //    string companyId = getCompanyId();
-        //    string ledgerId = getLedgerId(id);
-        //    string fiscalYear = getFiscalYear(voucherDate);
+  
+        public async Task<object> LedgerBudgetBalance(int id, string voucherDate)
+        {
+            var returnData = new Object();
+            string companyId = "B-1";
+            string ledgerId = await getLedgerId(id);
+            string fiscalYear = getFiscalYear(voucherDate, companyId);
 
-        //    decimal budgetAmount = getBudget(ledgerId, companyId, fiscalYear);
-        //    decimal voucherBalance = getVoucherBalance(ledgerId, companyId, fiscalYear);
-        //    decimal openingBalance = getOpeningBalance(ledgerId, companyId, fiscalYear);
+            decimal budgetAmount = getBudget(ledgerId, companyId, fiscalYear);
+            decimal voucherBalance = getVoucherBalance(ledgerId, companyId, fiscalYear);
+            decimal openingBalance = getOpeningBalance(ledgerId, companyId, fiscalYear);
 
-        //    returnData = new
-        //    {
-        //        budget = budgetAmount,
-        //        balance = voucherBalance + openingBalance
-        //    };
+            returnData = new
+            {
+                budget = budgetAmount,
+                balance = voucherBalance + openingBalance
+            };
 
-        //    return returnData;
-        //}
+            return returnData;
+        }
 
         public IEnumerable<string> getNarrations()
         {
@@ -364,18 +368,18 @@ namespace RCCLAccounts.WebUi.Common
             return arr;
         }
 
-        public List<object> auditInfo(string voucherNo, string fsl)
+        public List<object> auditInfo(long id = 0)
         {
             List<object> list = new List<object>();
             SqlConnection con = new SqlConnection(sqlCon);
             try
             {
                 con.Open();
-                string sql = "select Top(1) AuditApprove,AuditBy, AuditIp, AuditTime, ApproveBy, ApproveIp, ApproveTime " +
-                "from tbVoucher where VoucherNo like @voucherNo and FiscalYearId like @fsl ";
+                string sql = "select Top(1) AuditApprove,AuditBy, AuditIp, AuditTime, ApproveBy, ApproveIp, ApproveTime,CompanyId " +
+                "from Vouchers where AutoId =@id ";
                 SqlCommand cmd = new SqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@voucherNo", voucherNo);
-                cmd.Parameters.AddWithValue("@fsl", fsl);
+                cmd.Parameters.AddWithValue("@id", id);
+               
                 SqlDataReader sqlData = cmd.ExecuteReader();
                 if (sqlData.Read())
                 {
@@ -388,6 +392,7 @@ namespace RCCLAccounts.WebUi.Common
                         list.Add(sqlData["ApproveBy"].ToString());
                         list.Add(sqlData["ApproveIp"].ToString());
                         list.Add(sqlData["ApproveTime"]);
+                        list.Add(sqlData["CompanyId"]);
                     }
                 }
             }
@@ -460,6 +465,36 @@ namespace RCCLAccounts.WebUi.Common
             return obj;
         }
 
+
+        public string getTransactionId()
+        {
+        
+            var companyId = "B-1";
+            //var branchId = session.GetString("branchId");
+            string ret = "";
+            //string fsl = getFiscalYear(date);
+            SqlConnection con = new SqlConnection(sqlCon);
+            try
+            {
+                con.Open();
+                string sql = "select isNull(MAX(cast(TransactionId as bigint)),0)+1 id from Vouchers where CompanyId like '" + companyId + "' ";
+                // "and FiscalYearId like '" + fsl + "' and CompanyId = '" + companyId + "' and BranchId = '" + branchId + "' ";
+                SqlCommand sqlCmd = new SqlCommand(sql, con);
+                SqlDataReader sqlData = sqlCmd.ExecuteReader();
+                if (sqlData.Read())
+                {
+                    if (sqlData.HasRows)
+                    {
+                        ret = sqlData["id"].ToString();
+                    }
+                }
+            }
+            finally
+            {
+                con.Close();
+            }
+            return ret;
+        }
 
     }
 }

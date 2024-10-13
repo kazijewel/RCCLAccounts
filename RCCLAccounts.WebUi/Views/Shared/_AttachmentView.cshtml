@@ -1,0 +1,59 @@
+﻿<div class="modal fade" id="attachmentView" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:80%" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="closeNoticBoard()" style="color: red; opacity: inherit;" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Attachment</h4>
+            </div>
+            <div id="noticeboardWrapper">
+                <section id="noticeboard" class="panel">
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .embed-responsive-item document html body img {
+        width: 100% !important;
+    }
+    .timeline .tm-body {
+        padding: 0px !important;
+    }
+    .timeline .tm-body:after {
+        left: 20px;
+    }
+    .timeline .tm-items > li {
+        padding: 0 0 0 27px !important;
+        margin: 10px 0 !important;
+    }
+</style>
+
+    <script asp-append-version="true">
+        var $noticeboardWrapper = $("#noticeboard");
+        $(document).ready(function () {
+            $("#attachmentView").modal('hide');
+            $noticeboardWrapper.empty();
+        });
+        
+        function openViewBoard(id) {
+            $noticeboardWrapper.empty();
+            var url = "/Admin/View/ViewBoard?id=" + id;
+            noticeView(url);
+        }
+        async function noticeView(url) {
+            $("#attachmentView").modal('show');
+            await $noticeboardWrapper.load(url);
+            setTimeout(imageResize, 700);
+        };
+        function closeNoticBoard() {
+            $("#attachmentView").modal('hide');
+            $noticeboardWrapper.empty();
+        }
+        function imageResize() {
+            var iframe = document.getElementById('notice_attachment');
+            var img = iframe.contentWindow.document.getElementsByTagName("img")[0];
+            img.style.width = "100%";
+        }
+    </script>
+
+

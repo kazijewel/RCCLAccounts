@@ -13,15 +13,13 @@ using System.Threading.Tasks;
 namespace RCCLAccounts.WebUi.Services
 {
     public class MainGroupServiceWebUi
-    {
-   
+    {  
         private IHttpContextAccessor _accessor;
         private AppDbContext _db;
         string sqlCon;
         private commonService commonService;
         public MainGroupServiceWebUi(IHttpContextAccessor accessor, AppDbContext db)
-        {
-      
+        {     
             _accessor = accessor;
             _db = db;
             sqlCon= _db.Database.GetDbConnection().ConnectionString;

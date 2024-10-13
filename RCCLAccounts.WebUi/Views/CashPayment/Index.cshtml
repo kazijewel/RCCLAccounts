@@ -1,0 +1,81 @@
+﻿
+<section class="panel">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <a href="#" class="fa fa-caret-down"></a>
+        </div>
+        <h2 class="panel-title">Cash Payment Voucher</h2>
+    </header>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-7">
+                
+                    <div class="mb-md">
+                        <a class="btn btn-primary" id="btnAdd">Add <i class="fa fa-plus"></i></a>
+                    </div>
+                
+
+            </div>
+            <div class="col-sm-5" style="display:flex;">
+                <div class="input-daterange input-group" style="width:300px;margin-left: 60px;">
+                    <span class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </span>
+                    <input type="text" style="padding: 6px 5px;" class="form-control input-sm datepick" name="start" id="fromDate">
+                    <span class="input-group-addon">To</span>
+                    <input type="text" style="padding: 6px 5px;" class="form-control input-sm datepick" name="end" id="toDate">
+                </div>
+                <a href="#" onclick="reloadData();" class="fa fa-refresh" style="color: #0088cc;margin-left:10px;margin-top:5px;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"></a>
+            </div>
+        </div>
+       
+   
+        <table class="table table-bordered table-striped"  id="tbCashPayment" width="100%">
+            <thead>
+                <tr>
+                    <th style="font-size:12px;">Voucher</th>
+                    <th style="font-size:12px;">Date</th>
+                    <th style="font-size:12px;">Ledger</th>
+                    <th style="font-size:12px;">Details</th>
+                    <th style="font-size:12px;">Amount</th>
+                    <th style="font-size:12px;">Attach ment</th>
+                    <th style="font-size:12px;">Apporve Status</th>
+                    <th style="font-size:12px;">Approve By</th>
+                    <th style="font-size:12px;">Approve Time</th>
+                    <th style="font-size:12px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+    
+</section>
+
+
+@section Scripts{
+       
+    <script src="~/assets/plugins/magnific-popup/magnific-popup.js"></script>
+    <script asp-append-version="true" src="~/assets/js/modal.js"></script>
+    <partial name="_AttachmentView" />
+
+    <partial name="_CashPayment" />
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/CashPaymentList.js"></script>
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/CashPaymentService.js"></script>
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/service.js"></script>
+    <script asp-append-version="true" type="text/javascript">
+
+        $(document).ready(function () {
+
+
+        });
+
+        $('.close').click(function () {
+            $('#cashPayment').modal('hide');
+        });
+
+
+
+    </script>
+}
