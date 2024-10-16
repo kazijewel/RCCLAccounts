@@ -1,14 +1,22 @@
 ﻿var dataTable;
 $(document).ready(function () {
    // var fromdate = getCDay() + '-' + getCMonth() + '-' + getCYear();
-    var fromdate = new Date();
 
+    var today = new Date();
+    var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+    $("#fromDate").val(formattedDate); 
+    $("#toDate").val(formattedDate); 
+
+
+    //var fromdate = new Date();
     //var todate = getCDay() + '-' + getCMonth() + '-' + getCYear();
-    var todate = new Date();
+    //var todate = new Date();
     var url = url = "/CashPayment/GetCashPaymentAll?fromDate=" + getBdToDbFormat(fromdate) + "&toDate=" + getBdToDbFormat(todate);
     loadDataTable(url);
     reloadData();
     $("#fromDate").change(function () {
+        console.log("fromDate");
+        console.log(fromdate);
         var fromdate = $("#fromDate").val();
         var todate = $("#toDate").val();
         if (fromdate != undefined && fromdate != "" && todate != undefined && todate != "") {
@@ -18,6 +26,8 @@ $(document).ready(function () {
 
     });
     $("#toDate").change(function () {
+        console.log(fromdate);
+        console.log("toDate");
         var fromdate = $("#fromDate").val();
         var todate = $("#toDate").val();
         if (fromdate != undefined && fromdate != "" && todate != undefined && todate != "") {
@@ -28,8 +38,12 @@ $(document).ready(function () {
 
 });
 function reloadData() {
-    var fromdate = getCDay() + '-' + getCMonth() + '-' + getCYear();
-    var todate = getCDay() + '-' + getCMonth() + '-' + getCYear();
+    //var fromdate = getCDay() + '-' + getCMonth() + '-' + getCYear();
+    //var todate = getCDay() + '-' + getCMonth() + '-' + getCYear();
+    var today = new Date();
+    var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+   
+
     $.ajax({
         url: "/Accounts/FiscalYearInfo/GetFiscaleYearDate",
         async: false,
@@ -40,9 +54,12 @@ function reloadData() {
 
         }
     });
-    $("#fromDate").val(fromdate);
-    $("#toDate").val(todate);
-    var url = "/Accounts/CashPayment/GetCashPaymentAll?fromDate=" + getBdToDbFormat(fromdate) + "&toDate=" + getBdToDbFormat(todate);
+    //$("#fromDate").val(fromdate);
+    //$("#toDate").val(todate);
+
+    $("#fromDate").val(formattedDate);
+    $("#toDate").val(formattedDate); 
+    var url = "/CashPayment/GetCashPaymentAll?fromDate=" + getBdToDbFormat(fromdate) + "&toDate=" + getBdToDbFormat(todate)  ;
     dataTable.ajax.url(url).load();
 }
 function loadDataTable(url) {

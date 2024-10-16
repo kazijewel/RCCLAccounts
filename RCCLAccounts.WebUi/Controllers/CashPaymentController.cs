@@ -182,10 +182,28 @@ namespace RCCLAccounts.WebUi.Controllers
   
                     string userName = user.FullName.ToString();
                     userIp = GetIPV4;
-                    
+
+                    var cashLedger = await _db.LedgerOpeningBalances.FirstOrDefaultAsync(x => x.LedgerId == cashHeadId);
+
+                    foreach (var voucher in objList)
+                    {
+                        // Fetch cash ledger for the current voucher's LedgerId
+                        var OpsiteLedgers = await _db.LedgerOpeningBalances
+                            .FirstOrDefaultAsync(x => x.LedgerId == voucher.LedgerId); // Assuming LedgerId is a property of Voucher
+
+                        if (OpsiteLedgers != null)
+                        {
+                            // Set properties in the voucher based on the cashLedger if needed
+                            voucher.LedgerCode = OpsiteLedgers.LedgerCode; // Example: set the LedgerCode
+                                                                        // Add any other properties you need to set from cashLedger
+                        }
+                        
+                    }
+
+
                     objList[0].AttachBill = setAttachment(objList[0].AutoId, objList[0].AttachBill);
                     
-                    int cashPayment = service.cashSave(objList, cashHeadId, cashHead,userName, userIp);
+                    int cashPayment = service.cashSave(objList, cashHeadId, cashHead, cashLedger.LedgerCode,  userName, userIp);
                     if (cashPayment > 0)
                     {
                         return Json(new { success = true, isUpdate = isUpdate, message = "Information save successfully!" });

@@ -164,8 +164,11 @@ function clear() {
     //document.getElementById("SenctionDate").valueAsDate = new Date();
     //var today = getCDay() + '-' + getCMonth() + '-' + getCYear();
     var today = new Date();
+    var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+
+    $("#date").val(formattedDate);  
     $("#paidTo").val("");
-    $("#date").val(today);
+    //$("#date").val(today);
     //$("#cash").select2('data', { id: "0", text:"Choose a Ledger" });
     $("#cash").val("0");
     $("#voucherNo").val("");
@@ -445,7 +448,8 @@ async function submit(isNew, isEdit) {
     localStorage.clear();
     var time = new Date();
     time = (moment(time).format('HH:mm:ss'))
-    var date = getBdToDbFormat($("#date").val());
+  //  var date = getBdToDbFormat($("#date").val());
+    var date = $("#date").val();
     var id = 0;
     var transactionId="";
     var voucherNo="";

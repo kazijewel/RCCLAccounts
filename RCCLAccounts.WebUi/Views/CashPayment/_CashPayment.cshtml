@@ -1,4 +1,30 @@
 ﻿
+
+<style>
+    .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+</style>
+
+
 <div class="modal fade" id="cashPayment" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" style="width:80%" role="document">
         <div class="modal-content" style="display: flow-root;">
@@ -56,29 +82,41 @@
                 </div>
             </div>*@
                         </div>
-                        <div class="col-md-3">
+                        <div class="row row-xs align-items-center mg-b-20">
                             <div class="media-gallery">
                                 <div class="row mg-files" style="padding: 0;">
                                     <div class="isotope-item document col-sm-12 col-md-12 col-lg-12">
                                         <div class="thumbnail" style="margin: 0;" id="dropthumbnail" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="leaveDrop(event)">
-                                            <div class="thumb-preview" @*style="min-height: 92px;"*@>
+                                            <div class="thumb-preview">
                                                 <a href="" class="thumb-image attachmentlink" download="">
-                                                    <img src="/images/default-image.png" class="img-responsive attachmentshow" alt="Attachment" style="width: 55%;">
+                                                    <img src="~/images/common/default-image.png" class="img-responsive attachmentshow" alt="Attachment" style="width: 55%;">
+                                               
                                                 </a>
+                                  
                                                 <div class="mg-thumb-options">
-                                                    <div class="mg-zoom"><i class="fa fa-search"></i></div>
+                                                    <div class="mg-zoom"><i class="fas fa-search"></i></div> <!-- Changed to Font Awesome 5 icon -->
                                                     <div class="mg-toolbar">
-                                                        <div class="mg-group pull-right">
-                                                            <button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
-                                                                <i class="fa fa-caret-up"></i>
+                                                        <div class="mg-group float-end">
+                                                            <!-- Bootstrap 5 uses 'float-end' instead of 'pull-right' -->
+                                                            <button class="dropdown-toggle mg-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                <i class="fas fa-caret-up"></i> <!-- Changed to Font Awesome 5 icon -->
                                                             </button>
-                                                            <ul class="dropdown-menu mg-menu" role="menu">
-                                                                <li><a href="" class="attachmentlink" download=""><i class="fa fa-download"></i> Download</a></li>
-                                                                <li><a href="#" onclick="clearAttachment()"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                                            <ul class="dropdown-menu mg-menu">
+                                                                <li>
+                                                                    <a href="#" class="attachmentlink" download>
+                                                                        <i class="fas fa-download"></i> Download
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" onclick="clearAttachment()">
+                                                                        <i class="fas fa-trash-alt"></i> Delete <!-- Changed to Font Awesome 5 trash icon -->
+                                                                    </a>
+                                                                </li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                             </div>
 
                                             <div class="text-center" style="border: 1px dashed #ccc;margin-top:5px;">
@@ -98,6 +136,9 @@
                                     </div>
                                 </div>
                             </div>
+                        
+                            
+
                         </div>
                     </div>
 
@@ -151,6 +192,8 @@
         </div>
     </div>
 </div>
-<script src="~/assets/javascripts/pages/examples.mediagallery.js"></script>
-<script asp-append-version="true" src="~/assets/js/fileupload.js"></script>
+
+
+<script asp-append-version="true" src="~/assets/js/jscommon/examples.mediagallery.js"></script>
+<script  asp-append-version="true" src="~/assets/js/jscommon/fileupload.js"></script>
 

@@ -24,7 +24,7 @@ function fileUpload(File, filenameelement, filelinkelement, fileshowelement) {
                 filenameelement.text(name);
                 filelinkelement.attr('href', _file.target.result);
                 if (ext === 'pdf') {
-                    fileshowelement.attr('src', '/images/default-pdf.png');
+                    fileshowelement.attr('src', '/images/common/default-pdf.png');
                 } else {
                     fileshowelement.attr('src', _file.target.result);
                 }
@@ -45,7 +45,7 @@ var clearAttachment = function () {
     $("#attachmentUP").val('');
     $("#fileName").text('');
     $(".attachmentlink").attr('href', '');
-    $(".attachmentshow").attr('src', '/images/default-image.png');
+    $(".attachmentshow").attr('src', '/images/common/default-image.png');
 }
 
 
@@ -60,7 +60,7 @@ function attachmentLoad() {
         var ext = filenameext.split(".");
         ext = ext[ext.length - 1].toLowerCase();
         if (ext === 'pdf') {
-            $(".attachmentshow").attr('src', '/images/default-pdf.png');
+            $(".attachmentshow").attr('src', '/images/common/default-pdf.png');
         } else {
             $(".attachmentshow").attr('src', uploadId);
         }

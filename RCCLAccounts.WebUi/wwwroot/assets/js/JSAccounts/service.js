@@ -37,11 +37,22 @@ function amountShowWithComma(x) {
 // Amount/Number Field End
 //Date Format Change Start
 function getBdToDbFormat(date) {
-    var x = date.split("-");
-    var day = x[0];
-    var month = x[1];
-    var year = x[2];
-    return year + '-' + month + '-' + day;
+   
+    //var x = date.split("-");
+    //var day = x[0];
+    //var month = x[1];
+    //var year = x[2];
+    //return year + '-' + month + '-' + day;
+    //let [day, month, year] = date.split("-");
+    //return `${year}-${month}-${day}`;
+
+    let year = date.getFullYear();
+    let month = ('0' + (date.getMonth() + 1)).slice(-2); // Add leading zero for single digit months
+    let day = ('0' + date.getDate()).slice(-2); // Add leading zero for single digit days
+
+    return `${year}-${month}-${day}`;
+   
+   
 }
 function getDbToBdFormat(date) {
     var x = date.split("-");

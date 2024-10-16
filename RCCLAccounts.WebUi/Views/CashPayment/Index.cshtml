@@ -22,9 +22,9 @@
                     <span class="input-group-addon">
                         <i class="fa fa-calendar"></i>
                     </span>
-                    <input type="text" style="padding: 6px 5px;" class="form-control input-sm datepick" name="start" id="fromDate">
+                    <input type="date" style="padding: 6px 5px;" class="form-control" name="start" id="fromDate">
                     <span class="input-group-addon">To</span>
-                    <input type="text" style="padding: 6px 5px;" class="form-control input-sm datepick" name="end" id="toDate">
+                    <input type="date" style="padding: 6px 5px;" class="form-control" name="end" id="toDate">
                 </div>
                 <a href="#" onclick="reloadData();" class="fa fa-refresh" style="color: #0088cc;margin-left:10px;margin-top:5px;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"></a>
             </div>
@@ -55,12 +55,13 @@
 
 
 @section Scripts{
-       
+
+   <link href="~/assets/css/theme.css" rel="stylesheet" />
     <script src="~/assets/plugins/magnific-popup/magnific-popup.js"></script>
     <script asp-append-version="true" src="~/assets/js/modal.js"></script>
     <partial name="_AttachmentView" />
 
-    <partial name="_CashPayment" />
+    <partial asp-append-version="true"  name="_CashPayment"/>
     <script asp-append-version="true" src="~/assets/js/jsaccounts/CashPaymentList.js"></script>
     <script asp-append-version="true" src="~/assets/js/jsaccounts/CashPaymentService.js"></script>
     <script asp-append-version="true" src="~/assets/js/jsaccounts/service.js"></script>
