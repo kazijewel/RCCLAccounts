@@ -2,16 +2,24 @@
 $(document).ready(function () {
    // var fromdate = getCDay() + '-' + getCMonth() + '-' + getCYear();
 
-    var today = new Date();
-    var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+    // Create a new Date object with the current date
+    const currentDate = new Date();
+
+    // Format the date as "YYYY-MM-DD" (required for the input type="date" element)
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+
+ 
     $("#fromDate").val(formattedDate); 
     $("#toDate").val(formattedDate); 
 
+    var fromdate = formattedDate;
+    var todate = formattedDate;
 
-    //var fromdate = new Date();
-    //var todate = getCDay() + '-' + getCMonth() + '-' + getCYear();
-    //var todate = new Date();
-    var url = url = "/CashPayment/GetCashPaymentAll?fromDate=" + getBdToDbFormat(fromdate) + "&toDate=" + getBdToDbFormat(todate);
+
+    var url = url = "/CashPayment/GetCashPaymentAll?fromDate=" + fromdate + "&toDate=" + todate;
     loadDataTable(url);
     reloadData();
     $("#fromDate").change(function () {
@@ -20,7 +28,7 @@ $(document).ready(function () {
         var fromdate = $("#fromDate").val();
         var todate = $("#toDate").val();
         if (fromdate != undefined && fromdate != "" && todate != undefined && todate != "") {
-            var url = "/CashPayment/GetCashPaymentAll?fromDate=" + getBdToDbFormat(fromdate) + "&toDate=" + getBdToDbFormat(todate);
+            var url = "/CashPayment/GetCashPaymentAll?fromDate=" +fromdate + "&toDate=" +todate;
             dataTable.ajax.url(url).load();
         }
 
@@ -31,7 +39,7 @@ $(document).ready(function () {
         var fromdate = $("#fromDate").val();
         var todate = $("#toDate").val();
         if (fromdate != undefined && fromdate != "" && todate != undefined && todate != "") {
-            var url = "/CashPayment/GetCashPaymentAll?fromDate=" + getBdToDbFormat(fromdate) + "&toDate=" + getBdToDbFormat(todate);
+            var url = "/CashPayment/GetCashPaymentAll?fromDate=" + fromdate + "&toDate=" + todate;
             dataTable.ajax.url(url).load();
         }
     });
@@ -40,9 +48,17 @@ $(document).ready(function () {
 function reloadData() {
     //var fromdate = getCDay() + '-' + getCMonth() + '-' + getCYear();
     //var todate = getCDay() + '-' + getCMonth() + '-' + getCYear();
-    var today = new Date();
-    var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
-   
+
+    // Create a new Date object with the current date
+    const currentDate = new Date();
+
+    // Format the date as "YYYY-MM-DD" (required for the input type="date" element)
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`; 
+
+    
 
     $.ajax({
         url: "/Accounts/FiscalYearInfo/GetFiscaleYearDate",
@@ -54,12 +70,15 @@ function reloadData() {
 
         }
     });
-    //$("#fromDate").val(fromdate);
-    //$("#toDate").val(todate);
+
 
     $("#fromDate").val(formattedDate);
     $("#toDate").val(formattedDate); 
-    var url = "/CashPayment/GetCashPaymentAll?fromDate=" + getBdToDbFormat(fromdate) + "&toDate=" + getBdToDbFormat(todate)  ;
+
+    var fromdate = formattedDate;
+    var todate = formattedDate;
+
+    var url = "/CashPayment/GetCashPaymentAll?fromDate=" + fromdate + "&toDate=" + todate ;
     dataTable.ajax.url(url).load();
 }
 function loadDataTable(url) {
@@ -83,7 +102,7 @@ function loadDataTable(url) {
                 "data": "voucherDate",
                 "render": function (data) {
                     return (moment(data).format("DD-MM-YYYY"));
-                }, "width": "9%" 
+                }, "width": "12%" 
             },
             { "data": "ledgerName"},
             { "data": "narration"},
@@ -139,7 +158,7 @@ function loadDataTable(url) {
                 "data": null,
                 "render": function (data) {
                     if (data.auditApprove == '2') {
-                        if (isAdmin == 'True') {
+                        /*if (isAdmin == 'True') {*/
                             return `
                             <div class="text-center">
                                 <a class="btn btn-sm btn-primary text-white tbEdit">
@@ -147,12 +166,12 @@ function loadDataTable(url) {
                                 </a>
                             </div>
                             `;
-                        } else {
-                            return `<div class="text-center"></div>`;
-                        }
+                        //} else {
+                        //    return `<div class="text-center"></div>`;
+                        //}
 
                     } else {
-                        if (isEdit == 'True') {
+                       /* if (isEdit == 'True') {*/
                             return `
                             <div class="text-center">
                                 <a class="btn btn-sm btn-primary text-white tbEdit">
@@ -160,9 +179,9 @@ function loadDataTable(url) {
                                 </a>
                             </div>
                             `;
-                        } else {
-                            return `<div class="text-center"></div>`;
-                        }
+                        //} else {
+                        //    return `<div class="text-center"></div>`;
+                        //}
                     }
 
                 }, "width": "5%"

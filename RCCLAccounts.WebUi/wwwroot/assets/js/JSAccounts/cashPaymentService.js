@@ -18,9 +18,14 @@ $(document).ready(function () {
     $("#btnSaveNew").click(function () {
         saveWork(true, false);
     });
-    $("#btnCancel").click(function () {
+    //$("#btnCancel").click(function () {
+    //    $('#tbCashPayment').DataTable().ajax.reload();
+    //});
+    $(document).on('click', '#btnCancel', function () {
         $('#tbCashPayment').DataTable().ajax.reload();
+        $('#cashPayment').modal('hide');
     });
+
     $('#cashPayment').on('hidden.bs.modal', function () {
         $('#tbCashPayment').DataTable().ajax.reload();
     })
@@ -133,7 +138,15 @@ function findWork(url) {
                 if (parseFloat(d[i].drAmt) == 0) {
                     $("#upload").val(d[i].attachment);
                     $("#paidTo").val(d[i].transactionWith);
-                    $("#date").val(d[i].voucherDate);
+                   // $("#date").val(d[i].voucherDate);
+
+                    console.log("Voucher Date: ", d[i].voucherDate);
+
+                    // Format the date if necessary, depending on the format you need
+                    var formattedDate = new Date(d[i].voucherDate).toISOString().split('T')[0];  // Adjust format as needed
+                    $("#date").val(formattedDate);
+
+
                     $("#voucherNo").val(d[i].voucherNo);
                     $("#transactionId").val(d[i].transactionId);
                     $("#autoId").val(d[i].id);
@@ -506,7 +519,7 @@ async function submit(isNew, isEdit) {
         }
         if (lId != "0" && lId != "") {
             data.objList.push({
-                "Id":id,"TransactionId":transactionId,"LedgerId": ledger, "LedgerName": ledgerName, "DrAmount": amtId,
+                "AutoId":id,"TransactionId":transactionId,"LedgerId": ledger, "LedgerName": ledgerName, "DrAmount": amtId,
                 "TransactionWith": paidTo, "VoucherDate": date + " " + time, "VoucherNo": voucherNo, "Narration": narration,
                 "AttachBill": uploadFile
             });
@@ -517,7 +530,7 @@ async function submit(isNew, isEdit) {
     formData.append("cashHeadId", data.cashHeadId);
     formData.append("cashHead", data.cashHead);
     for (var i = 0; i < data.objList.length; i++) {
-        formData.append("objList[" + i + "].id", data.objList[i].Id);
+        formData.append("objList[" + i + "].autoId", data.objList[i].AutoId);
         formData.append("objList[" + i + "].transactionId", data.objList[i].TransactionId);
         formData.append("objList[" + i + "].ledgerId", data.objList[i].LedgerId);
         formData.append("objList[" + i + "].ledgerName", data.objList[i].LedgerName);

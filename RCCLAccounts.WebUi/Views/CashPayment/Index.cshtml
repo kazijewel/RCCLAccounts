@@ -1,33 +1,54 @@
 ﻿
 <section class="panel">
-    <header class="panel-heading">
+  @*  <header class="panel-heading">
         <div class="panel-actions">
             <a href="#" class="fa fa-caret-down"></a>
         </div>
         <h2 class="panel-title">Cash Payment Voucher</h2>
-    </header>
+    </header>*@
+
+    <div class="breadcrumb-header justify-content-between">
+        <div class="left-content">
+            <span class="main-content-title mg-b-0 mg-b-lg-1">Cash Payment Voucher</span>
+        </div>
+        <div class="justify-content-center mt-2">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item tx-15"><a asp-action="Inex" asp-controller="Home">Dashboard</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Cash Payment Voucher</li>
+            </ol>
+        </div>
+    </div>
+
+    <div>
+        @*  <button type="button" asp-action="Create" class="btn btn-info"><a asp-action="Create">Create New</a></button>*@
+        <a class="btn btn-primary" id="btnAdd">Create New <i class="fa fa-plus"></i></a>
+        <br /><br />
+    </div>
 
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-7">
                 
                     <div class="mb-md">
-                        <a class="btn btn-primary" id="btnAdd">Add <i class="fa fa-plus"></i></a>
+                        @*<a class="btn btn-primary" id="btnAdd">Create New <i class="fa fa-plus"></i></a>*@
                     </div>
                 
 
             </div>
             <div class="col-sm-5" style="display:flex;">
-                <div class="input-daterange input-group" style="width:300px;margin-left: 60px;">
-                    <span class="input-group-addon">
+                @*<div class="input-daterange input-group" style="width:300px;margin-left: 60px;">*@
+                   @* <span class="input-group-addon">
                         <i class="fa fa-calendar"></i>
-                    </span>
+                    </span>*@
                     <input type="date" style="padding: 6px 5px;" class="form-control" name="start" id="fromDate">
-                    <span class="input-group-addon">To</span>
+                    @*<span class="input-group-addon">To</span>*@
+                <label class="form-label mg-b-0"> To </label>
                     <input type="date" style="padding: 6px 5px;" class="form-control" name="end" id="toDate">
-                </div>
+               @* </div>*@
                 <a href="#" onclick="reloadData();" class="fa fa-refresh" style="color: #0088cc;margin-left:10px;margin-top:5px;" data-toggle="tooltip" data-placement="top" title="" data-original-title="Reload"></a>
             </div>
+
+
         </div>
        
    
@@ -56,7 +77,7 @@
 
 @section Scripts{
 
-   <link href="~/assets/css/theme.css" rel="stylesheet" />
+    <link href="~/assets/css/media-gallery.css" rel="stylesheet" />
     <script src="~/assets/plugins/magnific-popup/magnific-popup.js"></script>
     <script asp-append-version="true" src="~/assets/js/modal.js"></script>
     <partial name="_AttachmentView" />

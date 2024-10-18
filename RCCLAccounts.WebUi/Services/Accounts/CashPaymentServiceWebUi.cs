@@ -78,7 +78,7 @@ namespace RCCLAccounts.WebUi.Services
 
             if (obj!=null)
             {
-                ledgerId = obj.AutoId.ToString();
+                ledgerId = obj.LedgerId.ToString();
             }
             return ledgerId;
         }
@@ -94,8 +94,9 @@ namespace RCCLAccounts.WebUi.Services
             try
             {
                 con.Open();
-                string sql = "select a.AutoId Id,a.TransactionId,a.VoucherNo,convert(varchar,a.VoucherDate,105)VoucherDate,a.LedgerId,a.LedgerName," +
-                    " a.TransactionWith,a.Narration,ISNULL(CONVERT(float,a.DrAmount),0)DrAmount,b.AutoId lId,b.LedgerCode,a.AttachBill from Vouchers a " +
+                //convert(varchar,a.VoucherDate,105)
+                string sql = "select a.AutoId Id,a.TransactionId,a.VoucherNo,a.VoucherDate,a.LedgerId,a.LedgerName," +
+                    " a.TransactionWith,a.Narration,ISNULL(CONVERT(float,a.DrAmount),0)DrAmount,b.LedgerId lId,b.LedgerCode,a.AttachBill from Vouchers a " +
                     " inner join Ledgers b on a.LedgerId=b.LedgerId " +
                     " where a.TransactionId like @transactionId and " +
                     "a.CompanyId like @companyId  and " +       //and a.BranchId like @branchId
