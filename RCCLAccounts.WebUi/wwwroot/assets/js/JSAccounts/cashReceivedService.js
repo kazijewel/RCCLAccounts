@@ -2,61 +2,67 @@
 
 var x = 0;
 $(document).ready(function () {
-    
     $("#btnAdd").click(function () {
+        
         init();
         buttonSet(false);
-        $("#cashPayment").modal('show');
+        $("#cashReceived").modal('show');
        
     });
     $("#btnSave").click(function () {
-        saveWork(false, false);
+        if (checkValidation()) {
+            saveWork(false, false);
+        }
     });
     $("#btnEdit").click(function () {
-        saveWork(false, true);
+        if (checkValidation()) {
+            saveWork(false, true);
+        }
     });
     $("#btnSaveNew").click(function () {
-        saveWork(true, false);
+        if (checkValidation()) {
+            saveWork(true, false);
+        }
     });
-    //$("#btnCancel").click(function () {
-    //    $('#tbCashPayment').DataTable().ajax.reload();
-    //});
     $(document).on('click', '#btnCancel', function () {
-        $('#tbCashPayment').DataTable().ajax.reload();
-        $('#cashPayment').modal('hide');
+        $('#tbCashReceived').DataTable().ajax.reload();
+        $('#cashReceived').modal('hide');
     });
 
-    $('#cashPayment').on('hidden.bs.modal', function () {
-        $('#tbCashPayment').DataTable().ajax.reload();
+    $('#cashReceived').on('hidden.bs.modal', function () {
+        $('#tbCashReceived').DataTable().ajax.reload();
     })
-    $('#tbCashPayment').on('click', '.tbEdit', function () {
+
+    $('#tbCashReceived').on('click', '.tbEdit', function () {
         clear();
         buttonSet(true);
         var $this = $(this),
             tr = $(this).closest('tr').get(0);
-        var data = $("#tbCashPayment").dataTable().fnGetData(tr);
+        var data = $("#tbCashReceived").dataTable().fnGetData(tr);
 
-        var url = "/CashPayment/findData?id=" + data.transactionId;
+        var url = "/CashReceived/findData?id=" + data.transactionId;
         x = 0;
         tableClear(1);
         if (isData(url)) {
             findWork(url);
-            $("#cashPayment").modal('show');
+            $("#cashReceived").modal('show');
             attachmentLoad();
         }
         else {
             errorNotify("Data not found");
         }
     });
+
     $("#cash").change(function () {
         var cashId = $("#cash").val();
         //budgetBalanceSet(cashId, "#budget", "#balance");
-        
+
     });
+
     $("#btnAddRow").click(function () {
         x = x + 1;
         addRow(x);
-        ledger("#ledgerId"+x);
+        ledger("#ledgerId" + x);
     });
     $("#btnPreview").click(function () {
         var voucherNo = localStorage.getItem("voucher");
@@ -69,8 +75,11 @@ $(document).ready(function () {
     $("#btnClear").click(function () {
         clear();
     });
-   
-    
+
+
+
+
+
 });
 
 
@@ -91,6 +100,8 @@ function reportPreview(voucherNo) {
         warningNotify("Unable to preview");
     }
 }
+
+
 function buttonSet(isEdit) {
     if (isEdit) {
         document.getElementById('add').style.display = "none";
@@ -101,6 +112,7 @@ function buttonSet(isEdit) {
         document.getElementById('edit').style.display = "none";
     }
 }
+
 function isData(url) {
     var ret = false;
     $.ajax({
@@ -113,20 +125,24 @@ function isData(url) {
     });
     return ret;
 }
+
 function init() {
     clear();
 }
+
 function tableClear(start) {
-    var table = document.getElementById('gridCashPayment');
+    var table = document.getElementById('gridCashReceived');
     var rowCount = table.rows.length;
     for (var i = start; i < rowCount; i++) {
         table.deleteRow(start);
     }
-    $("#gridCashPayment tr td select").val("0").trigger('change');
-    $(".debitAmount").val("0");
+    $("#gridCashReceived tr td select").val("0").trigger('change');
+    $(".creditAmount").val("0");
     $(".budget").text("");
     $(".balance").text("");
+
 }
+
 function findWork(url) {
     $.ajax({
         url: url,
@@ -137,8 +153,8 @@ function findWork(url) {
             for (var i = 0; i < d.length; i++) {
                 if (parseFloat(d[i].drAmt) == 0) {
                     $("#upload").val(d[i].attachment);
-                    $("#paidTo").val(d[i].transactionWith);
-                   // $("#date").val(d[i].voucherDate);
+                    $("#receivedFrom").val(d[i].transactionWith);
+                    // $("#date").val(d[i].voucherDate);
 
                     console.log("Voucher Date: ", d[i].voucherDate);
 
@@ -151,7 +167,7 @@ function findWork(url) {
                     $("#transactionId").val(d[i].transactionId);
                     $("#autoId").val(d[i].id);
                     $("#description").val(d[i].narration);
-                   // budgetBalanceSet(d[i].ledgerUniqueId,"#budget","#balance");
+                    // budgetBalanceSet(d[i].ledgerUniqueId,"#budget","#balance");
                     ledgerListCash("#cash", d[i].ledgerUniqueId);
                 }
                 else {
@@ -160,7 +176,7 @@ function findWork(url) {
                     addRow(x);
                     ledger("#ledgerId" + x, d[i].ledgerUniqueId);
                     //budgetBalanceSet(d[i].ledgerUniqueId, "#lbBudget" + x, "#lbBalance" + x);
-                    $("#debitAmount" + x).val(amountShowWithComma(d[i].drAmt));
+                    $("#creditAmount" + x).val(amountShowWithComma(d[i].drAmt));
                 }
             }
         }
@@ -169,9 +185,10 @@ function findWork(url) {
 
 function saveWork(isNew, isEdit) {
     if (checkValidation()) {
-        submit(isNew,isEdit);
+        submit(isNew, isEdit);
     }
 }
+
 function clear() {
     clearAttachment();
     //document.getElementById("SenctionDate").valueAsDate = new Date();
@@ -179,8 +196,8 @@ function clear() {
     var today = new Date();
     var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
 
-    $("#date").val(formattedDate);  
-    $("#paidTo").val("");
+    $("#date").val(formattedDate);
+    $("#receivedFrom").val("");
     //$("#date").val(today);
     //$("#cash").select2('data', { id: "0", text:"Choose a Ledger" });
     $("#cash").val("0");
@@ -200,7 +217,7 @@ function clear() {
 }
 function newclear() {
     clearAttachment();
-    $("#paidTo").val("");
+    $("#receivedFrom").val("");
     $("#voucherNo").val("");
     $("#description").val("");
     //$("#budget").val("");
@@ -215,15 +232,16 @@ function newclear() {
     autocompleteText();
 }
 
+
 function checkValidation() {
     var date = $("#date").val();
     var cashInfo = $("#cash").val();
     var voucherNo = $("#voucherNo").val();
     var totalAmount = 0;
-    var paidTo = $("#paidTo").val();
-    var tableHead = "#gridCashPayment tr td ";
+    var receivedFrom = $("#receivedFrom").val();
+    var tableHead = "#gridCashReceived tr td ";
     var tbElements = document.querySelectorAll(tableHead + "select");
-    var tbAmount = document.querySelectorAll(tableHead + ".debitAmount");
+    var tbAmount = document.querySelectorAll(tableHead + ".creditAmount");
     var count = 0;
     console.log(tbElements);
     for (var i = 0; i < tbElements.length; i++) {
@@ -242,14 +260,14 @@ function checkValidation() {
     //console.log(parseFloat(totalAmount));
     //console.log(parseFloat(balance));
     console.log(cashInfo);
-   
-    if (paidTo != "") { 
+
+    if (receivedFrom != "") {
         if (date != "") {
             if (cashInfo != "") {
                 if (count > 0) {
                     if ($("#description").val() != "") {
                         //if (document.getElementById("attachmentUP").files.length != 0 || $("#upload").val() != "") {
-                            return true;
+                        return true;
                         /*}
                         else {
                             warningNotify("Attachment not found!");
@@ -276,21 +294,22 @@ function checkValidation() {
         }
     }
     else {
-        warningNotify("Please entire Paid to!");
+        warningNotify("Please entire receive from!");
         return false;
     }
 
 }
-function budgetBalanceSet(id,budgetId,balanceId) {
-    var url = "/CashPayment/LedgerBudgetBalance";
+
+function budgetBalanceSet(id, budgetId, balanceId) {
+    var url = "/CashReceived/LedgerBudgetBalance";
     var date = getBdToDbFormat($("#date").val());
     if (date == undefined) {
-       // date = getCDay() + '-' + getCMonth() + '-' + getCYear();
+        // date = getCDay() + '-' + getCMonth() + '-' + getCYear();
         date = new Date();
     }
     $.ajax({
         url: url,
-        data: {id:id,date:date},
+        data: { id: id, date: date },
         async: false,
         success: function (res) {
             console.log(JSON.stringify(res));
@@ -306,19 +325,20 @@ function budgetBalanceSet(id,budgetId,balanceId) {
     });
 }
 
+
 function addRow(x) {
     var tableArray = new Array();
-    tableArray = ['Ledger Code Name', 'Budget', 'Balance', 'Debit Amount',''];
-    var gridCashPayment = document.getElementById('gridCashPayment');
-    gridCashPayment.style.backgroundColor = "green";
-    var rowCount = gridCashPayment.rows.length;    
-    var tr = gridCashPayment.insertRow(rowCount); 
-    tr = gridCashPayment.insertRow(rowCount);
-    
-    
+    tableArray = ['Ledger Code Name', 'Budget', 'Balance', 'Debit Amount', ''];
+    var gridCashReceived = document.getElementById('gridCashReceived');
+    gridCashReceived.style.backgroundColor = "green";
+    var rowCount = gridCashReceived.rows.length;
+    var tr = gridCashReceived.insertRow(rowCount);
+    tr = gridCashReceived.insertRow(rowCount);
+
+
     for (var c = 0; c < tableArray.length; c++) {
         var td = document.createElement('td');
-        
+
         td = tr.insertCell(0);
         if (parseInt(x) % 2 == 0) {
             td.setAttribute('style', 'background-color:#fff;color:#000');
@@ -329,7 +349,7 @@ function addRow(x) {
         if (c == 4) {
 
             var select = document.createElement('select');
-            
+
             select.setAttribute('class', 'form-control input-sm');
             select.setAttribute('id', 'ledgerId' + x);
             select.setAttribute('onchange', 'ledgerAction(' + x + ')');
@@ -351,10 +371,10 @@ function addRow(x) {
         if (c == 1) {
 
             var ele = document.createElement('input');
-            ele.setAttribute('class', 'form-control input-sm amount debitAmount');
+            ele.setAttribute('class', 'form-control input-sm amount creditAmount');
             ele.setAttribute('type', 'text');
-            ele.setAttribute('id', 'debitAmount'+x);
-            ele.setAttribute('onkeyup', 'amountWithComma("#debitAmount"+' + x +')');
+            ele.setAttribute('id', 'creditAmount' + x);
+            ele.setAttribute('onkeyup', 'amountWithComma("#creditAmount"+' + x + ')');
             ele.setAttribute('onchange', '$("#description").focus()');
             td.appendChild(ele);
         }
@@ -370,14 +390,15 @@ function addRow(x) {
         $("#ledgerId" + x).focus();
     }
 }
+
 function ledgerAction(a) {
     var ledger = $("#ledgerId" + a).val();
-    $("#debitAmount" + a).focus();
+    $("#creditAmount" + a).focus();
     //budgetBalanceSet(ledger, "#lbBudget"+a, "#lbBalance"+a);
 
     var counts = 0;
-    var elements = document.querySelectorAll("#gridCashPayment tr td select");
-    for (var i = 0; i < elements.length;i++) {
+    var elements = document.querySelectorAll("#gridCashReceived tr td select");
+    for (var i = 0; i < elements.length; i++) {
         var lId = $("#" + elements[i].id).val();
         if (lId == ledger) {
             counts++;
@@ -386,43 +407,45 @@ function ledgerAction(a) {
     if (counts === 2) {
         warningNotify("Already selected!");
         $("#ledgerId" + a).val("0").trigger('change');
-        $("#debitAmount" + a).val("");
+        $("#creditAmount" + a).val("");
         $("#lbBudget" + a).text("");
         $("#lbBalance" + a).text("");
         $("#ledgerId" + a).focus();
     }
-    
+
 }
-function addRowByAmount(debitAmount, ledgerId) {
-    var elements = document.querySelectorAll("#gridCashPayment tr td select");
+
+function addRowByAmount(creditAmount, ledgerId) {
+    var elements = document.querySelectorAll("#gridCashReceived tr td select");
     var count = 0;
     for (var i = 0; i < elements.length; i++) {
         var getLedId = "#" + elements[i].getAttribute('id');
         if (getLedId == ledgerId) {
-            count = i+1;
+            count = i + 1;
             break;
         }
     }
-    if (elements.length==count) {
+    if (elements.length == count) {
         if ($(ledgerId).val() != "0" && $(ledgerId).val() != "") {
-            if (parseFloat($(debitAmount).val()) > 0) {
+            if (parseFloat($(creditAmount).val()) > 0) {
                 x = x + 1;
                 addRow(x);
                 ledger("#ledgerId" + x);
             }
         }
         else {
-            $(debitAmount).val("");
-            $(debitAmount).focus();
+            $(creditAmount).val("");
+            $(creditAmount).focus();
         }
     }
 }
+
 function removeRow(oButton) {
-    var tableId = "gridCashPayment";
+    var tableId = "gridCashReceived";
     var empTab = document.getElementById(tableId);
     var elements = document.querySelectorAll("#" + tableId + " tr td select");
     if (elements.length > 1) {
-        empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); 
+        empTab.deleteRow(oButton.parentNode.parentNode.rowIndex);
     }
 }
 
@@ -457,16 +480,15 @@ function fail(error) {
     console.log(error.code);
 }
 
-
 async function submit(isNew, isEdit) {
     localStorage.clear();
     var time = new Date();
     time = (moment(time).format('HH:mm:ss'))
-  //  var date = getBdToDbFormat($("#date").val());
+    //  var date = getBdToDbFormat($("#date").val());
     var date = $("#date").val();
     var id = 0;
-    var transactionId="";
-    var voucherNo="";
+    var transactionId = "";
+    var voucherNo = "";
     if (isEdit) {
         id = $("#autoId").val();
         transactionId = $("#transactionId").val();
@@ -476,21 +498,21 @@ async function submit(isNew, isEdit) {
         voucherNo = getVoucherNo(date);
     }
 
-    var paidTo = $("#paidTo").val();
+    var receivedFrom = $("#receivedFrom").val();
     var cashId = getLedgerId($("#cash").val());
     var cashInfo = $("#cash option:selected").text();
     //var cashNameInfo = cashInfo.substring(cashInfo.indexOf('-') + 1);
 
     var narration = $("#description").val();
 
-    var tableHead = "#gridCashPayment tr td ";
-    var elements = document.querySelectorAll(tableHead +" select");
-    var amt = document.querySelectorAll(tableHead + " .debitAmount");
-
+    var tableHead = "#gridCashReceived tr td ";
+    var elements = document.querySelectorAll(tableHead + " select");
+    var amt = document.querySelectorAll(tableHead + " .creditAmount");
+    console.log("Credit "+amt);
     var uploadFile = $("#upload").val();
     var fileUpload = $("#attachmentUP").get(0);
     var files = fileUpload.files;
-     
+
     // Create FormData object  
     var formData = new FormData();
     // Looping over all files and add it to FormData object  
@@ -500,12 +522,12 @@ async function submit(isNew, isEdit) {
 
     var data = {
         objList: [],
-        cashHeadId:cashId,
-        cashHead: cashInfo 
+        cashHeadId: cashId,
+        cashHead: cashInfo
     }
 
-    
-  
+
+
     for (var i = 0; i < elements.length; i++) {
         var ledgerId = elements[i].getAttribute('id');
         var amountId = amt[i].getAttribute('id');
@@ -520,11 +542,11 @@ async function submit(isNew, isEdit) {
         }
         if (lId != "0" && lId != "") {
             data.objList.push({
-                "AutoId":id,"TransactionId":transactionId,"LedgerId": ledger, "LedgerName": ledgerName, "DrAmount": amtId,
-                "TransactionWith": paidTo, "VoucherDate": date + " " + time, "VoucherNo": voucherNo, "Narration": narration,
+                "AutoId": id, "TransactionId": transactionId, "LedgerId": ledger, "LedgerName": ledgerName, "CrAmount": amtId,
+                "TransactionWith": receivedFrom, "VoucherDate": date + " " + time, "VoucherNo": voucherNo, "Narration": narration,
                 "AttachBill": uploadFile
             });
-           
+
         }
     }
     // Adding one more key to FormData object  
@@ -535,16 +557,16 @@ async function submit(isNew, isEdit) {
         formData.append("objList[" + i + "].transactionId", data.objList[i].TransactionId);
         formData.append("objList[" + i + "].ledgerId", data.objList[i].LedgerId);
         formData.append("objList[" + i + "].ledgerName", data.objList[i].LedgerName);
-        formData.append("objList[" + i + "].drAmount", data.objList[i].DrAmount);
+        formData.append("objList[" + i + "].crAmount", data.objList[i].CrAmount);
         formData.append("objList[" + i + "].transactionWith", data.objList[i].TransactionWith);
         formData.append("objList[" + i + "].voucherDate", data.objList[i].VoucherDate);
         formData.append("objList[" + i + "].voucherNo", data.objList[i].VoucherNo);
         formData.append("objList[" + i + "].narration", data.objList[i].Narration);
         formData.append("objList[" + i + "].attachBill", data.objList[i].AttachBill);
     }
-    
+
     $.ajax({
-        url: "/CashPayment/cashPaymentSave",
+        url: "/CashReceived/cashReceivedSave",
         data: formData,
         type: 'POST',
         contentType: false, // Not to set any content header  
@@ -555,12 +577,12 @@ async function submit(isNew, isEdit) {
                 localStorage.setItem("voucher", voucherNo);
                 if (!isNew || isEdit) {
                     clear();
-                    $("#cashPayment").modal('hide');
+                    $("#cashReceived").modal('hide');
                 } else {
                     newclear();
                 }
-                $('#tbCashPayment').DataTable().ajax.reload();
-                $("#paidTo").focus();
+                $('#tbCashReceived').DataTable().ajax.reload();
+                $("#receivedFrom").focus();
                 /*var urls = "/Accounts/CashPayment/FileRemove";
                 $.getJSON(urls, function (data) {
                        console.log(data) 
@@ -573,9 +595,10 @@ async function submit(isNew, isEdit) {
 
 
 }
+
 function getLedgerId(ledId) {
     var ret = "";
-    var url = "/CashPayment/GetLedgerId";
+    var url = "/CashReceived/GetLedgerId";
     $.ajax({
         url: url,
         data: { id: ledId },
@@ -587,9 +610,10 @@ function getLedgerId(ledId) {
     });
     return ret;
 }
+
 function getLedgerUniqueId() {
     var ret = "";
-    var url = "/CashPayment/UniqueLedgerId";
+    var url = "/CashReceived/UniqueLedgerId";
     $.ajax({
         url: url,
         async: false,
@@ -600,9 +624,10 @@ function getLedgerUniqueId() {
     });
     return ret;
 }
+
 function getTransactionId(date) {
     var ret = "";
-    var url = "/CashPayment/TransactionId";
+    var url = "/CashReceived/TransactionId";
     $.ajax({
         url: url,
         data: { date: date },
@@ -614,12 +639,13 @@ function getTransactionId(date) {
     });
     return ret;
 }
+
 function getVoucherNo(date) {
     var ret = "";
-    var url = "/CashPayment/VoucherNo";
+    var url = "/CashReceived/VoucherNo";
     $.ajax({
         url: url,
-        data: {date:date},
+        data: { date: date },
         async: false,
         success: function (res) {
             ret = res.data;
@@ -628,24 +654,9 @@ function getVoucherNo(date) {
     });
     return ret;
 }
-function ledger(ledgerId,setValue) {
-    var url = "/CashPayment/LedgerInfo";
-    $.getJSON(url, function (data) {
-        var item = "";
-        $(ledgerId).empty();
-        item += '<option value="' + 0 + '">Choose a ledger</option>'
-        $(ledgerId).html(item);
-        $.each(data, function (i, opt) {
-            item += '<option value="' + opt.value + '">' + opt.text + '</option>'
-        });
-        $(ledgerId).html(item);
-        if (setValue != undefined) {
-            $(ledgerId).val(setValue).trigger('change');
-        }
-    });
-}
-function ledgerListCash(ledgerId, setValue) {
-    var url = "/CashPayment/LedgerInfoCash";
+
+function ledger(ledgerId, setValue) {
+    var url = "/CashReceived/LedgerInfo";
     $.getJSON(url, function (data) {
         var item = "";
         $(ledgerId).empty();
@@ -661,10 +672,26 @@ function ledgerListCash(ledgerId, setValue) {
     });
 }
 
+function ledgerListCash(ledgerId, setValue) {
+    var url = "/CashReceived/LedgerInfoCash";
+    $.getJSON(url, function (data) {
+        var item = "";
+        $(ledgerId).empty();
+        item += '<option value="' + 0 + '">Choose a ledger</option>'
+        $(ledgerId).html(item);
+        $.each(data, function (i, opt) {
+            item += '<option value="' + opt.value + '">' + opt.text + '</option>'
+        });
+        $(ledgerId).html(item);
+        if (setValue != undefined) {
+            $(ledgerId).val(setValue).trigger('change');
+        }
+    });
+}
 
 function autocompleteText() {
     var ret = [];
-    var url = "/CashPayment/Narrations";
+    var url = "/CashReceived/Narrations";
     try {
         $.getJSON(url, function (data) {
             //console.log(data.data)

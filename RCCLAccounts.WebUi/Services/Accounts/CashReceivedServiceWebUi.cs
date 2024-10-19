@@ -14,13 +14,13 @@ using System.Threading.Tasks;
 
 namespace RCCLAccounts.WebUi.Services
 {
-    public class CashPaymentServiceWebUi
+    public class CashReceivedServiceWebUi
     {
         private IHttpContextAccessor _accessor;
         private AppDbContext _db;
         private commonService commonService;
         string sqlCon;
-        public CashPaymentServiceWebUi( IHttpContextAccessor accessor, AppDbContext db)
+        public CashReceivedServiceWebUi( IHttpContextAccessor accessor, AppDbContext db)
         {
 
             _accessor = accessor;
@@ -96,11 +96,11 @@ namespace RCCLAccounts.WebUi.Services
                 con.Open();
                 //convert(varchar,a.VoucherDate,105)
                 string sql = "select a.AutoId Id,a.TransactionId,a.VoucherNo,a.VoucherDate,a.LedgerId,a.LedgerName," +
-                    " a.TransactionWith,a.Narration,ISNULL(CONVERT(float,a.DrAmount),0)DrAmount,b.LedgerId lId,b.LedgerCode,a.AttachBill from Vouchers a " +
+                    " a.TransactionWith,a.Narration,ISNULL(CONVERT(float,a.CrAmount),0)DrAmount,b.LedgerId lId,b.LedgerCode,a.AttachBill from Vouchers a " +
                     " inner join Ledgers b on a.LedgerId=b.LedgerId " +
                     " where a.TransactionId like @transactionId and " +
                     "a.CompanyId like @companyId  and " +       //and a.BranchId like @branchId
-                    "a.EntryFrom like '%Cash Payment Voucher%' order by a.DrAmount asc";
+                    "a.EntryFrom like '%Cash Received Voucher%' order by a.CrAmount asc";
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.AddWithValue("@transactionId", transactionId);
                 cmd.Parameters.AddWithValue("@companyId", companyId);
@@ -142,12 +142,12 @@ namespace RCCLAccounts.WebUi.Services
             {
                 con.Open();
                 string sql = "select a.AutoId Id,a.VoucherNo,a.VoucherDate,b.LedgerName,a.TransactionWith+' - '+a.Narration Narration, " +
-                " CONVERT(float, a.DrAmount)CrAmount,a.VoucherType,a.TransactionId,a.AttachBill,a.UserName,a.AuditApprove,u.FullName ApproveBy,a.ApproveTime " +
+                " CONVERT(float, a.CrAmount)CrAmount,a.VoucherType,a.TransactionId,a.AttachBill,a.UserName,a.AuditApprove,u.FullName ApproveBy,a.ApproveTime " +
                 "  from Vouchers a inner join Ledgers b on a.LedgerId = b.LedgerId " +
                 "left join AspNetUsers u on a.ApproveBy = u.FullName " +
                 " where " +
-                "a.VoucherType like 'dca' and a.DrAmount != 0 and convert(date, a.VoucherDate)  between convert(varchar, '" + fromDate+ "',105) and convert(varchar, '" + toDate+ "',105)  " +
-                " and a.EntryFrom like '%Cash Payment Voucher%' order by a.VoucherDate desc";
+                "a.VoucherType like 'cca' and a.CrAmount != 0 and convert(date, a.VoucherDate)  between convert(varchar, '" + fromDate+ "',105) and convert(varchar, '" + toDate+ "',105)  " +
+                " and a.EntryFrom like '%Cash Received Voucher%' order by a.VoucherDate desc";
                 Console.WriteLine(sql);
                 SqlCommand cmd = new SqlCommand(sql,con);
                 SqlDataReader sqlData = cmd.ExecuteReader();
@@ -198,7 +198,7 @@ namespace RCCLAccounts.WebUi.Services
             {
                 con.Open();
                 string sql = "SELECT ISNULL((MAX(CAST(SUBSTRING(VoucherNo,7,50) AS INT))+1),1) voucher  FROM Vouchers " +
-                    " WHERE FiscalYearId = @fsl and Vouchertype = 'dca' ";
+                    " WHERE FiscalYearId = @fsl and Vouchertype in ('cca','cci') ";
                 SqlCommand cmd = new SqlCommand(sql,con);
                 cmd.Parameters.AddWithValue("@companyId",companyId);
                 //cmd.Parameters.AddWithValue("@branchId", branchId);
@@ -208,7 +208,7 @@ namespace RCCLAccounts.WebUi.Services
                 {
                     if(sqlData.HasRows)
                     {
-                        ret = "DR-CH-" + sqlData["voucher"];
+                        ret = "CR-CH-" + sqlData["voucher"];
                     }
                 }
             }
@@ -231,13 +231,13 @@ namespace RCCLAccounts.WebUi.Services
             try
             {
                 con.Open();
-                transaction = con.BeginTransaction("CashPayment");
+                transaction = con.BeginTransaction("CashReceived");
 
                 string transId = objList[0].TransactionId.ToString();
                 string fiscalYear = commonService.getFiscalYear(objList[0].VoucherDate.ToString("yyyy/MM/dd"), companyId);
                 string transType = "Cash";
                 string voucherNo = "";
-                decimal debit = 0;
+                decimal credit = 0;
                
                 string AuditApprove = "1";
                 string AuditBy = "";
@@ -326,7 +326,7 @@ namespace RCCLAccounts.WebUi.Services
                     " @AuditTime,@ApproveBy,@ApproveIp,@ApproveTime,@AttachBill,@AttachReference,@ProductId,@ProductName,@CompanyId," +
                     " @EntryFrom,@UserName,@UserIp,@EntryTime,@CostCenterId,@CostCenterName,@ReferenceNo,@ReferenceDetails)";
 
-                    debit += item.DrAmount;
+                    credit += item.CrAmount;
                     
                     cmd = new SqlCommand(sql, con,transaction);
                     cmd.Parameters.AddWithValue("@TransactionId", item.TransactionId);
@@ -335,14 +335,14 @@ namespace RCCLAccounts.WebUi.Services
                     cmd.Parameters.AddWithValue("@FiscalYearId", fiscalYear);
                     cmd.Parameters.AddWithValue("@VoucherNo", item.VoucherNo);
                     cmd.Parameters.AddWithValue("@VoucherDate", item.VoucherDate);
-                    cmd.Parameters.AddWithValue("@VoucherType", "dca");
+                    cmd.Parameters.AddWithValue("@VoucherType", "cca");
                     cmd.Parameters.AddWithValue("@LedgerId", item.LedgerId);
                     cmd.Parameters.AddWithValue("@LedgerCode", item.LedgerCode);
                     
                     cmd.Parameters.AddWithValue("@LedgerName", item.LedgerName);
                     cmd.Parameters.AddWithValue("@BalanceAmount", 0);
-                    cmd.Parameters.AddWithValue("@DrAmount", item.DrAmount);
-                    cmd.Parameters.AddWithValue("@CrAmount", 0);
+                    cmd.Parameters.AddWithValue("@DrAmount", 0);
+                    cmd.Parameters.AddWithValue("@CrAmount", item.CrAmount);
                     cmd.Parameters.AddWithValue("@Narration", (item.Narration==null?"":item.Narration));
                     cmd.Parameters.AddWithValue("@TransactionWith", item.TransactionWith==null?"":item.TransactionWith);
                     cmd.Parameters.AddWithValue("@ChequeNo", "");
@@ -362,7 +362,7 @@ namespace RCCLAccounts.WebUi.Services
                     cmd.Parameters.AddWithValue("@AttachReference", "");
                     cmd.Parameters.AddWithValue("@ProductId", "");
                     cmd.Parameters.AddWithValue("@ProductName", "");
-                    cmd.Parameters.AddWithValue("@EntryFrom", "Cash Payment Voucher");
+                    cmd.Parameters.AddWithValue("@EntryFrom", "Cash Received Voucher");
 
                     cmd.Parameters.AddWithValue("@UserName", userName);
                     cmd.Parameters.AddWithValue("@UserIp", userIp);
@@ -384,13 +384,13 @@ namespace RCCLAccounts.WebUi.Services
                 cmd1.Parameters.AddWithValue("@FiscalYearId", fiscalYear);
                 cmd1.Parameters.AddWithValue("@VoucherNo", objList[0].VoucherNo);
                 cmd1.Parameters.AddWithValue("@VoucherDate", objList[0].VoucherDate);
-                cmd1.Parameters.AddWithValue("@VoucherType", "dca");
+                cmd1.Parameters.AddWithValue("@VoucherType", "cca");
                 cmd1.Parameters.AddWithValue("@LedgerId", bankHeadId);
                 cmd1.Parameters.AddWithValue("@LedgerCode", bankCode); //LedgerCode
                 cmd1.Parameters.AddWithValue("@LedgerName", bankHead);
                 cmd1.Parameters.AddWithValue("@BalanceAmount", 0);
-                cmd1.Parameters.AddWithValue("@DrAmount", 0);
-                cmd1.Parameters.AddWithValue("@CrAmount", debit);
+                cmd1.Parameters.AddWithValue("@DrAmount", credit);
+                cmd1.Parameters.AddWithValue("@CrAmount", 0);
                 cmd1.Parameters.AddWithValue("@Narration", (objList[0].Narration==null?"":objList[0].Narration));
                 cmd1.Parameters.AddWithValue("@TransactionWith", objList[0].TransactionWith == null ? "" : objList[0].TransactionWith);
                 cmd1.Parameters.AddWithValue("@ChequeNo", "");
@@ -410,7 +410,7 @@ namespace RCCLAccounts.WebUi.Services
                 cmd1.Parameters.AddWithValue("@AttachReference", "");
                 cmd1.Parameters.AddWithValue("@ProductId", "");
                 cmd1.Parameters.AddWithValue("@ProductName", "");
-                cmd1.Parameters.AddWithValue("@EntryFrom", "Cash Payment Voucher");
+                cmd1.Parameters.AddWithValue("@EntryFrom", "Cash Received Voucher");
 
                 cmd1.Parameters.AddWithValue("@UserName", userName);
                 cmd1.Parameters.AddWithValue("@UserIp", userIp);
