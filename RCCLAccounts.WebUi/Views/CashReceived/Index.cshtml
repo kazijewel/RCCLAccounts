@@ -12,7 +12,7 @@
         </div>
     </div>
 
-       <div>
+     <div>
         @*  <button type="button" asp-action="Create" class="btn btn-info"><a asp-action="Create">Create New</a></button>*@
         <a class="btn btn-primary" id="btnAdd">Create New <i class="fa fa-plus"></i></a>
         <br /><br />
@@ -64,13 +64,14 @@
 
 
 @section Scripts{
-      <link href="~/assets/css/media-gallery.css" rel="stylesheet" />
+    
+    <link href="~/assets/css/media-gallery.css" rel="stylesheet" />
     <script src="~/assets/plugins/magnific-popup/magnific-popup.js"></script>
     <script asp-append-version="true" src="~/assets/js/modal.js"></script>
     <partial name="_AttachmentView" />
 
     <partial asp-append-version="true"  name="_CashReceived" />
-            <script asp-append-version="true" src="~/assets/js/jsaccounts/CashReceivedList.js"></script>
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/CashReceivedList.js"></script>
     <script asp-append-version="true" src="~/assets/js/jsaccounts/cashReceivedService.js"></script>
     <script asp-append-version="true" src="~/assets/js/jsaccounts/service.js"></script>
     <script asp-append-version="true" type="text/javascript">

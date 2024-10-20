@@ -1,0 +1,153 @@
+﻿<div class="modal fade" id="journalVoucher" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:80%" role="document">
+        <div class="modal-content" style="display: flow-root;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Journal Voucher</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-bordered" autocomplete="off">
+                    <input type="hidden" id="autoId" />
+                    <input type="hidden" id="transactionId" />
+                    <input type="hidden" id="billSlipUrl" />
+                    <input type="hidden" id="upload" />
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">Voucher Type:</div>
+                        <div class="col-sm-4">
+                            <label class="radio-inline radio-primary">
+                                <input type="radio" id="debit" value="Debit" name="type" checked>
+                                Debit
+                            </label>
+                            <label class="radio-inline radio-primary">
+                                <input type="radio" id="credit" value="Credit" name="type">
+                                Credit
+                            </label>
+                        </div>
+                        <label class="col-sm-2 control-label"><span style="color: #FF0000;">*</span>Date:</label>
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input type="text" id="date" class="form-control input-sm datepick" placeholder="Cheque Date" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" id="drHead">Dr. Head:</label>
+                        <div class="col-sm-4">
+                            <select data-plugin-selectTwo id="debitHead" class="form-control input-sm">
+                            </select>
+                        </div>
+                        <label class="col-sm-2 control-label">Voucher No:</label>
+                        <div class="col-sm-2">
+                            <input id="voucherNo" class="form-control input-sm" readonly />
+                        </div>
+                    </div>
+                    @* <div class="form-group">
+                            <label class="col-sm-2 control-label">Balance:</label>
+                            <div class="col-sm-2">
+                                <input id="balance" onkeypress="return amount(event)" class="form-control input-sm" readonly />
+                            </div>
+
+                        </div>*@
+
+
+                    <div>
+                        <div class="col-md-9">
+                            <div class="form-group" style="padding-right: 15px;">
+                                <div class="col" style="float:right;">
+                                    <a class="btn btn-primary" id="btnAddRow"><i class="fa fa-plus"></i></a>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped"
+                                       style="max-height: 400px;
+                                    display: inline-block;
+                                    overflow-y: auto;"
+                                       id="gridJournalVoucher">
+                                    <thead>
+                                        <tr>
+                                            <th class="no-sort" style="width:60%" id="ledgerCodeName">Ledger Code & Name</th>
+                                            <th class="no-sort" style="width:20%" id="balance"></th>
+                                            <th class="no-sort" style="width:20%" id="debitAmount">Credit Amount</th>
+                                            <th class="no-sort" style="width:5%" id="remove"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Description:</label>
+                                <div class="col-sm-8 autocomplete" style="padding: 0;">
+                                    <input type="text" class="form-control" id="description" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    (<span style="color: #FF0000;">*</span>) <span style="font-style:italic;">All asterisk are mendatory</span>
+                                </div>
+                            </div>
+                            <div class="modal-footer customFooter">
+                                <div id="add">
+                                    <partial name="_ModalButtonCreateWithPreview" />
+                                </div>
+                                <div id="edit">
+                                    <partial name="_ModalButtonEditWithPreview" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="media-gallery">
+                                <div class="row mg-files" style="padding: 0;">
+                                    <div class="isotope-item document col-sm-12 col-md-12 col-lg-12">
+                                        <div class="thumbnail" style="margin: 0;" id="dropthumbnail" ondrop="drop(event)" ondragover="allowDrop(event)" ondragleave="leaveDrop(event)">
+                                            <div class="thumb-preview">
+                                                <a href="" class="thumb-image attachmentlink" download="">
+                                                    <img src="/images/default-image.png" class="img-responsive attachmentshow" alt="Attachment" style="width: 55%;">
+                                                </a>
+                                                <div class="mg-thumb-options">
+                                                    <div class="mg-zoom"><i class="fa fa-search"></i></div>
+                                                    <div class="mg-toolbar">
+                                                        <div class="mg-group pull-right">
+                                                            <button class="dropdown-toggle mg-toggle" type="button" data-toggle="dropdown">
+                                                                <i class="fa fa-caret-up"></i>
+                                                            </button>
+                                                            <ul class="dropdown-menu mg-menu" role="menu">
+                                                                <li><a href="" class="attachmentlink" download=""><i class="fa fa-download"></i> Download</a></li>
+                                                                <li><a href="#" onclick="clearAttachment()"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="text-center" style="border: 1px dashed #ccc;margin-top:5px;">
+                                                <div class="image-upload" style="margin: 5px;">
+                                                    <label for="attachmentUP" style="background: #0088cc; color: #fff; cursor: pointer; padding: 7px; border-radius: 7px; text-align: center;width: 75px;">
+                                                        <i class="fa fa-camera fa-lg" aria-hidden="true" style="font-size: 1em !important;"></i>
+                                                        <span> Select </span>
+                                                    </label>
+                                                    <input type="file" name="task-attachment" id="attachmentUP" accept="image/*,.pdf,capture=camera" class="form-control" runat="server" />
+                                                </div>
+                                                <div class="mg-description">
+                                                    <small class="text-muted">Drop files here to start uploading</small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script asp-append-version="true" src="~/assets/javascripts/pages/examples.mediagallery.js"></script>
+<script asp-append-version="true" src="~/js/FileUpload.js"></script>
