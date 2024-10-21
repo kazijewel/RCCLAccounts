@@ -1,9 +1,25 @@
 ﻿var dataTable;
 $(document).ready(function () {
-    var today = getCDay() + '-' + getCMonth() + '-' + getCYear();
-    $("#fromDate").val(today);
-    $("#toDate").val(today);
-    var url = "/Accounts/JournalVoucher/GetJournalVoucher?fromDate=" + getBdToDbFormat(today) + "&toDate=" + getBdToDbFormat(today);
+    //var today = getCDay() + '-' + getCMonth() + '-' + getCYear();
+    //$("#fromDate").val(today);
+    //$("#toDate").val(today);
+
+    // Create a new Date object with the current date
+    const currentDate = new Date();
+
+    // Format the date as "YYYY-MM-DD" (required for the input type="date" element)
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+
+    $("#fromDate").val(formattedDate);
+    $("#toDate").val(formattedDate);
+
+    var fromdate = formattedDate;
+    var todate = formattedDate;
+
+    var url = "/JournalVoucher/GetJournalVoucher?fromDate=" + fromdate + "&toDate=" + todate;
     loadDataTable(url);
     reloadData();
     $("#fromDate").change(function () {
@@ -11,7 +27,7 @@ $(document).ready(function () {
         var todate = $("#toDate").val();
         
         if (fromdate != undefined && fromdate != "" && todate != undefined && todate != "") {
-            var url = "/Accounts/JournalVoucher/GetJournalVoucher?fromDate=" + getBdToDbFormat(fromdate) + "&toDate=" + getBdToDbFormat(todate);
+            var url = "/JournalVoucher/GetJournalVoucher?fromDate=" + fromdate + "&toDate=" + todate;
             dataTable.ajax.url(url).load();
         }
 
@@ -20,7 +36,7 @@ $(document).ready(function () {
         var fromdate = $("#fromDate").val();
         var todate = $("#toDate").val();
         if (fromdate != undefined && fromdate != "" && todate != undefined && todate != "") {
-            var url = "/Accounts/JournalVoucher/GetJournalVoucher?fromDate=" + getBdToDbFormat(fromdate) + "&toDate=" + getBdToDbFormat(todate);
+            var url = "/JournalVoucher/GetJournalVoucher?fromDate=" + fromdate + "&toDate=" + todate;
             dataTable.ajax.url(url).load();
         }
 
@@ -29,10 +45,20 @@ $(document).ready(function () {
 });
 
 function reloadData() {
-    var fromdate = getCDay() + '-' + getCMonth() + '-' + getCYear();
-    var todate = getCDay() + '-' + getCMonth() + '-' + getCYear();
+    //var fromdate = getCDay() + '-' + getCMonth() + '-' + getCYear();
+    //var todate = getCDay() + '-' + getCMonth() + '-' + getCYear();
+
+    const currentDate = new Date();
+
+    // Format the date as "YYYY-MM-DD" (required for the input type="date" element)
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`; 
+
+
     $.ajax({
-        url: "/Accounts/FiscalYearInfo/GetFiscaleYearDate",
+        url: "/FiscalYearInfo/GetFiscaleYearDate",
         async: false,
         success: function (res) {
             // console.log(res.opening);
@@ -41,9 +67,13 @@ function reloadData() {
 
         }
     });
-    $("#fromDate").val(fromdate);
-    $("#toDate").val(todate);
-    var url = "/Accounts/JournalVoucher/GetJournalVoucher?fromDate=" + getBdToDbFormat(fromdate) + "&toDate=" + getBdToDbFormat(todate);
+    $("#fromDate").val(formattedDate);
+    $("#toDate").val(formattedDate);
+
+    var fromdate = formattedDate;
+    var todate = formattedDate;
+
+    var url = "/JournalVoucher/GetJournalVoucher?fromDate=" + fromdate + "&toDate=" + todate;
     dataTable.ajax.url(url).load();
 }
 

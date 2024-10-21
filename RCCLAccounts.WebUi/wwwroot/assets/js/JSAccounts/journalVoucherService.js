@@ -29,7 +29,7 @@ $(document).ready(function () {
             tr = $(this).closest('tr').get(0);
         var data = $("#tbJournalVoucher").dataTable().fnGetData(tr);
 
-        var url = "/Accounts/journalVoucher/findData?id=" + data.transactionId + "&date=" + (moment(data.voucherDate).format('YYYY-MM-DD'));
+        var url = "/JournalVoucher/findData?id=" + data.transactionId + "&date=" + (moment(data.voucherDate).format('YYYY-MM-DD'));
         x = 0;
         tableClear(1);
         if (isData(url)) {
@@ -199,11 +199,15 @@ function saveWork(isNew, isEdit) {
 }
 function clear() {
     clearAttachment();
-    var Day = getCDay();
-    var Month = getCMonth();
-    var Year = getCYear();
-    var Date = Day + "-" + Month + "-" + Year;
-    $("#date").val(Date);
+    //var Day = getCDay();
+    //var Month = getCMonth();
+    //var Year = getCYear();
+    //var Date = Day + "-" + Month + "-" + Year
+
+    var today = new Date();
+    var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+
+    $("#date").val(formattedDate);
     //$("#balance").val("");
     $("#voucherNo").val("");
     $("#description").val("");
@@ -282,10 +286,10 @@ function checkValidation() {
     }
 }
 function budgetBalanceSet(id,balanceId) {
-    var url = "/Accounts/journalVoucher/LedgerBudgetBalance";
-    var date = getBdToDbFormat($("#date").val());
+    var url = "/JournalVoucher/LedgerBudgetBalance";
+    var date = $("#date").val();
     if (date == undefined) {
-        date = getCDay() + '-' + getCMonth() + '-' + getCYear();
+        date = new Date();
     }
     
     $.ajax({
@@ -422,7 +426,8 @@ function submit(isNew, isEdit) {
     var time = new Date();
     time = (moment(time).format('HH:mm:ss'));
     var id = 0;
-    var date = getBdToDbFormat($("#date").val());
+    //var date = getBdToDbFormat($("#date").val());
+    var date = $("#date").val();
     var transactionId = "";
     var voucherNo = "";
     if (isEdit) {
@@ -476,7 +481,7 @@ function submit(isNew, isEdit) {
         }
         if (lId != "0" && lId != "") {
             data.objList.push({
-                "Id":id,"TransactionId":transactionId,"LedgerId": ledger, "LedgerName": ledgerName, "DrAmount": amtId,
+                "AutoId":id,"TransactionId":transactionId,"LedgerId": ledger, "LedgerName": ledgerName, "DrAmount": amtId,
                 "VoucherDate": date + " " + time, "VoucherNo": voucherNo, "Narration": narration, "AttachBill": uploadFile
             });
         }
@@ -486,7 +491,7 @@ function submit(isNew, isEdit) {
     formData.append("voucherType", data.voucherType);
 
     for (var i = 0; i < data.objList.length; i++) {
-        formData.append("objList[" + i + "].id", data.objList[i].Id);
+        formData.append("objList[" + i + "].autoId", data.objList[i].AutoId);
         formData.append("objList[" + i + "].transactionId", data.objList[i].TransactionId);
         formData.append("objList[" + i + "].ledgerId", data.objList[i].LedgerId);
         formData.append("objList[" + i + "].ledgerName", data.objList[i].LedgerName);
@@ -497,7 +502,7 @@ function submit(isNew, isEdit) {
         formData.append("objList[" + i + "].attachBill", data.objList[i].AttachBill);
     }
     $.ajax({
-        url: "/Accounts/journalVoucher/journalVoucherSave",
+        url: "/JournalVoucher/journalVoucherSave",
         data: formData,
         type: 'POST',
         processData: false,
@@ -527,7 +532,7 @@ function submit(isNew, isEdit) {
 }
 function getLedgerId(ledId) {
     var ret = "";
-    var url = "/Accounts/journalVoucher/GetLedgerId";
+    var url = "/JournalVoucher/GetLedgerId";
     $.ajax({
         url: url,
         data: { id: ledId },
@@ -541,7 +546,7 @@ function getLedgerId(ledId) {
 }
 function getVoucherNo(date) {
     var ret = "";
-    var url = "/Accounts/journalVoucher/GetVoucherNo";
+    var url = "/JournalVoucher/GetVoucherNo";
     $.ajax({
         url: url,
         data: { date: date },
@@ -555,7 +560,7 @@ function getVoucherNo(date) {
 }
 function getTransactionId(date) {
     var ret = "";
-    var url = "/Accounts/journalVoucher/GetTransactionId";
+    var url = "/JournalVoucher/GetTransactionId";
     $.ajax({
         url: url,
         data: { date: date },
@@ -568,7 +573,7 @@ function getTransactionId(date) {
     return ret;
 }
 function ledger(ledgerId,setValue) {
-    var url = "/Accounts/JournalVoucher/LedgerInfo";
+    var url = "/JournalVoucher/LedgerInfo";
     $.getJSON(url, function (data) {
         var item = "";
         $(ledgerId).empty();
@@ -584,7 +589,7 @@ function ledger(ledgerId,setValue) {
     });
 }
 function LedgerInfoDrCr(ledgerId, setValue) {
-    var url = "/Accounts/JournalVoucher/LedgerInfoDrCr";
+    var url = "/JournalVoucher/LedgerInfoDrCr";
     $.getJSON(url, function (data) {
         var item = "";
         $(ledgerId).empty();
@@ -603,7 +608,7 @@ function LedgerInfoDrCr(ledgerId, setValue) {
 
 function autocompleteText() {
     var ret = [];
-    var url = "/Accounts/CashPayment/Narrations";
+    var url = "/CashPayment/Narrations";
     try {
         $.getJSON(url, function (data) {
            // console.log(data.data)
