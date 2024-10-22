@@ -223,7 +223,15 @@ function init() {
         }
     });
     //$("#openingDate").val(opdate);
-    $("#openingDate").val(new Date());
+
+    var today = new Date();
+    var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+
+    $("#openingDate").val(formattedDate);
+
+    //$("#openingDate").val(new Date());
+
+
 }
 function maxCode(pId, mId, sId) {
     var url = "/Ledger/getMaxCode?pId=" + pId + "&mId=" + mId + "&sId=" + sId;
@@ -438,7 +446,13 @@ function clear() {
     //$("#openingDate").val(today);
     //document.getElementById("LastTrDate").valueAsDate = new Date();
   //  $("#openingDate").val(new Date());
-    document.getElementById("openingDate").valueAsDate = new Date();
+   // document.getElementById("openingDate").valueAsDate = new Date();
+
+    var today = new Date();
+    var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+
+    $("#openingDate").val(formattedDate);  
+    
     $('#chkActive').prop('checked', true);
     $('#primaryGroupId').select2('data', { id: '', text: 'Choose a Primary Group' });
     $('#mainGroupId').select2('data', { id: '', text: 'Choose a Main Group' });

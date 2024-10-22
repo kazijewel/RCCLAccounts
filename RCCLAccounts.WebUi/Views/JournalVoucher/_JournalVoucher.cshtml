@@ -12,6 +12,7 @@
                     <input type="hidden" id="transactionId" />
                     <input type="hidden" id="billSlipUrl" />
                     <input type="hidden" id="upload" />
+                    <div class="col-md-12">
                     <div class="row row-xs align-items-center mg-b-20">
                         <div class="col-sm-4 control-label">Voucher Type:</div>
                         <div class="col-sm-8">
@@ -30,18 +31,18 @@
                     <div class="row row-xs align-items-center mg-b-20">
                         <label class="col-sm-4 control-label"><span style="color: #FF0000;">*</span>Date:</label>
                         <div class="col-sm-4">
-                            <div class="input-group">
+                            @*<div class="input-group">*@
                                 @*<span class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                                 </span>*@
-                                <input type="date" id="date" class="form-control input-sm datepick" placeholder="Cheque Date" />
-                            </div>
+                                <input type="date" id="date" class="form-control" placeholder="Cheque Date" />
+                            @*</div>*@
                         </div>
                     </div>
                     <div class="row row-xs align-items-center mg-b-20">
-                        <label class="col-sm-4 control-label" id="drHead">Dr. Head:</label>
+                        <label class="col-sm-4 control-label" id="drHead"><span style="color: #FF0000;">*</span>Dr. Head:</label>
                         <div class="col-sm-8">
-                            <select class="form-control form-select select2 input-sm" id="debitHead">
+                            <select class="form-control form-select select2" id="debitHead">
                             </select>
                         </div>                       
                     </div>
@@ -61,8 +62,8 @@
 
                         </div>*@
 
-
-                    <div>
+                    </div>
+                   
                         <div class="col-md-12">
                             <div class="form-group" style="padding-right: 15px;">
                                 <div class="col" style="float:right;">
@@ -160,7 +161,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    
                 </form>
             </div>
 

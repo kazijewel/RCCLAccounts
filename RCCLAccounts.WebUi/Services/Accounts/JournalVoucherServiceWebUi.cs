@@ -204,7 +204,7 @@ namespace RCCLAccounts.WebUi.Services
                 " Narration,CONVERT(float,SUM(CrAmount))CrAmount,CONVERT(float,SUM(DrAmount))DrAmount,AttachBill,a.AuditApprove,u.FullName ApproveBy,Max(ApproveTime) ApproveTime " +
                 " from Vouchers a " +
                  "left join AspNetUsers u on a.ApproveBy = u.FullName " +
-                "where VoucherType = 'jau' and a.VoucherDate between convert(date,'" + fromDate + "') and convert(date,'" + toDate + "') " +
+                "where VoucherType = 'jau'   and convert(date, a.VoucherDate) between convert(varchar, '" + fromDate + "',105) and convert(varchar, '" + toDate + "',105)  " +
                 " and EntryFrom like '%Journal Voucher%'  "+
                 " group by TransactionId,VoucherNo,VoucherDate,Narration,AttachBill,AuditApprove,u.FullName order by CONVERT(varchar,VoucherDate) desc";
 
@@ -272,7 +272,7 @@ namespace RCCLAccounts.WebUi.Services
         }
         
         public int journalVoucherSave(List<Voucher> objList,string typeVoucher,string bankHeadId,string bankHeadName,
-            string userName,string userIp)
+            string bankCode, string userName,string userIp)
         {
             int ret = 0;
             SqlConnection con = new SqlConnection(sqlCon);
@@ -353,47 +353,47 @@ namespace RCCLAccounts.WebUi.Services
                 }
 
                 string sqlDebit2 = "insert into Vouchers (TransactionId,TransactionType,MasterNo,FiscalYearId,VoucherNo,VoucherDate," +
-                   " VoucherType,LedgerId,LedgerName,BalanceAmount,DrAmount," +
+                   " VoucherType,LedgerId,LedgerCode,LedgerName,BalanceAmount,DrAmount," +
                    " CrAmount,Narration,TransactionWith,ChequeNo,ChequeDate,BankName,BranchName,ChequeClear," +
                    " AttachCheque,AuditApprove,AuditBy,AuditIp," +
                    " AuditTime,ApproveBy,ApproveIp,ApproveTime,AttachBill,AttachReference,ProductId,ProductName,CompanyId," +
-                   " EntryFrom,UserId,UserName,UserIp,EntryTime,CostCenterId,CostCenterName,ReferenceNo,ReferenceDetails) " +
+                   " EntryFrom,UserName,UserIp,EntryTime,CostCenterId,CostCenterName,ReferenceNo,ReferenceDetails) " +
                    " values (@TransactionId,@TransactionType,@MasterNo,@FiscalYearId,@VoucherNo,@VoucherDate," +
-                   " @VoucherType,@LedgerId,@LedgerName,@DrAmount," +
+                   " @VoucherType,@LedgerId,@LedgerCode,@LedgerName,@BalanceAmount, @DrAmount," +
                    " @CrAmount,@Narration,@TransactionWith,@ChequeNo,@ChequeDate,@BankName,@BranchName,@ChequeClear," +
                    " @AttachCheque,@AuditApprove,@AuditBy,@AuditIp," +
                    " @AuditTime,@ApproveBy,@ApproveIp,@ApproveTime,@AttachBill,@AttachReference,@ProductId,@ProductName,@CompanyId," +
-                   " @EntryFrom,@UserId,@UserName,@UserIp,@EntryTime,@CostCenterId,@CostCenterName,@ReferenceNo,@ReferenceDetails)";
+                   " @EntryFrom,@UserName,@UserIp,@EntryTime,@CostCenterId,@CostCenterName,@ReferenceNo,@ReferenceDetails)";
 
                 string sqlCredit2 = "insert into Vouchers (TransactionId,TransactionType,MasterNo,FiscalYearId,VoucherNo,VoucherDate," +
-                   " VoucherType,LedgerId,LedgerName,BalanceAmount,DrAmount," +
+                   " VoucherType,LedgerId,LedgerCode,LedgerName,BalanceAmount,DrAmount," +
                    " CrAmount,Narration,TransactionWith,ChequeNo,ChequeDate,BankName,BranchName,ChequeClear," +
                    " AttachCheque,AuditApprove,AuditBy,AuditIp," +
                    " AuditTime,ApproveBy,ApproveIp,ApproveTime,AttachBill,AttachReference,ProductId,ProductName,CompanyId," +
-                   " EntryFrom,UserId,UserName,UserIp,EntryTime,CostCenterId,CostCenterName,ReferenceNo,ReferenceDetails) " +
+                   " EntryFrom,UserName,UserIp,EntryTime,CostCenterId,CostCenterName,ReferenceNo,ReferenceDetails) " +
                    " values (@TransactionId,@TransactionType,@MasterNo,@FiscalYearId,@VoucherNo,@VoucherDate," +
-                   " @VoucherType,@LedgerId,@LedgerName,@DrAmount," +
+                   " @VoucherType,@LedgerId,@LedgerCode,@LedgerName,@BalanceAmount,@DrAmount," +
                    " @CrAmount,@Narration,@TransactionWith,@ChequeNo,@ChequeDate,@BankName,@BranchName,@ChequeClear," +
                    " @AttachCheque,@AuditApprove,@AuditBy,@AuditIp," +
                    " @AuditTime,@ApproveBy,@ApproveIp,@ApproveTime,@AttachBill,@AttachReference,@ProductId,@ProductName,@CompanyId," +
-                   " @EntryFrom,@UserId,@UserName,@UserIp,@EntryTime,@CostCenterId,@CostCenterName,@ReferenceNo,@ReferenceDetails)";
+                   " @EntryFrom,@UserName,@UserIp,@EntryTime,@CostCenterId,@CostCenterName,@ReferenceNo,@ReferenceDetails)";
 
                 foreach (var item in objList)
                 {
                     if(typeVoucher.Equals("Debit"))
                     {
                         string sqlDebit = "insert into Vouchers (TransactionId,TransactionType,MasterNo,FiscalYearId,VoucherNo,VoucherDate," +
-                    " VoucherType,LedgerId,LedgerName,BalanceAmount,DrAmount," +
+                    " VoucherType,LedgerId,LedgerCode,LedgerName,BalanceAmount,DrAmount," +
                     " CrAmount,Narration,TransactionWith,ChequeNo,ChequeDate,BankName,BranchName,ChequeClear," +
                     " AttachCheque,AuditApprove,AuditBy,AuditIp," +
                     " AuditTime,ApproveBy,ApproveIp,ApproveTime,AttachBill,AttachReference,ProductId,ProductName,CompanyId," +
-                    " EntryFrom,UserId,UserName,UserIp,EntryTime,,CostCenterId,CostCenterName,ReferenceNo,ReferenceDetails) " +
+                    " EntryFrom,UserName,UserIp,EntryTime,CostCenterId,CostCenterName,ReferenceNo,ReferenceDetails) " +
                     " values (@TransactionId,@TransactionType,@MasterNo,@FiscalYearId,@VoucherNo,@VoucherDate," +
-                    " @VoucherType,@LedgerId,@LedgerName,@DrAmount," +
+                    " @VoucherType,@LedgerId,@LedgerCode,@LedgerName,@BalanceAmount,@DrAmount," +
                     " @CrAmount,@Narration,@TransactionWith,@ChequeNo,@ChequeDate,@BankName,@BranchName,@ChequeClear," +
                     " @AttachCheque,@AuditApprove,@AuditBy,@AuditIp," +
                     " @AuditTime,@ApproveBy,@ApproveIp,@ApproveTime,@AttachBill,@AttachReference,@ProductId,@ProductName,@CompanyId," +
-                    " @EntryFrom,@UserId,@UserName,@UserIp,@EntryTime,@CostCenterId,@CostCenterName,@ReferenceNo,@ReferenceDetails)";
+                    " @EntryFrom,@UserName,@UserIp,@EntryTime,@CostCenterId,@CostCenterName,@ReferenceNo,@ReferenceDetails)";
 
                         debit += item.DrAmount;
 
@@ -406,6 +406,7 @@ namespace RCCLAccounts.WebUi.Services
                         cmd.Parameters.AddWithValue("@VoucherDate", item.VoucherDate);
                         cmd.Parameters.AddWithValue("@VoucherType", "jau");
                         cmd.Parameters.AddWithValue("@LedgerId", item.LedgerId);
+                        cmd.Parameters.AddWithValue("@LedgerCode", item.LedgerCode);
                         cmd.Parameters.AddWithValue("@LedgerName", item.LedgerName);
                         cmd.Parameters.AddWithValue("@BalanceAmount", 0);
                         cmd.Parameters.AddWithValue("@DrAmount", 0);
@@ -448,17 +449,17 @@ namespace RCCLAccounts.WebUi.Services
                     else
                     {
                         string sqlCredit = "insert into Vouchers (TransactionId,TransactionType,MasterNo,FiscalYearId,VoucherNo,VoucherDate," +
-                    " VoucherType,LedgerId,LedgerName,BalanceAmount,DrAmount," +
+                    " VoucherType,LedgerId,LedgerCode,LedgerName,BalanceAmount,DrAmount," +
                     " CrAmount,Narration,TransactionWith,ChequeNo,ChequeDate,BankName,BranchName,ChequeClear," +
                     " AttachCheque,AuditApprove,AuditBy,AuditIp," +
                     " AuditTime,ApproveBy,ApproveIp,ApproveTime,AttachBill,AttachReference,ProductId,ProductName,CompanyId," +
-                    " EntryFrom,UserId,UserName,UserIp,EntryTime,CostCenterId,CostCenterName,ReferenceNo,ReferenceDetails) " +
+                    " EntryFrom,UserName,UserIp,EntryTime,CostCenterId,CostCenterName,ReferenceNo,ReferenceDetails) " +
                     " values (@TransactionId,@TransactionType,@MasterNo,@FiscalYearId,@VoucherNo,@VoucherDate," +
-                    " @VoucherType,@LedgerId,@LedgerName,@DrAmount," +
+                    " @VoucherType,@LedgerId,@LedgerCode,@LedgerName,@BalanceAmount,@DrAmount," +
                     " @CrAmount,@Narration,@TransactionWith,@ChequeNo,@ChequeDate,@BankName,@BranchName,@ChequeClear," +
                     " @AttachCheque,@AuditApprove,@AuditBy,@AuditIp," +
                     " @AuditTime,@ApproveBy,@ApproveIp,@ApproveTime,@AttachBill,@AttachReference,@ProductId,@ProductName,@CompanyId," +
-                    " @EntryFrom,@UserId,@UserName,@UserIp,@EntryTime,@CostCenterId,@CostCenterName,@ReferenceNo,@ReferenceDetails)";
+                    " @EntryFrom,@UserName,@UserIp,@EntryTime,@CostCenterId,@CostCenterName,@ReferenceNo,@ReferenceDetails)";
 
                         debit += item.DrAmount;
 
@@ -471,6 +472,7 @@ namespace RCCLAccounts.WebUi.Services
                         cmd1.Parameters.AddWithValue("@VoucherDate", item.VoucherDate);
                         cmd1.Parameters.AddWithValue("@VoucherType", "jau");
                         cmd1.Parameters.AddWithValue("@LedgerId", item.LedgerId);
+                        cmd1.Parameters.AddWithValue("@LedgerCode", item.LedgerCode);
                         cmd1.Parameters.AddWithValue("@LedgerName", item.LedgerName);
                         cmd1.Parameters.AddWithValue("@BalanceAmount", 0);
                         cmd1.Parameters.AddWithValue("@DrAmount", item.DrAmount);
@@ -523,6 +525,7 @@ namespace RCCLAccounts.WebUi.Services
                     cmd4.Parameters.AddWithValue("@VoucherDate", objList[0].VoucherDate);
                     cmd4.Parameters.AddWithValue("@VoucherType", "jau");
                     cmd4.Parameters.AddWithValue("@LedgerId", bankHeadId);
+                    cmd4.Parameters.AddWithValue("@LedgerCode", bankCode);
                     cmd4.Parameters.AddWithValue("@LedgerName", bankHeadName);
                     cmd4.Parameters.AddWithValue("@BalanceAmount", 0);
                     cmd4.Parameters.AddWithValue("@DrAmount", debit);
@@ -575,6 +578,7 @@ namespace RCCLAccounts.WebUi.Services
                     cmd5.Parameters.AddWithValue("@VoucherDate", objList[0].VoucherDate);
                     cmd5.Parameters.AddWithValue("@VoucherType", "jau");
                     cmd5.Parameters.AddWithValue("@LedgerId", bankHeadId);
+                    cmd5.Parameters.AddWithValue("@LedgerCode", bankCode);
                     cmd5.Parameters.AddWithValue("@LedgerName", bankHeadName);
                     cmd5.Parameters.AddWithValue("@BalanceAmount", 0);
                     cmd5.Parameters.AddWithValue("@DrAmount", 0);

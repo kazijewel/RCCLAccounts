@@ -16,12 +16,18 @@ $(document).ready(function () {
     $("#btnSaveNew").click(function () {
         saveWork(true, false);
     });
-    $("#btnCancel").click(function () {
+    //$("#btnCancel").click(function () {
+    //    $('#tbJournalVoucher').DataTable().ajax.reload();
+    //});
+    $(document).on('click', '#btnCancel', function () {
         $('#tbJournalVoucher').DataTable().ajax.reload();
+        $('#journalVoucher').modal('hide');
     });
+
     $('#journalVoucher').on('hidden.bs.modal', function () {
         $('#tbJournalVoucher').DataTable().ajax.reload();
     })
+
     $('#tbJournalVoucher').on('click', '.tbEdit', function () {
         clear();
         buttonSet(true);
@@ -147,7 +153,15 @@ function findWork(url) {
                     if (parseFloat(d[i].drAmount) > 0) {
                         //$("#debitHead").val(d[i].ledgerUniqueId).trigger('change');
                         LedgerInfoDrCr("#debitHead", d[i].ledgerUniqueId);
-                        $("#date").val(d[i].voucherDate);
+                       // $("#date").val(d[i].voucherDate);
+
+
+                        console.log("Voucher Date: ", d[i].voucherDate);
+
+                        // Format the date if necessary, depending on the format you need
+                        var formattedDate = new Date(d[i].voucherDate).toISOString().split('T')[0];  // Adjust format as needed
+                        $("#date").val(formattedDate);
+
                         $("#voucherNo").val(d[i].voucherNo);
                         $("#transactionId").val(d[i].transactionId);
                         $("#autoId").val(d[i].id);
@@ -165,7 +179,14 @@ function findWork(url) {
                 else {
                     if (parseFloat(d[i].crAmount) > 0) {
                         LedgerInfoDrCr("#debitHead", d[i].ledgerUniqueId);
-                        $("#date").val(d[i].voucherDate);
+                        //$("#date").val(d[i].voucherDate);
+
+                        console.log("Voucher Date: ", d[i].voucherDate);
+
+                        // Format the date if necessary, depending on the format you need
+                        var formattedDate = new Date(d[i].voucherDate).toISOString().split('T')[0];  // Adjust format as needed
+                        $("#date").val(formattedDate);
+
                         $("#voucherNo").val(d[i].voucherNo);
                         $("#transactionId").val(d[i].transactionId);
                         $("#autoId").val(d[i].id);
@@ -215,7 +236,7 @@ function clear() {
     localStorage.clear();
     LedgerInfoDrCr("#debitHead");
     tableClear(1);
-    $('#date').val(Date);
+    $('#date').val(formattedDate);
     x = x + 1;
     addRow(x);
     ledger("#ledgerId" + x);
@@ -237,7 +258,7 @@ function newclear() {
 }
 
 function checkValidation() {
-    var bankHead = $("#debitHead").select2('data');
+    var bankHead = $("#debitHead").val();
     var date = $("#date").val();
 
     var tableHead = "#gridJournalVoucher tr td ";
@@ -255,11 +276,11 @@ function checkValidation() {
         if (lId != "0" && parseFloat(amtId)>0) {
             count++;
         }
-        if (lId == bankHead.id) {
+        if (lId == bankHead) {
             headCount++;
         }
     }
-    if (bankHead.id != "0" && bankHead.id !="") {
+    if (bankHead != "0" && bankHead !="") {
         if (date != "") {
             if (count > 0) {
                 if (headCount===0) {
@@ -439,9 +460,9 @@ function submit(isNew, isEdit) {
         voucherNo = getVoucherNo(date);
     }
 
-    var bankHead = $("#debitHead").select2('data');
-    var bankHeadId = getLedgerId(bankHead.id);
-    var bankHeadName = bankHead.text;
+    var bankHead = $("#debitHead").val();
+    var bankHeadId = getLedgerId(bankHead);
+    var bankHeadName = $("#debitHead option:selected").text();
 
     var narration = $("#description").val();
     var voucherType = $("input[name=type]:checked").val();

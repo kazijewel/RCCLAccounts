@@ -97,7 +97,7 @@ function loadDataTable(url) {
                 "data": "voucherDate",
                 "render": function (data) {
                     return (moment(data).format("DD-MM-YYYY"));
-                }, "width": "9%"
+                }, "width": "15%"
             },
             { "data": "narration"},
             { "data": "drAmount", className: "text-right", render: $.fn.dataTable.render.number(',', '.', 0, '') },
@@ -153,7 +153,7 @@ function loadDataTable(url) {
                 "data": null,
                 "render": function (data) {
                     if (data.auditApprove == '2') {
-                        if (isAdmin == 'True') {
+                       /* if (isAdmin == 'True') {*/
                             return `
                             <div class="text-center">
                                 <a class="btn btn-sm btn-primary text-white tbEdit">
@@ -161,12 +161,12 @@ function loadDataTable(url) {
                                 </a>
                             </div>
                             `;
-                        } else {
-                            return `<div class="text-center"></div>`;
-                        }
+                        //} else {
+                        //    return `<div class="text-center"></div>`;
+                        //}
 
                     } else {
-                        if (isEdit == 'True') {
+                     /*   if (isEdit == 'True') {*/
                             return `
                             <div class="text-center">
                                 <a class="btn btn-sm btn-primary text-white tbEdit">
@@ -174,9 +174,9 @@ function loadDataTable(url) {
                                 </a>
                             </div>
                             `;
-                        } else {
-                            return `<div class="text-center"></div>`;
-                        }
+                        //} else {
+                        //    return `<div class="text-center"></div>`;
+                        //}
                     }
 
                 }, "width": "5%"
