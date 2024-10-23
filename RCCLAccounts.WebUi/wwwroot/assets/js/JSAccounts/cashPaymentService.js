@@ -81,7 +81,7 @@ function reportPreview(voucherNo) {
     var findType = "Voucher";
     var fromDate = getBdToDbFormat(today);
     var toDate = getBdToDbFormat(today);
-    var url = "/Accounts/AccountsReport/VoucherAll?vType=" + voucherType + "&findType=" +
+    var url = "/Report/VoucherAll?vType=" + voucherType + "&findType=" +
         findType + "&fromDate=" + fromDate + "&toDate=" + toDate + "&voucherNo=" + voucherNo;
     console.log(url);
     if (voucherNo != "" && voucherNo != null && voucherNo != undefined) {

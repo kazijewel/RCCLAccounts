@@ -22,6 +22,8 @@ using static RCCLAccounts.WebUi.Controllers.LoanDisbursmentController;
 using System.Drawing;
 using Fizzler;
 using Microsoft.CodeAnalysis.Operations;
+using RCCLAccounts.WebUi.Common;
+using RCCLAccounts.WebUi.Services;
 
 namespace RCCLAccounts.WebUi.Controllers
 {
@@ -66,6 +68,8 @@ namespace RCCLAccounts.WebUi.Controllers
         private readonly IBankAccountInfoService _bankAccountInfoService;
         public IEmpService empService { get; set; }
         public IBankDepositService bankservice { get; set; }
+
+        AccountReportServiceWebUi service;
         public ReportController(IWebHostEnvironment webHostEnvironment,
             ILogger<ReportController> logger,     
             IHttpContextAccessor accessor,           
@@ -86,6 +90,7 @@ namespace RCCLAccounts.WebUi.Controllers
             _employeeCPFOpeningService = employeeCPFOpeningService;
             _bankAccountInfoService = bankAccountInfoService;
             this.bankservice = _bankservice;
+            service = new AccountReportServiceWebUi(_accessor, _db);
         }
        public IActionResult Index()
        {
@@ -120,6 +125,75 @@ namespace RCCLAccounts.WebUi.Controllers
 
         }
         //
+
+
+        public IActionResult VoucherAll(string vType, string findType, string fromDate, string toDate, string voucherNo)
+        {
+         
+            var companyId = "B-1";
+           
+
+            string voucherData;
+
+            string voucherType = service.getVoucherName(vType);
+            voucherNo = voucherNo.Equals("All") ? "%" : voucherNo;
+            if (findType == "Date")
+            {
+                voucherData = " v.VoucherNo IN(select item from Split('" + voucherNo + "')) " +
+                    " AND v.voucherDate BETWEEN '" + fromDate + "' AND '" + toDate + "' and v.EntryFrom like '%" + voucherType + "%' ";
+            }
+            else
+            {
+                voucherData = " v.VoucherNo = '" + voucherNo + "' and v.EntryFrom = '" + voucherType + "'";
+            }
+            string sql = "select a.VoucherNo,DAY(VoucherDate)dV,MONTH(VoucherDate)mV,YEAR(VoucherDate)yV," +
+            " a.Narration,CONVERT(float,a.CrAmount)crAmount,dbo.number(a.DrAmount)drWords, " +
+            " dbo.number(a.CrAmount)crWords,a.VoucherType,a.TransactionWith,a.CompanyId,a.UserName,a.LedgerId,a.TransactionType, " +
+            " CONVERT(varchar, a.ChequeDate, 105)ChequeDate,a.LedgerCode debitCode,a.LedgerName debitLedger," +
+            " b.LedgerCode creditCode,b.LedgerName creditLedger,a.ChequeNo " +
+            " from(SELECT  VoucherNo, VoucherDate, Narration, DrAmount, CrAmount, VoucherType, TransactionWith, " +
+            " v.CompanyId, v.UserName, v.LedgerId, l.LedgerName, v.TransactionType, v.ChequeDate,l.LedgerCode,v.ChequeNo FROM Vouchers v " +
+            " INNER JOIN Ledgers l ON v.LedgerId = l.LedgerId WHERE " + voucherData + " and CrAmount != 0 and v.CompanyId like '" + companyId + "') as a " +
+            " left join(SELECT VoucherNo, l.LedgerCode, l.LedgerName, v.CrAmount FROM Vouchers v INNER JOIN Ledgers l ON v.LedgerId = l.LedgerId " +
+            " WHERE " + voucherData + " and DrAmount!= 0 and v.CompanyId like '" + companyId + "' ) b on a.VoucherNo = b.VoucherNo";
+            switch (voucherType)
+            {
+                case "Cash Payment Voucher":
+                    reportName = "rptCashPaymentVoucherSingle.frx";
+                    _title = "CASH DEBIT VOUCHER";
+
+                    break;
+                case "Bank Payment Voucher":
+                    reportName = "rptBankPaymentVoucherSingle.frx";
+                    _title = "BANK DEBIT VOUCHER";
+                    break;
+                case "Journal Voucher":
+                    reportName = "rptJournalVoucher.frx";
+                    _title = "JOURNAL VOUCHER";
+                    sql = "SELECT VoucherNo,DAY(VoucherDate)dV,MONTH(VoucherDate)mV,YEAR(VoucherDate)yV," +
+                    " VoucherDate,Narration,DrAmount,CrAmount,VoucherType," +
+                    " TransactionWith,v.CompanyId,v.UserName, v.LedgerId, l.LedgerName,v.TransactionType, " +
+                    " CONVERT(varchar, v.ChequeDate, 105)dtCheque, " +
+                    " dbo.number(((select SUM(CrAmount) from Vouchers where " +
+                    " VoucherNo = v.VoucherNo and " + voucherData + " and CompanyId like '" + companyId + "' )))drWords " +
+                    " FROM Vouchers v INNER JOIN Ledgers l ON v.LedgerId = l.LedgerId WHERE " + voucherData + " and v.CompanyId like '" + companyId + "'  " +
+                    " order by VoucherNo,CrAmount";
+                    break;
+                default:
+                    reportName = "rptCashPaymentVoucher.frx";
+                    _title = "DEBIT VOUCHER";
+                    sql = "select VoucherNo,DAY(VoucherDate)dV,MONTH(VoucherDate)mV,YEAR(VoucherDate)yV,Narration,TransactionWith,LedgerName," +
+                    " CONVERT(float, DrAmount)DrAmount,CONVERT(float, CrAmount)CrAmount,dbo.number((select SUM(DrAmount) from Vouchers where VoucherNo=a.VoucherNo and EntryFrom=a.EntryFrom and CompanyId=a.CompanyId ))drWords " +
+                    " from Vouchers a where VoucherNo LIKE '" + voucherNo + "' and EntryFrom like '%" + voucherType + "%' and a.CompanyId like '" + companyId + "'  order by DrAmount";
+                    break;
+            }
+
+
+            _logger.LogInformation(sql);
+            sqls.Clear();
+            sqls.Add(sql);
+            return ShowReport(0);
+        }
         public IActionResult GetEmployeeInfo(String BranchID)
         {
             reportName = "EmployeeInfo.frx";
