@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/27/2021 11:32:20" ReportInfo.Modified="10/25/2024 21:16:56" ReportInfo.CreatorVersion="2019.4.9.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqs/uWnL9okwOzFjXV3AKpVqZocBx+BMz5yo2pNhHGtiJfBHmsyy1naMO6EC78AK3fwRC6W4wjFLUUfk0A8D72I+mzW4wSDHIge0Sz1W+nwaSU3wQJSxlhAK2JXMM6UngL1syxI8elODH9yKfJ+rKcr6gMt61KGVoYYhTDo6fbMfXZReDYamgZPZfgjbt6YKReFyq3hf8J7uBBBph/hl1a1Q==">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="Execute(@Parameter)">
+        <Column Name="VoucherNo" DataType="System.String"/>
+        <Column Name="dV" DataType="System.Int32"/>
+        <Column Name="mV" DataType="System.Int32"/>
+        <Column Name="yV" DataType="System.Int32"/>
+        <Column Name="Narration" DataType="System.String"/>
+        <Column Name="crAmount" DataType="System.Double"/>
+        <Column Name="drWords" DataType="System.String"/>
+        <Column Name="TransactionWith" DataType="System.String"/>
+        <Column Name="LedgerName" DataType="System.String"/>
+        <Column Name="DrAmount" DataType="System.Double"/>
+        <CommandParameter Name="Parameter" DataType="22" Expression="sql0" DefaultValue="select VoucherNo,DAY(VoucherDate)dV,MONTH(VoucherDate)mV,YEAR(VoucherDate)yV,Narration,TransactionWith,LedgerName,CONVERT(float,DrAmount)DrAmount,CONVERT(float,CrAmount)CrAmount,dbo.number(DrAmount)drWords from Vouchers where VoucherNo like 'CR-CH-1' order by CrAmount"/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="companyName" DataType="System.String"/>
+    <Parameter Name="companyAddress" DataType="System.String"/>
+    <Parameter Name="phone" DataType="System.String"/>
+    <Parameter Name="title" DataType="System.String"/>
+    <Parameter Name="sql0" DataType="System.String"/>
+    <Parameter Name="Date" DataType="System.String"/>
+    <Parameter Name="userName" DataType="System.String"/>
+    <Parameter Name="developer" DataType="System.String"/>
+    <Total Name="drTotal" Expression="[Table.DrAmount]" Evaluator="Data1"/>
+    <Total Name="crTotal" Expression="[Table.CrAmount]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <PageHeaderBand Name="PageHeader1" Width="718.2" Height="85.05">
+      <TextObject Name="Text12" Top="56.7" Width="718.2" Height="18.9" Text="[title]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text11" Top="37.8" Width="718.2" Height="18.9" Text="[phone]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text10" Top="18.9" Width="718.2" Height="18.9" Text="[companyAddress]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text9" Width="718.2" Height="18.9" Text="[companyName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12.75pt, style=Bold"/>
+    </PageHeaderBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="89.05" Width="718.2" Height="85.15" Condition="[Table.VoucherNo]">
+      <TextObject Name="Text4" Left="491.4" Top="66.25" Width="113.4" Height="18.9" Border.Lines="All" Text="Dr. Amount" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text1" Top="66.25" Width="45.36" Height="18.9" Border.Lines="All" Text="SL#" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text3" Left="45.36" Top="66.25" Width="446.04" Height="18.9" Border.Lines="All" Text="Particular" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text21" Left="604.8" Top="66.25" Width="113.4" Height="18.9" Border.Lines="All" Text="Cr. Amount" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text17" Left="472.5" Top="37.8" Width="66.53" Height="18.9" Text="Voucher " VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text19" Left="548.1" Top="37.8" Width="170.1" Height="22.68" Border.Lines="All" Text="[Table.VoucherNo]" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text16" Left="9.45" Top="9.45" Width="94.88" Height="28.35" Text="Payment To :" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text22" Left="103.95" Top="12.45" Width="349.65" Height="22.68" Border.Lines="All" Text="[Table.TransactionWith]" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text48" Left="548.1" Top="9.45" Width="37.8" Height="22.68" Border.Lines="All" Text="[Table.dV]" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text49" Left="472.5" Top="9.45" Width="66.53" Height="18.9" Text="Date " VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text87" Left="585.9" Top="9.45" Width="37.8" Height="22.68" Border.Lines="All" Text="[Table.mV]" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text88" Left="623.7" Top="9.45" Width="94.5" Height="22.68" Border.Lines="All" Text="[Table.yV]" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text89" Left="538.65" Top="7.45" Width="9.83" Height="28.35" Text=":" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text90" Left="538.65" Top="35.8" Width="9.83" Height="28.35" Text=":" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <DataBand Name="Data1" Top="178.2" Width="718.2" Height="18.9" DataSource="Table">
+        <TextObject Name="Text2" Width="45.36" Height="18.9" Border.Lines="All" Text="[Row#]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text5" Left="45.36" Width="446.04" Height="18.9" Border.Lines="All" Text="[Table.LedgerName]" Font="Arial, 10pt"/>
+        <TextObject Name="Text6" Left="491.4" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.DrAmount]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text50" Left="604.8" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.CrAmount]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text52" Left="491.4" Width="113.4" Height="18.9" Border.Lines="All" Text="[Table.DrAmount]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter1" Top="201.1" Width="718.2" Height="604.8">
+        <TextObject Name="Text7" Width="45.36" Height="18.9" Border.Lines="All" Font="Arial, 10pt"/>
+        <TextObject Name="Text53" Left="45.36" Width="446.04" Height="18.9" Border.Lines="All" Font="Arial, 10pt"/>
+        <TextObject Name="Text54" Left="491.4" Width="113.4" Height="18.9" Border.Lines="All" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text55" Left="604.8" Width="113.4" Height="18.9" Border.Lines="All" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text8" Left="396.9" Width="94.5" Height="18.9" Text="Total:" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text15" Left="510.3" Width="94.5" Height="18.9" Border.Lines="Bottom" Text="[drTotal]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text18" Left="623.7" Width="94.5" Height="18.9" Border.Lines="Bottom" Text="[crTotal]" Format="Number" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text57" Top="28.35" Width="85.05" Height="18.9" Text="In word:" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text58" Left="85.05" Top="28.35" Width="633.15" Height="18.9" Text="[Table.drWords]" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text56" Left="0.55" Top="55.15" Width="716.31" Height="47.25" Border.Lines="All" Text="Narration:" Font="Arial, 10pt"/>
+        <TextObject Name="Text20" Left="66.15" Top="55.15" Width="349.65" Height="18.9" Text="[Table.Narration]" Font="Arial, 10pt"/>
+        <TextObject Name="Text69" Left="0.45" Top="107.95" Width="108.49" Height="22.68" Border.Lines="Left, Top, Bottom" Text="Checked" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text70" Left="108.4" Top="107.95" Width="103.95" Height="22.68" Border.Lines="All" Text="Asst. Mgr./Mgr" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text59" Left="212.35" Top="107.95" Width="94.5" Height="22.68" Border.Lines="All" Text="HOD &amp; Mgr." HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text60" Left="0.45" Top="130.63" Width="108.49" Height="41.58" Border.Lines="Left, Top, Bottom" Font="Arial, 10pt"/>
+        <TextObject Name="Text61" Left="108.4" Top="130.63" Width="103.95" Height="41.58" Border.Lines="All" Font="Arial, 10pt"/>
+        <TextObject Name="Text62" Left="212.35" Top="130.63" Width="94.5" Height="41.58" Border.Lines="All" Font="Arial, 10pt"/>
+        <TextObject Name="Text75" Left="306.85" Top="107.95" Width="94.5" Height="22.68" Border.Lines="All" Text="COO" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text76" Left="306.85" Top="130.63" Width="94.5" Height="41.58" Border.Lines="All" Font="Arial, 10pt"/>
+        <TextObject Name="Text77" Left="401.35" Top="107.95" Width="94.5" Height="22.68" Border.Lines="All" Text="MD" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text78" Left="401.35" Top="130.63" Width="94.5" Height="41.58" Border.Lines="All" Font="Arial, 10pt"/>
+        <TextObject Name="Text84" Left="514.75" Top="107.95" Width="201.85" Height="18.9" Border.Lines="All" Text="Received By" HorzAlign="Center" VertAlign="Center" Font="Arial, 9.75pt, style=Bold"/>
+        <TextObject Name="Text85" Left="514.75" Top="126.85" Width="60.1" Height="37.8" Border.Lines="Left, Top, Bottom" Text="Name" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text81" Left="514.75" Top="164.65" Width="60.1" Height="37.8" Border.Lines="Left, Top, Bottom" Text="Sign" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        <TextObject Name="Text82" Left="574.45" Top="126.85" Width="141.75" Height="37.8" Border.Lines="All" Font="Arial, 10pt"/>
+        <TextObject Name="Text83" Left="574.45" Top="164.65" Width="141.75" Height="37.8" Border.Lines="All" Font="Arial, 10pt"/>
+        <TextObject Name="Text86" Left="0.45" Top="183.55" Width="496.31" Height="18.9" Border.Lines="All" Text="Finance Team" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      </GroupFooterBand>
+    </GroupHeaderBand>
+    <PageFooterBand Name="PageFooter1" Top="809.9" Width="718.2" Height="20.04">
+      <TextObject Name="Text13" Left="103.95" Top="0.66" Width="122.85" Height="18.9" Text="[userName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+      <TextObject Name="Text47" Width="113.4" Height="18.9" Text="[Date]" VertAlign="Center" Font="Arial, 7pt"/>
+      <TextObject Name="Text14" Left="236.25" Top="0.66" Width="396.9" Height="18.9" Text="[developer]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+      <TextObject Name="Text23" Left="652.05" Top="0.38" Width="66.15" Height="19.66" CanBreak="false" Text="[Page#] Of [TotalPages#]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>

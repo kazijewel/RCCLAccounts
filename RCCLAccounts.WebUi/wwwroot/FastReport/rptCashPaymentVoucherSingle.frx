@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/27/2021 11:32:20" ReportInfo.Modified="10/23/2024 22:43:41" ReportInfo.CreatorVersion="2019.4.9.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/27/2021 11:32:20" ReportInfo.Modified="10/24/2024 21:00:11" ReportInfo.CreatorVersion="2019.4.9.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace FastReport
 }
 </ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqL2sX3CRpoatSz8EQ8vahikLfmvhiV+QhML2PG/I7RsWM/kJOVQBaeUJffqcjv+TpznV7My5syvolJgbddjAuFs2U0m8QsLk1XWTbakItjiG95OxUdImrQ6036PM5hg8GY6+rJvLg5dXCnqgsPXfRWcmQkuEW63LVXVsifwMyEzsvUngPrUimhyKbi2ll4ECCV/IzIxeOyP6zQpBq+uOeTA==">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqL2sX3CRpoatSz8EQ8vahikLfmvhiV+QhML2PG/I7RsWM/kJOVQBaeUJffqcjv+TpznV7My5syvolJgbddjAuFs2U0m8QsLk1XWTbakItjiG95OxUdImrQ6036PM5hg8GY6+rJvLg5dXCnqgsPXfRWcmQkuEW63LVXVsifwMyEzsvUngPrUimhyKbi2ll4ECCxNQmfHu/FCYytvLRbL+qCg==">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="Execute(@Parameter)">
         <Column Name="VoucherNo" DataType="System.String"/>
         <Column Name="Narration" DataType="System.String"/>
@@ -42,7 +42,7 @@ namespace FastReport
         <Column Name="debitLedger" DataType="System.String"/>
         <Column Name="creditLedger" DataType="System.String"/>
         <Column Name="drWords" DataType="System.String"/>
-        <Column Name="crWords" DataType="System.String" BindableControl="RichText"/>
+        <Column Name="crWords" DataType="System.String" Format="General"/>
         <Column Name="TransactionType" DataType="System.String"/>
         <Column Name="ChequeDate" DataType="System.String"/>
         <Column Name="dV" DataType="System.Int32"/>
@@ -90,12 +90,11 @@ namespace FastReport
       <DataBand Name="Data1" Top="232.45" Width="718.2" Height="38.4" CanGrow="true" CanShrink="true" DataSource="Table">
         <TextObject Name="Text5" Left="0.11" Width="311.85" Height="38.4" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Text="[Table.creditLedger]" VertAlign="Center" Font="Arial, 10pt"/>
         <TextObject Name="Text79" Left="311.85" Width="245.7" Height="38.4" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Text="[Table.Narration]" VertAlign="Center" Font="Arial, 10pt"/>
-        <TextObject Name="Text24" Left="557.55" Width="151.2" Height="37.95" Border.Lines="All" Text="[Table.CrAmount]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="0" HorzAlign="Right" VertAlign="Center" Font="Arial Narrow, 12pt"/>
+        <TextObject Name="Text24" Left="557.55" Width="151.2" Height="37.95" Border.Lines="All" Text="[Table.CrAmount]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="0" HorzAlign="Right" VertAlign="Center" Font="Arial, 12pt"/>
       </DataBand>
-      <GroupFooterBand Name="GroupFooter1" Top="274.85" Width="718.2" Height="699.3" CanGrow="true">
+      <GroupFooterBand Name="GroupFooter1" Top="274.85" Width="718.2" Height="699.3" CanGrow="true" KeepWithData="true">
         <TextObject Name="Text18" Top="184.65" Width="718.2" Height="18.9" Border.Lines="Top" Border.Color="DarkGray" Border.Width="1.5" Font="Arial, 10pt"/>
         <TextObject Name="Text57" Top="44.35" Width="141.75" Height="26.46" Border.Lines="All" Text="Amount In word :" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt"/>
-        <TextObject Name="Text58" Left="141.75" Top="44.35" Width="567" Height="26.46" Border.Lines="All" Text="[Table.crWords]" VertAlign="Center" Font="Arial, 12pt"/>
         <TextObject Name="Text69" Top="80.7" Width="103.95" Height="22.68" Border.Lines="All" Text="Checked" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
         <TextObject Name="Text70" Left="103.95" Top="80.7" Width="103.95" Height="22.68" Border.Lines="All" Text="Asst. Mgr./Mgr" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
         <TextObject Name="Text59" Left="207.9" Top="80.7" Width="94.5" Height="22.68" Border.Lines="All" Text="HOD &amp; Mgr." HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
@@ -117,7 +116,8 @@ namespace FastReport
         <TextObject Name="Text23" Left="557.55" Top="185.03" Width="160.65" Height="19.66" CanBreak="false" Text="Pages [Page#] Of [TotalPages#]" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
         <TextObject Name="Text101" Left="1.45" Top="4.45" Width="65.85" Height="26.46" Text="Pay To :" VertAlign="Center" Font="Arial, 10pt"/>
         <TextObject Name="Text103" Left="75.3" Top="5.45" Width="400.68" Height="26.46" Text="[Table.TransactionWith]" VertAlign="Center" Font="Arial, 10pt"/>
-        <TextObject Name="Text2" Left="567" Width="141.75" Height="18.9" Border.Lines="Bottom" Border.Style="Double" Text="[Table.CrAmount]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="0" HorzAlign="Right" Font="Arial Narrow, 12pt, style=Bold"/>
+        <TextObject Name="Text2" Left="567" Width="141.75" Height="18.9" Border.Lines="Bottom" Border.Style="Double" Text="[Table.CrAmount]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="0" HorzAlign="Right" Font="Arial, 12pt, style=Bold"/>
+        <TextObject Name="Text4" Left="141.75" Top="44.23" Width="567" Height="26.46" Border.Lines="All" CanGrow="true" Text="[Table.crWords]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       </GroupFooterBand>
     </GroupHeaderBand>
     <PageFooterBand Name="PageFooter1" Top="978.15" Width="718.2" Height="20.04"/>

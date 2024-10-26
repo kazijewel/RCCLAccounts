@@ -29,44 +29,29 @@
                                
                                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                                     <i class="bi bi-person-bounding-box"></i>
-                                    <span class="side-menu__label">&nbsp; &nbsp;Employee</span><i class="bi-caret-right-fill"></i>
+                                    <span class="side-menu__label">&nbsp; &nbsp;Vouchers</span><i class="bi-caret-right-fill"></i>
                                     </a>
                                     <ul class="slide-menu">
-                                        
-                                        <li class="slide">
-                                            <a onclick="PartialViewReport('_RPEmployeeInfo')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                             <i class="fas fa-street-view"></i>
-                                                <span class="side-menu__label">&nbsp; &nbsp;Employee Info</span>
-                                            </a>
-                                        </li>
-                                        <li class="slide">
-                                        <a onclick="PartialViewReport('_RPEmployeeDetails')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-@*                                            <i class="bi bi-person-circle"></i>*@
-                                             <i class="bi bi-person-badge"></i>
-                                                <span class="side-menu__label">&nbsp; &nbsp;Employee Details </span>
-                                            </a>
-                                        </li>                                                                             
-                                    </ul>
+
+                                    <li class="slide">
+                                        <a onclick="PartialViewReport('_RPDrCrSuplementory')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                                            <i class="bi-receipt"></i>
+                                            <span class="side-menu__label">&nbsp; &nbsp;Debit & Credit Suplementory</span>
+                                        </a>
+                                    </li>
+                                </ul>
 
                                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                                     <i class="bi bi-briefcase"></i>
-                                    <span class="side-menu__label">&nbsp; &nbsp;Bank</span><i class="bi-caret-right-fill"></i>
+                                    <span class="side-menu__label">&nbsp; &nbsp;Ledger</span><i class="bi-caret-right-fill"></i>
                                 </a>
                                 <ul class="slide-menu">
                                     
                                     <li class="slide">
-                                        <a onclick="PartialViewReport('_RPBankWiseAccountStatement')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            @*<i class="bi-credit-card-2-back-fill"></i>*@
-                                            <i class="fa fa-suitcase"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Bank Wise Account Statement</span>
-                                        </a>
-                                    </li>
-                                    
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPIndividualBankLedger')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            @*<i class="bi-wallet"></i>*@
-                                            <i class="far fa-star"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Individual Bank Ledger </span>
+                                        <a onclick="PartialViewReport('_RPSubsidiaryLedger')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                                            @*<i class="bi bi-clipboard-data"></i>*@
+                                            <i class="bi bi-columns"></i>
+                                            <span class="side-menu__label">&nbsp; &nbsp;Subsidiary Ledger</span>
                                         </a>
                                     </li>
 
@@ -74,59 +59,24 @@
 
                                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                                     <i class="bi-ui-checks"></i>
-                                    <span class="side-menu__label">&nbsp; &nbsp;CPF</span><i class="bi-caret-right-fill"></i>
+                                    <span class="side-menu__label">&nbsp; &nbsp;Trail Balance</span><i class="bi-caret-right-fill"></i>
                                 </a>
                                 <ul class="slide-menu">
-                                    <li class="side-menu__label1"><a href="javascript:void(0);">CPF</a></li>
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPIndividualCPFLedger')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="bi bi-bag-check"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Individual CPF Ledger</span>
-                                        </a>
-                                    </li>
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPOfficerWiseIndividualCPFLedger')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="fas fa-book"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Officer Wise Individual CPF Ledger</span>
-                                        </a>
-                                    </li>
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPMonthlyCPFStatement')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="bi-newspaper"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Monthly CPF Statement</span>
-                                        </a>
-                                    </li>
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPCPFLedgerBalance')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="fas fa-envelope-open-text"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Branch Wise CPF Ledger Balance</span>
-                                        </a>
-                                    </li>
-                                    <li class="slide">                                     
-                                        <a onclick="PartialViewReport('_RPOfficerWiseMonthlyCPFStatement')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="bi bi-handbag-fill"></i> 
-                                            <span class="side-menu__label">&nbsp; &nbsp;Officer Wise Monthly CPF Statement</span>
-                                        </a>
-                                    </li>
 
                                     <li class="slide">
-                                        <a onclick="PartialViewReport('_RPOfficerAndBranchWiseMonthlyCPFStatement')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="bi bi-bag-check-fill"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Off. & Br. Wise Monthly CPF Statement</span>
+                                        <a onclick="PartialViewReport('_RPTrailBalanceBetweenDate')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                                            @*<i class="bi bi-clipboard-data"></i>*@
+                                            <i class="bi bi-lightbulb"></i>
+                                            <span class="side-menu__label">&nbsp; &nbsp;Trail Balance Between Date</span>
                                         </a>
                                     </li>
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPOfficerAndBranchWiseCPFProfitStatement')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="fab fa-bitbucket"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Off. & Br. Wise CPF Profit Statement</span>
-                                        </a>
-                                    </li>
+                            
 
                                 </ul>
                                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                                         @*<i class="bi bi-bank"> </i>*@
                                     <i class="fab fa-slideshare"></i>
-                                    <span class="side-menu__label">&nbsp; &nbsp;Loan</span><i class="bi-caret-right-fill"></i>
+                                    <span class="side-menu__label">&nbsp; &nbsp;Income Statement</span><i class="bi-caret-right-fill"></i>
                                     </a>
                                     <ul class="slide-menu">
                                 
@@ -136,29 +86,29 @@
                                                 <span class="side-menu__label">&nbsp; &nbsp;Branch Wise CPF Loan Balance</span>
                                             </a>
                                         </li>
-                                        <li class="slide">
-                                        <a onclick="PartialViewReport('_RPIndividualCPFLoanLedger')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="bi-archive-fill"></i>
-                                                <span class="side-menu__label">&nbsp; &nbsp;Individual CPF Loan Ledger</span>
-                                            </a>
-                                        </li>
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPMonthlyLoanInterestPosting')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="bi bi-bag-fill"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Monthly Loan Interest Posting</span>
-                                        </a>
-                                    </li>
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPCPFLoanTransactionDateBetween')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="bi bi-basket"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Loan Transaction Date Between</span>
-                                        </a>
-                                    </li>
-
+                                                                                                     
                                     </ul>
+
+                                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                                        @*<i class="bi bi-bank"> </i>*@
+                                    <i class="fab fa-slideshare"></i>
+                                    <span class="side-menu__label">&nbsp; &nbsp;Statement Of Affairs </span><i class="bi-caret-right-fill"></i>
+                                    </a>
+                                    <ul class="slide-menu">
+
+                                    <li class="slide">
+                                        <a onclick="PartialViewReport('_RPStatementOfAffairs')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
+                                            @*<i class="bi bi-clipboard-data"></i>*@
+                                            <i class="bi bi-columns-gap"></i>
+                                            <span class="side-menu__label">&nbsp; &nbsp;Statement Of Affairs</span>
+                                        </a>
+                                    </li>
+                                                                                                     
+                                    </ul>
+
                                 <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
                                     <i class="bi-wallet-fill"></i>
-                                    <span class="side-menu__label">&nbsp; &nbsp;Account</span><i class="bi-caret-right-fill"></i>
+                                    <span class="side-menu__label">&nbsp; &nbsp;MIS</span><i class="bi-caret-right-fill"></i>
                                 </a>
                                 <ul class="slide-menu">
                                     <li class="side-menu__label1"><a href="javascript:void(0);">Chart of Accounts</a></li>
@@ -168,38 +118,7 @@
                                             <span class="side-menu__label">&nbsp; &nbsp;Chart of Accounts</span>
                                         </a>
                                     </li>
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPDrCrSuplementory')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            <i class="bi-receipt"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Debit & Credit Suplementory</span>
-                                        </a>
-                                    </li>
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPTrailBalanceBetweenDate')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            @*<i class="bi bi-clipboard-data"></i>*@
-                                            <i class="bi bi-lightbulb"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Trail Balance Between Date</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPSubsidiaryLedger')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            @*<i class="bi bi-clipboard-data"></i>*@
-                                            <i class="bi bi-columns"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Subsidiary Ledger</span>
-                                        </a>
-                                    </li>
-
-                                    <li class="slide">
-                                        <a onclick="PartialViewReport('_RPStatementOfAffairs')" class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0);">
-                                            @*<i class="bi bi-clipboard-data"></i>*@
-                                            <i class="bi bi-columns-gap"></i>
-                                            <span class="side-menu__label">&nbsp; &nbsp;Statement Of Affairs</span>
-                                        </a>
-                                    </li>
-
-                                    
-
+                                   
                                 </ul>                             
                         </div>
                      

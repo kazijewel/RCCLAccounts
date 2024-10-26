@@ -531,7 +531,7 @@ namespace RCCLAccounts.WebUi.Services
             switch(a)
             {
                 case "CP":ret = "Cash Payment Voucher";break;
-                case "CR":ret = "Cash Receipt Voucher";break;
+                case "CR":ret = "Cash Received Voucher"; break;
                 case "BP":ret = "Bank Payment Voucher";break;
                 case "BR":ret = "Bank Receipt Voucher";break;
                 case "JV":ret = "Journal Voucher";break;
