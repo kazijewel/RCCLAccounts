@@ -81,7 +81,7 @@ namespace RCCLAccounts.WebUi.Controllers
         public async Task<IActionResult> PertialView(string viewName)
         {
 
-            ViewBag.Ledger = new SelectList(GetLedgerLoad(), "LedgerId", "LedgerName");       
+            ViewBag.Ledger = new SelectList(GetLedgerLoad(), "LedgerId", "LedgerName");
             return PartialView(viewName);
 
         }
@@ -165,6 +165,36 @@ namespace RCCLAccounts.WebUi.Controllers
             return ShowReport(0);
         }
 
+        /// <summary>
+        /// Opening Trail Balance
+        /// </summary>
+        /// <param name="fiscalYearId"></param>
+        /// <param name="fiscalYear"></param>
+        /// <param name="balanceType"></param>
+        /// <returns></returns>
+        public IActionResult OpeningTrailBalance(string fiscalYearId, string fiscalYear, string balanceType)
+        {
+            reportName = "rptOpeningTrailBalance.frx";
+            _title = "OPENING TRIAL BALANCE (LEDGER WISE)";
+            caption = fiscalYear;
+          
+            var companyId = "B-1";
+        
+            string clause = "";
+
+
+            if (balanceType.Equals("With"))
+            {
+                clause = " where balance!=0 ";
+            }
+            string sql = "select * from funOpeningTrialBalance('" + fiscalYearId + "','" + companyId + "') " + clause + " " +
+                " order by SL,PrimaryGroupCode,HeadName," +
+                " MainGroupCode,GroupName,SubGroupCode,SubGroupName,LedgerCode,LedgerName";
+            _logger.LogInformation(sql);
+            sqls.Clear();
+            sqls.Add(sql);
+            return ShowReport(0);
+        }
         public IActionResult GetDebitCreditSuplementory(String FromDate, String Todate,String VoucherType)
         {
             reportName = "rptDebitCreditSuplementory.frx";
@@ -338,6 +368,14 @@ namespace RCCLAccounts.WebUi.Controllers
 
         }
 
+
+        public IActionResult fiscalYearLoad()
+        {
+            var obj = service.getFiscalYearList();
+            if (obj != null)
+                return Json(new SelectList(obj, "Id", "Name"));
+            return Json(new { });
+        }
 
         #endregion
 

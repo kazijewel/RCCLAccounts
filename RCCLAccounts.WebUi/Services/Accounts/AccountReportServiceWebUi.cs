@@ -27,7 +27,7 @@ namespace RCCLAccounts.WebUi.Services
             sqlCon = _db.Database.GetDbConnection().ConnectionString;
             commonService = new commonService( _accessor, _db);
         }
-       
+
         //public string getFiscalYear(string fromDate,string toDate)
         //{
         //    return commonService.getFiscalYearByDate(fromDate,toDate);
@@ -40,37 +40,37 @@ namespace RCCLAccounts.WebUi.Services
         //              select new { Id = x.Id, Name = x.Code + "-" + x.Name };
         //    return obj;
         //}
-        //public IEnumerable<object> getFiscalYearList()
-        //{
-        //    ISession session = commonService.getSession();
-        //    var companyId = session.GetString("companyId");
-        //    List<object> objList = new List<object>();
-        //    SqlConnection con = new SqlConnection(sqlCon);
-        //    string sql = "select FiscalYearId,CONVERT(varchar,OpeningDate,105)OpeningDate," +
-        //        "CONVERT(varchar,ClosingDate,105)ClosingDate from tbFiscalYear Where CompanyId like '"+companyId+"' order by OpeningDate";
-        //    try
-        //    {
-        //        con.Open();
-        //        SqlCommand cmd = new SqlCommand(sql, con);
-        //        SqlDataReader reader = cmd.ExecuteReader();
-        //        if (reader.HasRows)
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                objList.Add(new
-        //                {
-        //                    Id = reader["FiscalYearId"].ToString(),
-        //                    Name = reader["OpeningDate"].ToString() + " - " + reader["ClosingDate"].ToString()
-        //                }); ;
-        //            }
-        //        }
-        //    }
-        //    finally
-        //    {
-        //        con.Close();
-        //    }
-        //    return objList;
-        //}
+        public IEnumerable<object> getFiscalYearList()
+        {
+
+            var companyId = "B-1";
+            List<object> objList = new List<object>();
+            SqlConnection con = new SqlConnection(sqlCon);
+            string sql = "select FiscalYearId,CONVERT(varchar,OpeningDate,105)OpeningDate," +
+                "CONVERT(varchar,ClosingDate,105)ClosingDate from FiscalYears Where CompanyId like '" + companyId + "' order by OpeningDate";
+            try
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand(sql, con);
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        objList.Add(new
+                        {
+                            Id = reader["FiscalYearId"].ToString(),
+                            Name = reader["OpeningDate"].ToString() + " - " + reader["ClosingDate"].ToString()
+                        }); ;
+                    }
+                }
+            }
+            finally
+            {
+                con.Close();
+            }
+            return objList;
+        }
         //public int chequeCancellationSaveWork(ChequeCancel obj)
         //{
         //    int ret = 0;
@@ -94,7 +94,7 @@ namespace RCCLAccounts.WebUi.Services
         //        cmd.Parameters.AddWithValue("@userName", obj.UserName);
         //        cmd.Parameters.AddWithValue("@userIp", obj.UserIp);
         //        cmd.Parameters.AddWithValue("@entryTime", DateTime.Now.ToString("yyyy/MM/dd hh:mm:ss tt"));
-               
+
         //        ret = cmd.ExecuteNonQuery();
         //    }
         //    finally

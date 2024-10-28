@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="03/06/2021 11:32:18" ReportInfo.Modified="10/28/2024 21:50:05" ReportInfo.CreatorVersion="2019.4.9.0">
+  <Dictionary>
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqs/uWnL9okwOzFjXV3AKpVqZocBx+BMz5yo2pNhHGtiJfBHmsyy1naMO6EC78AK3fwRC6W4wjFLUUfk0A8D72I+mzW4wSDHIge0Sz1W+nwaSU3wQJSxlhAK2JXMM6UngL1syxI8elODH9yKfJ+rKcr6gMt61KGVoYYhTDo6fbMfXZReDYamgZPZfgjbt6YKReN+9vsOpum7ZYUDSqg0uhOw==">
+      <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="Execute(@Parameter)">
+        <Column Name="HeadName" DataType="System.String"/>
+        <Column Name="GroupId" DataType="System.String"/>
+        <Column Name="GroupName" DataType="System.String"/>
+        <Column Name="SubGroupId" DataType="System.String"/>
+        <Column Name="SubGroupName" DataType="System.String"/>
+        <Column Name="sl" DataType="System.Int32"/>
+        <Column Name="LedgerId" DataType="System.String"/>
+        <Column Name="LedgerName" DataType="System.String"/>
+        <Column Name="Balance" DataType="System.Decimal"/>
+        <Column Name="PrimaryGroupId" DataType="System.String"/>
+        <Column Name="PrimaryGroupCode" DataType="System.String"/>
+        <Column Name="MainGroupCode" DataType="System.String"/>
+        <Column Name="SubGroupCode" DataType="System.String"/>
+        <Column Name="LedgerCode" DataType="System.String"/>
+        <Column Name="LedgerGroup" DataType="System.String"/>
+        <Column Name="NoteNo" DataType="System.String"/>
+        <Column Name="MainGroupName" DataType="System.String"/>
+        <Column Name="DrAmount" DataType="System.Decimal"/>
+        <Column Name="CrAmount" DataType="System.Decimal"/>
+        <CommandParameter Name="Parameter" DataType="22" DefaultValue="select * from funOpeningTrialBalance('FY-1','B-1') order by SL,PrimaryGroupCode,HeadName,MainGroupCode,GroupName,SubGroupCode,SubGroupName,LedgerCode,LedgerName "/>
+      </TableDataSource>
+    </MsSqlDataConnection>
+    <Parameter Name="printTime" DataType="System.String"/>
+    <Parameter Name="userName" DataType="System.String"/>
+    <Parameter Name="developer" DataType="System.String"/>
+    <Parameter Name="companyName" DataType="System.String"/>
+    <Parameter Name="phone" DataType="System.String"/>
+    <Parameter Name="logo" DataType="System.String"/>
+    <Parameter Name="caption" DataType="System.String"/>
+    <Parameter Name="companyAddress" DataType="System.String"/>
+    <Parameter Name="title" DataType="System.String"/>
+    <Total Name="tlDrAmt" Expression="[Table.DrAmount]" Evaluator="Data1"/>
+    <Total Name="tlCrAmt" Expression="[Table.CrAmount]" Evaluator="Data1"/>
+  </Dictionary>
+  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="141.75">
+      <TextObject Name="Text9" Width="718.2" Height="28.35" Text="[companyName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text11" Top="47.25" Width="718.2" Height="18.9" Text="[phone]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text18" Top="103.95" Width="718.2" Height="18.9" Text="As on [caption]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text6" Top="28.35" Width="718.2" Height="18.9" Text="[companyAddress]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+      <TextObject Name="Text7" Top="75.6" Width="718.2" Height="18.9" Border.Lines="Top" Text="[title]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+    </ReportTitleBand>
+    <PageHeaderBand Name="PageHeader1" Top="145.75" Width="718.2" Height="18.9">
+      <TextObject Name="Text4" Left="377.62" Width="170.1" Height="18.9" Border.Lines="All" Text="Dr. Amount" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text1" Width="378" Height="18.9" Border.Lines="All" Text="Particular" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text21" Left="548.1" Width="170.1" Height="18.9" Border.Lines="All" Text="Cr. Amount" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </PageHeaderBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="168.65" Width="718.2" Height="18.9" Condition="[Table.HeadName]">
+      <TextObject Name="Text2" Width="378" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Text="[[Table.HeadName]]" Font="Arial, 9pt, style=Bold"/>
+      <TextObject Name="Text30" Left="378" Width="170.1" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text31" Left="548.1" Width="170.1" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+      <GroupHeaderBand Name="GroupHeader2" Top="191.55" Width="718.2" Height="18.9" Condition="[Table.GroupName]">
+        <TextObject Name="Text3" Width="378" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Text="[[Table.GroupName]]" Padding="20, 0, 2, 0" Font="Arial, 9pt, style=Bold"/>
+        <TextObject Name="Text32" Left="378" Width="170.1" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+        <TextObject Name="Text33" Left="548.1" Width="170.1" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+        <GroupHeaderBand Name="GroupHeader3" Top="214.45" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" Condition="[Table.SubGroupName]">
+          <TextObject Name="Text5" Width="378" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Text="[[Table.SubGroupName]]" Padding="40, 0, 2, 0" Font="Arial, 9pt, style=Bold"/>
+          <TextObject Name="Text34" Left="378" Width="170.1" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+          <TextObject Name="Text35" Left="548.1" Width="170.1" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+          <DataBand Name="Data1" Top="237.35" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" DataSource="Table">
+            <TextObject Name="Text41" Left="378" Width="170.1" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Text="[Table.DrAmount]" HideZeros="true" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="0" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Arial, 9pt" Trimming="EllipsisCharacter"/>
+            <TextObject Name="Text46" Left="548.1" Width="170.1" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Text="[Table.CrAmount]" HideZeros="true" Format="Currency" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.CurrencySymbol="" Format.PositivePattern="0" Format.NegativePattern="0" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Arial, 9pt" Trimming="EllipsisCharacter"/>
+            <TextObject Name="Text24" Width="378" Height="18.9" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Text="[Table.LedgerName]" Padding="60, 0, 2, 0" Font="Arial, 9pt"/>
+          </DataBand>
+        </GroupHeaderBand>
+      </GroupHeaderBand>
+    </GroupHeaderBand>
+    <ReportSummaryBand Name="ReportSummary1" Top="260.25" Width="718.2" Height="18.9">
+      <TextObject Name="Text43" Left="548.1" Width="170.1" Height="18.9" Border.Lines="All" Text="[tlCrAmt]" HorzAlign="Right" VertAlign="Center" WordWrap="false" Font="Arial, 10pt, style=Bold" Trimming="EllipsisCharacter">
+        <Formats>
+          <NumberFormat/>
+          <GeneralFormat/>
+        </Formats>
+        <Highlight>
+          <Condition Font="Arial, 10pt"/>
+        </Highlight>
+      </TextObject>
+      <TextObject Name="Text44" Width="378" Height="18.9" Border.Lines="All" Format="Currency" Format.UseLocale="true" Format.DecimalDigits="2" HorzAlign="Right" WordWrap="false" Font="Arial, 10pt" Trimming="EllipsisCharacter"/>
+      <TextObject Name="Text8" Left="378" Width="170.1" Height="18.9" Border.Lines="All" Text="[tlDrAmt]" Format="Number" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.NegativePattern="0" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+    </ReportSummaryBand>
+    <PageFooterBand Name="PageFooter1" Top="283.15" Width="718.2" Height="22.68">
+      <TextObject Name="Text13" Left="122.85" Top="2.55" Width="151.2" Height="18.9" Text="[userName]" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt"/>
+      <TextObject Name="Text14" Left="274.05" Top="2.55" Width="368.55" Height="18.9" Text="[developer]" HorzAlign="Center" VertAlign="Center" Font="Arial, 6.75pt"/>
+      <TextObject Name="Text23" Left="642.6" Top="2.27" Width="75.6" Height="19.66" CanBreak="false" Text="[Page#] Of [TotalPages#]" HorzAlign="Center" VertAlign="Center" Font="Arial, 8pt"/>
+      <TextObject Name="Text29" Width="718.2" Height="18.9" Border.Lines="Top" Font="Arial, 6.75pt"/>
+      <TextObject Name="Text47" Top="1.89" Width="122.85" Height="18.9" Text="[Date]" VertAlign="Center" Font="Arial, 6.75pt"/>
+    </PageFooterBand>
+  </ReportPage>
+</Report>
