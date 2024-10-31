@@ -56,6 +56,34 @@ namespace RCCLAccounts.WebUi.Common
         //    return ledgerName;
         //}
 
+        //public string getFiscalYearByDate(string fromDate, string toDate)
+        //{
+        //    var companyId = "B-1";
+        //    string fiscalYear = "0";
+        //    SqlConnection con = new SqlConnection(sqlCon);
+        //    try
+        //    {
+        //        con.Open();
+        //        string sql = "Select  [dbo].[DateSelect](@fromDate,@toDate,@companyId) dateFSL";
+        //        SqlCommand cmd = new SqlCommand(sql, con);
+        //        cmd.Parameters.AddWithValue("@fromDate", fromDate);
+        //        cmd.Parameters.AddWithValue("@toDate", toDate);
+        //        cmd.Parameters.AddWithValue("@companyId", companyId);
+        //        SqlDataReader sqlData = cmd.ExecuteReader();
+        //        if (sqlData.Read())
+        //        {
+        //            if (sqlData.HasRows)
+        //            {
+        //                fiscalYear = sqlData["dateFSL"].ToString();
+        //            }
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        con.Close();
+        //    }
+        //    return fiscalYear;
+        //}
 
         // Check Date interval in the same Fiscal Year
         public string getSameFiscalYearDateCheck(string fromDate,string toDate, string branchID)

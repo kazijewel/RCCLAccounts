@@ -28,10 +28,19 @@ namespace RCCLAccounts.WebUi.Services
             commonService = new commonService( _accessor, _db);
         }
 
-        //public string getFiscalYear(string fromDate,string toDate)
+        //public string getFiscalYear(string fromDate, string toDate)
         //{
-        //    return commonService.getFiscalYearByDate(fromDate,toDate);
+        //    return commonService.getFiscalYearByDate(fromDate, toDate);
         //}
+
+
+
+        public string getFiscalYear(string date, string branchID)
+        {
+            return commonService.getFiscalYear(date, branchID);
+        }
+
+
         //public IEnumerable<object> primaryGroup()
         //{
         //    ISession session = commonService.getSession();

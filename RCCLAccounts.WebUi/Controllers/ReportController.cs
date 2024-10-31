@@ -18,7 +18,6 @@ using FastReport;
 using RCCLAccounts.Core.Interfaces;
 using RCCLAccounts.Core.Services;
 using RCCLAccounts.Data.Entities;
-using static RCCLAccounts.WebUi.Controllers.LoanDisbursmentController;
 using System.Drawing;
 using Fizzler;
 using Microsoft.CodeAnalysis.Operations;
@@ -158,7 +157,7 @@ namespace RCCLAccounts.WebUi.Controllers
         {
             reportName = "rptChartOfAccount.frx";
             _title = "Chart of Account";
-            var sql = " Select L.LedgerId,L.LedgerCode,L.LedgerName,P.PrimaryGroupId,P.PrimaryGroupName, Isnull(M.MainGroupId,'')MainGroupId,Isnull(M.MainGroupName,'')MainGroupName,Isnull(S.SubGroupId,'')SubGroupId, Isnull(S.SubGroupName,'')SubGroupName,P.ItemOf, Case When P.ItemOf ='Asset' Then 1 When P.ItemOf ='Liabilities' Then 2 When P.ItemOf ='Expense' Then 3 When P.ItemOf ='Income' Then 4 else 0 End As Type from [dbo].[Ledgers] L inner join   [dbo].[PrimaryGroups] P on L.PrimaryId=p.PrimaryId Left outer join [dbo].[MainGroups] M On L.MainId=M.MainId Left outer join [dbo].[SubGroups] S On L.SubId=S.SubId order by Type,P.PrimaryGroupId,M.MainGroupId, Cast (SUBSTRING(L.LedgerId, 3, 50) as int) ";
+            var sql = " Select L.LedgerId,L.LedgerCode,L.LedgerName,P.PrimaryGroupId,P.PrimaryGroupName, Isnull(M.MainGroupId,'')MainGroupId,Isnull(M.MainGroupName,'')MainGroupName,Isnull(S.SubGroupId,'')SubGroupId, Isnull(S.SubGroupName,'')SubGroupName,P.ItemOf, Case When P.ItemOf ='Asset' Then 1 When P.ItemOf ='Liability' Then 2 When P.ItemOf ='Expense' Then 3 When P.ItemOf ='Income' Then 4 else 0 End As Type from [dbo].[Ledgers] L inner join   [dbo].[PrimaryGroups] P on L.PrimaryId=p.PrimaryId Left outer join [dbo].[MainGroups] M On L.MainId=M.MainId Left outer join [dbo].[SubGroups] S On L.SubId=S.SubId order by Type,P.PrimaryGroupId,M.MainGroupId, Cast (SUBSTRING(L.LedgerId, 3, 50) as int) ";
              _logger.LogInformation(sql);
              sqls.Clear();
              sqls.Add(sql);
@@ -179,7 +178,7 @@ namespace RCCLAccounts.WebUi.Controllers
             caption = fiscalYear;
           
             var companyId = "B-1";
-        
+           
             string clause = "";
 
 
@@ -226,12 +225,15 @@ namespace RCCLAccounts.WebUi.Controllers
         // Trail Balance Between Date
         public IActionResult GetTrailBalanceBetweenDate(String FromDate, String Todate)
         {
+
+            string FiscalYear = service.getFiscalYear(FromDate, "B-1");
+
             reportName = "rptTrailBalanceBetweenDate.frx";
             _title = "Trail Balance Between Date ";
 
             caption = "From " + dateToString(stringToDate(FromDate), "dd-MM-yy") + " To : " + dateToString(stringToDate(Todate), "dd-MM-yy");
 
-            var sql = " Exec [dbo].[sp_RptTrailBalanceBetweenDate]  '" + FromDate + "' , '" + Todate + "' ,'B-1','FY-1'  ";
+            var sql = " Exec [dbo].[sp_RptTrailBalanceBetweenDate]  '" + FromDate + "' , '" + Todate + "' ,'B-1','" + FiscalYear + "'   ";
 
 
             _logger.LogInformation(sql);
@@ -310,34 +312,7 @@ namespace RCCLAccounts.WebUi.Controllers
         }
 
         #region Parameter Method
-        public List<LoanList> GetLoanLoad()
-        {
-            List<LoanList> loans = new List<LoanList>();
-            SqlConnection con = new SqlConnection(sqlCon);
-            try
-            {
-                con.Open();
-                string sql = " Select L.LoanInfoId,(L.LoanNo+' - '+E.EmployeeName)LoanNo from [dbo].[LoanInformation] L inner join[dbo].[EmployeeInfos] E on L.EmpolyeeId = E.EmpolyeeId order by LoanInfoId ";
 
-                SqlCommand cmd = new SqlCommand(sql, con);
-                SqlDataReader sqlData = cmd.ExecuteReader();
-                while (sqlData.Read())
-                {
-                    loans.Add(new LoanList
-                    {
-                        LoanId = Convert.ToInt32(sqlData["LoanInfoId"]),
-                        LoanNo = sqlData["LoanNo"].ToString(),
-                    });
-                }
-            }
-            finally
-            {
-                con.Close();
-            }
-
-            return loans;
-
-        }
       
         public List<LedgerList> GetLedgerLoad()
         {
