@@ -16,17 +16,6 @@ namespace RCCLAccounts.Core
         {
             services.AddDataLayer(configuration);
             services.AddMappings();
-            services.AddScoped<IEmployeeService, EmployeeService>();
-
-            services.AddScoped<IEmpService, EmpService>();
-            services.AddScoped<IBankNameService, BankNameService>();
-            services.AddScoped<IBankBranchService, BankBranchService>();
-            services.AddScoped<IBankAccountInfoService, BankAccountInfoService>();
-            services.AddScoped<IBankDepositService, BankDepositService>();
-            services.AddScoped<ILoanInformationService, LoanInformationService>();
-            services.AddScoped<IEmployeeCpfledgerService, EmployeeCpfledgerService>();
-			services.AddScoped<IEmployeeCPFOpeningService, EmployeeCPFOpeningService>();
-
             services.AddScoped<IPrimaryGroupService, PrimaryGroupService>();
             return services;
         }

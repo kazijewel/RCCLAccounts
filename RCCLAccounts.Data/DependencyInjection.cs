@@ -16,16 +16,6 @@ namespace RCCLAccounts.Data
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            services.AddScoped<IEmpRepository, EmpRepository>();
-            services.AddScoped<IBankNameRepository, BankNameRepository>();
-            services.AddScoped<IBankBranchRepository, BankBranchRepository>();
-            services.AddScoped<IBankAccountInfoRepository, BankAccountInfoRepository>();
-            services.AddScoped<IBankDepositRepository, BankDepositRepository>();
-            services.AddScoped<ILoanInformationRepository, LoanInformationRepository>();
-            services.AddScoped<IEmployeeCpfledgerRepository, EmployeeCpfledgerRepository>();
-			services.AddScoped<IEmployeeCPFOpeningRepository, EmployeeCPFOpeningRepository>();
-
             services.AddScoped<IPrimaryGroupRepository, PrimaryGroupRepository>();
             return services;
         }
