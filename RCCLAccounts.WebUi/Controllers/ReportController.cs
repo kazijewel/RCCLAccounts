@@ -276,6 +276,42 @@ namespace RCCLAccounts.WebUi.Controllers
             sqls.Add(sql);
             return ShowReport(0);
         }
+
+
+        //  Income Statement
+        public IActionResult GetIncomeStatementBetweenDate(String FromDate, String Todate)
+        {
+ 
+            reportName = "rptIncomeStatement.frx";
+            _title = "Income Statement ";
+             
+            caption = " For The Period Of " + dateToString(stringToDate(FromDate), "dd-MM-yy") + " To : " + dateToString(stringToDate(Todate), "dd-MM-yy");
+    
+            var sql = " select * from [funAddjustedTrialBetweenDate] ('" + FromDate + "', '" + Todate + "', 'B-1') where (closingBal != 0 or Tranbal != 0 or Drbal != 0) order by sl,HeadId,GroupName,Ledger_Name  ";
+
+            _logger.LogInformation(sql);
+            sqls.Clear();
+            sqls.Add(sql);
+            return ShowReport(0);
+        }
+
+
+        //  Statement Of Affairs (Sub Group)
+        public IActionResult GetStatementOfAffairsSubGroup(String FromDate, String Todate)
+        {
+            string FiscalYear = service.getFiscalYear(FromDate, "B-1");
+            reportName = "rptStatementOfAffairs(Sub Group).frx";
+            _title = "Statement of Affairs (Sub Group)";
+
+            caption = " From " + dateToString(stringToDate(FromDate), "dd-MM-yy") + " To : " + dateToString(stringToDate(Todate), "dd-MM-yy");
+
+            var sql = " select * from [funTrialBetweenDate] ('" + FromDate + "', '" + Todate + "', 'B-1','" + FiscalYear + "') where lgroup in ('Asset','Liabilitie') and (Op_Dr!=0 or Op_Cr!=0 or Trans_Dr!=0  or Trans_Cr!=0 or Cl_Dr!=0 or Cl_Cr!=0 ) order by sl,HeadId,GroupName,Ledger_Name  ";
+
+            _logger.LogInformation(sql);
+            sqls.Clear();
+            sqls.Add(sql);
+            return ShowReport(0);
+        }
         public ActionResult ShowReport(int multidbCount)
         {
             WebReport webReport = ReportGenerate(multidbCount);

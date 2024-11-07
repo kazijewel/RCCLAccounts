@@ -20,7 +20,8 @@
                         @*<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" width="24" height="24" viewBox="0 0 24 24">
                             <path d="M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707l-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13zm7 7v-5h4v5h-4zm2-15.586 6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z" style="color:olivedrab" />
                             </svg>*@
-                        <i class="fas fa-fan" style="color:darkmagenta"></i>
+                      @*  <i class="fas fa-fan" style="color:darkmagenta"></i>*@
+                        <i class="fas fa-paper-plane" style="color:darkmagenta"></i>
                        @*<i class="bi bi-fan" style="color:darkmagenta"></i>
   *@                      <span class="side-menu__label"> &nbsp; &nbsp; Dashboard</span>
                     </a>
@@ -43,25 +44,30 @@
                         </li>
                         <li class="slide">
                             <a class="side-menu__item" data-bs-toggle="slide" asp-action="Index" asp-controller="MainGroup">
-                                <i class="bi bi-person-circle" style="color:fuchsia"></i>
+                             @*   <i class="bi bi-person-circle" style="color:fuchsia"></i>*@
+                                <i class="fas fa-business-time" style="color:darkorange"></i>
                                 <span class="side-menu__label">&nbsp; &nbsp;Main Group Info</span>
                             </a>
                         </li>
                         <li class="slide">
                             <a class="side-menu__item" data-bs-toggle="slide" asp-action="Index" asp-controller="SubGroup">
-                                <i class="bi bi-person-circle" style="color:fuchsia"></i>
+                             @*   <i class="bi bi-person-circle" style="color:fuchsia"></i>*@
+                                <i class="fas fa-leaf" style="color:orangered" ></i>
                                 <span class="side-menu__label">&nbsp; &nbsp;Sub Group Info</span>
                             </a>
                         </li>
                         <li class="slide">
                             <a class="side-menu__item" data-bs-toggle="slide" asp-action="Index" asp-controller="Ledger">
-                                <i class="bi bi-person-circle" style="color:fuchsia"></i>
+                               @* <i class="bi bi-person-circle" style="color:fuchsia"></i>*@
+                                <i class="fas fa-envelope-open-text" style="color:lightcoral"></i>
                                 <span class="side-menu__label">&nbsp; &nbsp;Ledger</span>
                             </a>
                         </li>
                         <li class="slide">
                             <a class="side-menu__item" data-bs-toggle="slide" asp-action="Index" asp-controller="NarrationInfo">
-                                <i class="bi bi-person-circle" style="color:fuchsia"></i>
+                              @*  <i class="bi bi-person-circle" style="color:fuchsia"></i>*@
+                             
+                                <i class="fas fa-thumbtack" style="color:blueviolet"></i>
                                 <span class="side-menu__label">&nbsp; &nbsp;Narration Info</span>
                             </a>
                         </li>
@@ -92,7 +98,8 @@
                         <li class="slide">
                             <a class="side-menu__item" data-bs-toggle="slide" asp-action="Index" asp-controller="CashReceived">
                               @*  <i class="bi bi-person-circle" style="color:limegreen"></i>*@
-                            <i class="bi bi-coin" style="color:limegreen"></i>
+                          
+                            <i class="fas fa-cash-register" style="color:limegreen"></i>
                                 <span class="side-menu__label">&nbsp; &nbsp;Cash Received</span>
                             </a>
                         </li>
@@ -104,8 +111,6 @@
                             </a>
                         </li>
                     </ul>
-                        
-                                                                            
                     
                 </li>
 
