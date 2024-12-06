@@ -1,4 +1,13 @@
 ﻿$(document).ready(function () {
+
+    $('#primaryGroupId').select2({
+        dropdownParent: $('#subGroup')
+    });
+    $('#mainGroupId').select2({
+        dropdownParent: $('#subGroup')
+    });
+
+
     primaryGroupData();
     mainGroupData("%");
     $("#btnAdd").click(function () {

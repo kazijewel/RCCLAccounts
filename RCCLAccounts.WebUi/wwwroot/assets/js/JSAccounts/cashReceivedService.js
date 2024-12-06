@@ -2,6 +2,8 @@
 
 var x = 0;
 $(document).ready(function () {
+
+
     $("#btnAdd").click(function () {
         
         init();
@@ -388,6 +390,10 @@ function addRow(x) {
         }
         $('#ledgerId' + x).select2();
         $("#ledgerId" + x).focus();
+        //$('#ledgerId' + x).select2({
+        //    dropdownParent: $('#cashReceived') // Ensure it uses the right parent
+        //}).focus();
+
     }
 }
 

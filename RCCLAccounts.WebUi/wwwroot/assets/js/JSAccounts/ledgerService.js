@@ -1,5 +1,18 @@
 ﻿
 $(document).ready(function () {
+
+    $('#primaryGroupId').select2({
+        dropdownParent: $('#ledger')
+    });
+    $('#mainGroupId').select2({
+        dropdownParent: $('#ledger')
+    });
+    $('#subGroupId').select2({
+        dropdownParent: $('#ledger')
+    });
+
+
+
     primaryGroupData();
     mainGroupData("%");
     subGroupData("%", "%");

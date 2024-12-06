@@ -383,21 +383,7 @@ function addRow(x) {
         //});
 
         //$('#ledgerId' + x).select2({
-        //    dropdownParent: $('#cashPayment')
-
-        //}).on('select2:open', function () {
-        //    //let dropdown = $('.select2-container--open'); // Get the open dropdown container
-        //    //dropdown.css({
-        //    //    top: '', // Let Select2 manage positioning
-        //    //    left: '' // Let Select2 manage positioning
-        //    //});
-        //    //console.log($('.select2-container--open').offset());
-        //    //let dropdown = $('.select2-container--open');
-        //    //dropdown.css({
-        //    //    top: $('#ledgerId' + x).offset().top + $('#ledgerId' + x).outerHeight(),
-        //    //    left: $('#ledgerId' + x).offset().left
-        //    //});
-        //    //console.log(dropdown.offset());
+        //    dropdownParent: $('#cashPayment')      
         //});
 
         //$('#cashPayment #ledgerId + x.select2').each(function () {
@@ -407,19 +393,7 @@ function addRow(x) {
         //    });
         //});
 
-        $('#ledgerId' + x).select2({
-            dropdownParent: $('#cashPayment')
-        }).on('select2:open', function () {
-            // Optional: Manually adjust dropdown position
-            let dropdown = $('.select2-container--open');
-            let input = $('#ledgerId' + x);
-            dropdown.offset({
-                top: input.offset().top + input.outerHeight(),
-                left: input.offset().left
-            });
-            console.log('Dropdown Offset:', dropdown.offset());
-        });
-
+    
     }
 }
 function ledgerAction(a) {

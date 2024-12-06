@@ -1,6 +1,12 @@
 ﻿
 $(document).ready(function () {
     primaryGroupData();
+
+    $('#primaryGroupId').select2({
+        dropdownParent: $('#mainGroup')
+        });
+
+
     $("#btnAdd").click(function () {
         clear();
         init();
