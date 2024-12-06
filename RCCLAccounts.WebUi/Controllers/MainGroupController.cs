@@ -150,6 +150,7 @@ namespace RCCLAccounts.WebUi.Controllers
             //          select new { Id = x.PrimaryGroupId, Name = x.PrimaryGroupId + "-" + x.Code + "-" + x.Name };
 
             var obj = await _db.PrimaryGroups
+                   .OrderBy(x => x.PrimaryGroupName)
                    .Select(x => new { Id = x.PrimaryGroupId, Name = x.PrimaryGroupId + "-" + x.PrimaryGroupCode + "-" + x.PrimaryGroupName })
                    .ToListAsync();
 

@@ -163,6 +163,7 @@ namespace RCCLAccounts.WebUi.Controllers
             //var obj = from x in _unitAccounts.PrimaryGroup.GetAll()
             //          select new { Id = x.PrimaryGroupId, Name = x.Code + "-" + x.Name };
             var obj = await _db.PrimaryGroups
+                  .OrderBy(x => x.PrimaryGroupName)
                   .Select(x => new { Id = x.PrimaryGroupId, Name = x.PrimaryGroupCode + "-" + x.PrimaryGroupName })
                   .ToListAsync();
 
@@ -173,7 +174,8 @@ namespace RCCLAccounts.WebUi.Controllers
             //var obj = from x in _unitAccounts.MainGroup.GetAll(x=>x.PrimaryGroupId == id)
             //          select new { Id = x.MainGroupId, Name =x.MainGroupCode + "-" + x.MainGroupName };
             var obj = await _db.MainGroups
-                     .Where(x => x.PrimaryGroupId == id)  
+                     .Where(x => x.PrimaryGroupId == id)
+                     .OrderBy(x => x.PrimaryGroupName)
                      .Select(x => new { Id = x.MainGroupId, Name = x.MainGroupCode + "-" + x.MainGroupName })
                      .ToListAsync();
 

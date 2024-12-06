@@ -39,6 +39,7 @@ namespace RCCLAccounts.WebUi.Services
 
             var obj = await _db.PrimaryGroups
             .Where(x => x.CompanyId == companyId)
+            .OrderBy(x => x.PrimaryGroupName)
             .Select(x => new { Id = x.PrimaryGroupId, Name = x.PrimaryGroupCode + "-" + x.PrimaryGroupName })
             .ToListAsync();
 
@@ -57,6 +58,7 @@ namespace RCCLAccounts.WebUi.Services
 
             var obj = await _db.MainGroups
            .Where(x => x.CompanyId == companyId)
+            .OrderBy(x => x.MainGroupName)
            .Select(x => new { Id = x.MainGroupId, Name = x.MainGroupCode + "-" + x.MainGroupName })
            .ToListAsync();
 
@@ -109,6 +111,7 @@ namespace RCCLAccounts.WebUi.Services
 
                 var obj = await _db.SubGroups
                .Where(x =>  x.CompanyId == companyId)
+                .OrderBy(x => x.SubGroupName)
                .Select(x => new { Id = x.SubGroupId, Name = x.SubGroupCode + "-" + x.SubGroupName })
                .ToListAsync();
 
@@ -121,6 +124,7 @@ namespace RCCLAccounts.WebUi.Services
 
               var obj = await _db.SubGroups
              .Where(x => x.PrimaryGroupId == pId && x.MainGroupId == mId &&  x.CompanyId == companyId)
+             .OrderBy(x => x.SubGroupName)
              .Select(x => new { Id = x.SubGroupId, Name = x.SubGroupCode + "-" + x.SubGroupName })
              .ToListAsync();
 

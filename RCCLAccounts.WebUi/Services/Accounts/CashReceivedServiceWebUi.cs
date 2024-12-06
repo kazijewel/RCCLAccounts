@@ -36,6 +36,7 @@ namespace RCCLAccounts.WebUi.Services
 
             var obj = await _db.Ledgers
             .Where(x => x.CompanyId == companyId && x.LedgerType != "Cash" )
+            .OrderBy(x => x.LedgerName)
             .Select(x => new { Id = x.LedgerId, Name = x.LedgerName  })
             .ToListAsync();
 

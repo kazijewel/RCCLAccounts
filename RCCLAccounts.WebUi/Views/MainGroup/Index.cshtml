@@ -33,7 +33,7 @@
     <a class="btn btn-primary" id="btnAdd">Create New <i class="fa fa-plus"></i></a>
     <br /><br />
 </div>
-
+<div class="panel-body">
         <div class="row">
             <div class="col-sm-6">
                 <div class="form-group" style="padding-bottom:10px;">
@@ -86,12 +86,20 @@
 
         $(document).ready(function () {
 
+            $('#mainGroup').on('shown.bs.modal', function () {
+                $('#primaryGroupId').select2({
+                    dropdownParent: $('#mainGroup')
+                });
+                jQuery('.element').select2();
+                jQuery('.element').select2('open');
+                jQuery('.element').select2('close');
         });
 
         $('.close').click(function () {
             $('#mainGroup').modal('hide');
         });
 
+       
 
 
     </script>
