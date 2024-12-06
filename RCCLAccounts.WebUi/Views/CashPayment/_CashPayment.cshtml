@@ -1,7 +1,7 @@
 ﻿
 
 <style>
-    .dropdown-menu {
+/*    .dropdown-menu {
   position: absolute;
   top: 100%;
   left: 0;
@@ -21,7 +21,15 @@
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
-}
+}*/
+    /*.select2-container {
+        z-index: 1060 !important; 
+    }*/
+
+    /*.select2-dropdown {
+        z-index: 1061 !important; 
+    }*/
+
 </style>
 
 
@@ -53,7 +61,7 @@
                                 <div class="col-sm-8">
                                     @*<select data-plugin-selectTwo id="cash" class="form-control input-sm cash">
                                     </select>*@
-                                    <select class="form-control form-select select2 input-sm cash" id="cash">
+                                    <select class="form-control form-select select2" id="cash" style="width: 100%;">
                                     </select>
                                 </div>
 
@@ -198,4 +206,5 @@
 
 <script asp-append-version="true" src="~/assets/js/jscommon/examples.mediagallery.js"></script>
 <script  asp-append-version="true" src="~/assets/js/jscommon/fileupload.js"></script>
+
 

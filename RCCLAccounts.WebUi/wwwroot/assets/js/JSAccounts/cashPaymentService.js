@@ -2,7 +2,12 @@
 
 var x = 0;
 $(document).ready(function () {
-    
+
+    //$('#cashPayment').on('shown.bs.modal', function () {
+    //    $(document).off('focusin.bs.modal');
+    //});
+   
+    $('.select2').select2();
     $("#btnAdd").click(function () {
         init();
         buttonSet(false);
@@ -72,7 +77,6 @@ $(document).ready(function () {
    
     
 });
-
 
 function reportPreview(voucherNo) {
     //var today = getCDay() + '-' + getCMonth() + '-' + getCYear();
@@ -314,7 +318,7 @@ function addRow(x) {
     var rowCount = gridCashPayment.rows.length;    
     var tr = gridCashPayment.insertRow(rowCount); 
     tr = gridCashPayment.insertRow(rowCount);
-    
+  
     
     for (var c = 0; c < tableArray.length; c++) {
         var td = document.createElement('td');
@@ -331,9 +335,14 @@ function addRow(x) {
             var select = document.createElement('select');
             
             select.setAttribute('class', 'form-control input-sm');
+        /*    select.setAttribute('class', 'form - control form - select select2');*/
+            
             select.setAttribute('id', 'ledgerId' + x);
             select.setAttribute('onchange', 'ledgerAction(' + x + ')');
             td.appendChild(select);
+            console.log('Initializing Select2 for #ledgerId' + select.setAttribute('id', 'ledgerId' + x));
+          
+           
         }
         if (c == 3) {
             var ele = document.createElement('label');
@@ -368,6 +377,49 @@ function addRow(x) {
         }
         $('#ledgerId' + x).select2();
         $("#ledgerId" + x).focus();
+        //$('#ledgerId' + x).select2({
+        //    dropdownParent: $('#cashPayment'),
+        //     dropdownPosition: 'below'
+        //});
+
+        //$('#ledgerId' + x).select2({
+        //    dropdownParent: $('#cashPayment')
+
+        //}).on('select2:open', function () {
+        //    //let dropdown = $('.select2-container--open'); // Get the open dropdown container
+        //    //dropdown.css({
+        //    //    top: '', // Let Select2 manage positioning
+        //    //    left: '' // Let Select2 manage positioning
+        //    //});
+        //    //console.log($('.select2-container--open').offset());
+        //    //let dropdown = $('.select2-container--open');
+        //    //dropdown.css({
+        //    //    top: $('#ledgerId' + x).offset().top + $('#ledgerId' + x).outerHeight(),
+        //    //    left: $('#ledgerId' + x).offset().left
+        //    //});
+        //    //console.log(dropdown.offset());
+        //});
+
+        //$('#cashPayment #ledgerId + x.select2').each(function () {
+        //    var $p = $(this).parent();
+        //    $(this).select2({
+        //        dropdownParent: $p
+        //    });
+        //});
+
+        $('#ledgerId' + x).select2({
+            dropdownParent: $('#cashPayment')
+        }).on('select2:open', function () {
+            // Optional: Manually adjust dropdown position
+            let dropdown = $('.select2-container--open');
+            let input = $('#ledgerId' + x);
+            dropdown.offset({
+                top: input.offset().top + input.outerHeight(),
+                left: input.offset().left
+            });
+            console.log('Dropdown Offset:', dropdown.offset());
+        });
+
     }
 }
 function ledgerAction(a) {

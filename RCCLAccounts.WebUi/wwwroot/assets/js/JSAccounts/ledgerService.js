@@ -463,15 +463,15 @@ function checkValidation() {
         if (isMainGroup($("#primaryGroupId").val())) {
             if ($("#mainGroupId").val() != "" && $("#mainGroupId").val() != "0") {
                 if (isSubGroup($("#primaryGroupId").val(), $("#mainGroupId").val())) {
-                    if ($("#subGroupId").val() != "" && $("#subGroupId").val() != "0") {
+                  /*  if ($("#subGroupId").val() != "" && $("#subGroupId").val() != "0") {*/
                         if (checkSubValidation()) {
                             return true;
                         }
-                    }
-                    else {
-                        warningNotify("Please give sub group ");
-                        return false;
-                    }
+                    //}
+                    //else {
+                    //    warningNotify("Please give sub group ");
+                    //    return false;
+                    //}
                 }
                 else {
                     if (checkSubValidation()) {
