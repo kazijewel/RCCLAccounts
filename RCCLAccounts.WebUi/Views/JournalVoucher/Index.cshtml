@@ -77,6 +77,12 @@
 
         $(document).ready(function () {
             $('.select2').select2();
+            $('#journalVoucher').on('shown.bs.modal', function () {
+                $('#debitHead').select2({
+                    dropdownParent: $('#journalVoucher')
+                });
+
+            });
 
         });
 

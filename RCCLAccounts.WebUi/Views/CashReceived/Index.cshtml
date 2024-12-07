@@ -77,7 +77,12 @@
     <script asp-append-version="true" type="text/javascript">
 
         $(document).ready(function () {
+            $('#cashReceived').on('shown.bs.modal', function () {
+                $('#cash').select2({
+                    dropdownParent: $('#cashReceived')
+                });
 
+            });
 
         });
 
