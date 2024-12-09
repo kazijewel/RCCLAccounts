@@ -386,6 +386,8 @@ function addRow(x) {
         }
         $("#ledgerId" + x).select2();
         $("#ledgerId" + x).focus();
+       
+
     }
 }
 function ledgerAction(a) {
