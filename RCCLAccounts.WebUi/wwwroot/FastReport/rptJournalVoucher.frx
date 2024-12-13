@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/27/2021 11:32:20" ReportInfo.Modified="10/23/2024 22:39:17" ReportInfo.CreatorVersion="2019.4.9.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/27/2021 11:32:20" ReportInfo.Modified="12/13/2024 22:38:12" ReportInfo.CreatorVersion="2019.4.9.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqs/uWnL9okwOzFjXV3AKpVqZocBx+BMz5yo2pNhHGtiJfBHmsyy1naMO6EC78AK3fwRC6W4wjFLUUfk0A8D72I+mzW4wSDHIge0Sz1W+nwaSU3wQJSxlhAK2JXMM6UngL1syxI8elODH9yKfJ+rKcr6gMt61KGVoYYhTDo6fbMfXZReDYamgZPZfgjbt6YKReCGmj9yIjG3i5QqJ6CJ3XMw==">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqs/uWnL9okwOzFjXV3AKpVqZocBx+BMz5yo2pNhHGtiJfBHmsyy1naMO6EC78AK3fwRC6W4wjFLUUfk0A8D72I+mzW4wSDHIge0Sz1W+nwaSU3wQJSxlhAK2JXMM6UngL1syxI8elODH9yKfJ+rKcr6gMt61KGVoYYhTDo6fbMfXZReDYamgZPZfgjbt6YKReZTXmt6VXHcinY9dVSz/feg==">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="Execute(@Parameter)">
         <Column Name="VoucherNo" DataType="System.String"/>
         <Column Name="Narration" DataType="System.String"/>
@@ -20,7 +20,7 @@
         <Column Name="mV" DataType="System.Int32"/>
         <Column Name="yV" DataType="System.Int32"/>
         <Column Name="VoucherDate" DataType="System.DateTime"/>
-        <CommandParameter Name="Parameter" DataType="22" Expression="sql0" DefaultValue="SELECT VoucherNo,DAY(VoucherDate)dV,MONTH(VoucherDate)mV,YEAR(VoucherDate)yV,VoucherDate,Narration,DrAmount,CrAmount,VoucherType,TransactionWith,v.CompanyId,v.UserName, v.LedgerId, l.LedgerName,v.TransactionType, CONVERT(varchar, v.ChequeDate, 105)dtCheque, dbo.number(((select SUM(CrAmount) from Vouchers where VoucherNo = v.VoucherNo and  v.VoucherNo LIKE '%' and v.EntryFrom like '%Journal Voucher%')))drWords FROM Vouchers v INNER JOIN Ledgers l ON v.LedgerId = l.LedgerId WHERE  v.VoucherNo LIKE '%' and v.EntryFrom like '%Journal Voucher%' order by VoucherNo,CrAmount"/>
+        <CommandParameter Name="Parameter" DataType="22" Expression="sql0" DefaultValue="SELECT VoucherNo,DAY(VoucherDate)dV,MONTH(VoucherDate)mV,YEAR(VoucherDate)yV,VoucherDate,Narration,DrAmount,CrAmount,VoucherType,TransactionWith,v.CompanyId,v.UserName, v.LedgerId, l.LedgerName,v.TransactionType, CONVERT(varchar, v.ChequeDate, 105)dtCheque, dbo.NumberToWords(((select SUM(CrAmount) from Vouchers where VoucherNo = v.VoucherNo and  v.VoucherNo LIKE '%' and v.EntryFrom like '%Journal Voucher%')))drWords FROM Vouchers v INNER JOIN Ledgers l ON v.LedgerId = l.LedgerId WHERE  v.VoucherNo LIKE '%' and v.EntryFrom like '%Journal Voucher%' order by VoucherNo,CrAmount"/>
       </TableDataSource>
     </MsSqlDataConnection>
     <Parameter Name="companyName" DataType="System.String"/>

@@ -321,7 +321,7 @@ namespace RCCLAccounts.WebUi.Services
                         //branchId = ainfos[8].ToString();
                     }
                     
-                    string sqlDel = "delete tbVoucher where TransactionId like @transactionId and VoucherNo like @voucherNo " +
+                    string sqlDel = "delete Vouchers where TransactionId like @transactionId and VoucherNo like @voucherNo " +
                        " and CompanyId = @companyId "; //and BranchId = @branchId
 
 

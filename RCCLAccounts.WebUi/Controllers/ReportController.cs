@@ -131,7 +131,7 @@ namespace RCCLAccounts.WebUi.Controllers
                     " VoucherDate,Narration,DrAmount,CrAmount,VoucherType," +
                     " TransactionWith,v.CompanyId,v.UserName, v.LedgerId, l.LedgerName,v.TransactionType, " +
                     " CONVERT(varchar, v.ChequeDate, 105)dtCheque, " +
-                    " dbo.number(((select SUM(CrAmount) from Vouchers where " +
+                    " dbo.NumberToWords(((select SUM(CrAmount) from Vouchers where " +
                     " VoucherNo = v.VoucherNo and " + voucherData + " and CompanyId like '" + companyId + "' )))drWords " +
                     " FROM Vouchers v INNER JOIN Ledgers l ON v.LedgerId = l.LedgerId WHERE " + voucherData + " and v.CompanyId like '" + companyId + "'  " +
                     " order by VoucherNo,CrAmount";

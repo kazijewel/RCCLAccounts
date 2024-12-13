@@ -341,7 +341,9 @@ function addRow(x) {
             select.setAttribute('onchange', 'ledgerAction(' + x + ')');
             td.appendChild(select);
             console.log('Initializing Select2 for #ledgerId' + select.setAttribute('id', 'ledgerId' + x));
-          
+            $('#ledgerId' + x).select2({
+                width: '200px' // Set the fixed width, adjust as needed
+            });
            
         }
         if (c == 3) {
