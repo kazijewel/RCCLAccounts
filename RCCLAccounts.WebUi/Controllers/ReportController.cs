@@ -104,8 +104,8 @@ namespace RCCLAccounts.WebUi.Controllers
                 voucherData = " v.VoucherNo = '" + voucherNo + "' and v.EntryFrom = '" + voucherType + "'";
             }
             string sql = "select a.VoucherNo,DAY(VoucherDate)dV,MONTH(VoucherDate)mV,YEAR(VoucherDate)yV," +
-            " a.Narration,CONVERT(float,a.CrAmount)crAmount,dbo.number(a.DrAmount)drWords, " +
-            " dbo.number(a.CrAmount)crWords,a.VoucherType,a.TransactionWith,a.CompanyId,a.UserName,a.LedgerId,a.TransactionType, " +
+            " a.Narration,CONVERT(float,a.CrAmount)crAmount,dbo.NumberToWords(a.DrAmount)drWords, " +
+            " dbo.NumberToWords(a.CrAmount)crWords,a.VoucherType,a.TransactionWith,a.CompanyId,a.UserName,a.LedgerId,a.TransactionType, " +
             " CONVERT(varchar, a.ChequeDate, 105)ChequeDate,a.LedgerCode debitCode,a.LedgerName debitLedger," +
             " b.LedgerCode creditCode,b.LedgerName creditLedger,a.ChequeNo " +
             " from(SELECT  VoucherNo, VoucherDate, Narration, DrAmount, CrAmount, VoucherType, TransactionWith, " +
@@ -140,7 +140,7 @@ namespace RCCLAccounts.WebUi.Controllers
                     reportName = "rptCashPaymentVoucher.frx";
                     _title = "DEBIT VOUCHER";
                     sql = "select VoucherNo,DAY(VoucherDate)dV,MONTH(VoucherDate)mV,YEAR(VoucherDate)yV,Narration,TransactionWith,LedgerName," +
-                    " CONVERT(float, DrAmount)DrAmount,CONVERT(float, CrAmount)CrAmount,dbo.number((select SUM(DrAmount) from Vouchers where VoucherNo=a.VoucherNo and EntryFrom=a.EntryFrom and CompanyId=a.CompanyId ))drWords " +
+                    " CONVERT(float, DrAmount)DrAmount,CONVERT(float, CrAmount)CrAmount,dbo.NumberToWords((select SUM(DrAmount) from Vouchers where VoucherNo=a.VoucherNo and EntryFrom=a.EntryFrom and CompanyId=a.CompanyId ))drWords " +
                     " from Vouchers a where VoucherNo LIKE '" + voucherNo + "' and EntryFrom like '%" + voucherType + "%' and a.CompanyId like '" + companyId + "'  order by DrAmount";
                     break;
             }

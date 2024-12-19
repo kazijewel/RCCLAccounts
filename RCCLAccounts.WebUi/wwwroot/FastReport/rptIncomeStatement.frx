@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="08/07/2023 21:32:44" ReportInfo.Modified="11/07/2024 21:12:26" ReportInfo.CreatorVersion="2019.4.9.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="08/07/2023 21:32:44" ReportInfo.Modified="12/19/2024 23:00:29" ReportInfo.CreatorVersion="2019.4.9.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace FastReport
 }
 </ScriptText>
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqL2sX3CRpoatSz8EQ8vahikLfmvhiV+QhML2PG/I7RsWM/kJOVQBaeUJffqcjv+TpznV7My5syvolJgbddjAuFs2U0m8QsLk1XWTbakItjiG95OxUdImrQ6036PM5hg8GY6+rJvLg5dXCnqgsPXfRWTKqQtcQBHTkbkIR8y9O+nCc/unRgSiwKflqd72t50yneXSDDlFEfu8ry1cVqI/CIQ==">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqL2sX3CRpoatSz8EQ8vahikLfmvhiV+QhML2PG/I7RsWM/kJOVQBaeUJffqcjv+TpznV7My5syvolJgbddjAuFs2U0m8QsLk1XWTbakItjiG95OxUdImrQ6036PM5hg8GY6+rJvLg5dXCnqgsPXfRWTKqQtcQBHTkbkIR8y9O+nCc/unRgSiwKflqd72t50ynIbquP1PXTUzeD0hPA9ilGw==" CommandTimeout="300">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="Execute(@Parameter)">
         <Column Name="Ledger_Id" DataType="System.String"/>
         <Column Name="Ledger_Code" DataType="System.String"/>

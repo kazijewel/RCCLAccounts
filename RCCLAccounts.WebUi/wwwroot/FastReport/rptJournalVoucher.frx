@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/27/2021 11:32:20" ReportInfo.Modified="12/13/2024 22:38:12" ReportInfo.CreatorVersion="2019.4.9.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/27/2021 11:32:20" ReportInfo.Modified="12/19/2024 23:00:49" ReportInfo.CreatorVersion="2019.4.9.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqs/uWnL9okwOzFjXV3AKpVqZocBx+BMz5yo2pNhHGtiJfBHmsyy1naMO6EC78AK3fwRC6W4wjFLUUfk0A8D72I+mzW4wSDHIge0Sz1W+nwaSU3wQJSxlhAK2JXMM6UngL1syxI8elODH9yKfJ+rKcr6gMt61KGVoYYhTDo6fbMfXZReDYamgZPZfgjbt6YKReZTXmt6VXHcinY9dVSz/feg==">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqs/uWnL9okwOzFjXV3AKpVqZocBx+BMz5yo2pNhHGtiJfBHmsyy1naMO6EC78AK3fwRC6W4wjFLUUfk0A8D72I+mzW4wSDHIge0Sz1W+nwaSU3wQJSxlhAK2JXMM6UngL1syxI8elODH9yKfJ+rKcr6gMt61KGVoYYhTDo6fbMfXZReDYamgZPZfgjbt6YKReCNHaN/5mGPXvHfJX+rTqQQ==" CommandTimeout="300">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="Execute(@Parameter)">
         <Column Name="VoucherNo" DataType="System.String"/>
         <Column Name="Narration" DataType="System.String"/>

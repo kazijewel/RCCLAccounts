@@ -90,35 +90,7 @@
       
 
         $(document).ready(function () {
-
-            //$(document).on('focusin.bs.modal', function (e) {
-            //    console.log('Focus Event Target:', e.target);
-            //});
-
-
-            //$(document).on('select2:open', function (e) {
-            //    const modal = $(e.target).closest('.modal');
-            //    if (modal.length) {
-            //        modal.off('focusin.bs.modal');
-            //    }
-            //});
-
-            //$(document).on('select2:close', function (e) {
-            //    const modal = $(e.target).closest('.modal');
-            //    if (modal.length) {
-            //        modal.on('focusin.bs.modal', function (e) {
-            //            if ($(e.target).hasClass('select2-search__field')) {
-            //                e.stopPropagation();
-            //            }
-            //        });
-            //    }
-            //});
-            //$('#cash').select2({
-            //    dropdownParent: $('#cashPayment'), // Ensures dropdown stays within the modal
-            //    width: 'resolve' // Fix for improper rendering
-            //});
-          
-
+    
 
             $('#cashPayment').on('shown.bs.modal', function () {
                 $('#cash').select2({
@@ -132,9 +104,9 @@
             //$(document).on('select2:open', () => {
             //    document.querySelector('.select2-container--open .select2-search__field').focus();
             //});
-            jQuery('.element').select2();
-            jQuery('.element').select2('open');
-            jQuery('.element').select2('close');
+            //jQuery('.element').select2();
+            //jQuery('.element').select2('open');
+            //jQuery('.element').select2('close');
         });
 
         $('.close').click(function () {

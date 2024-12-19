@@ -263,11 +263,11 @@ function checkValidation() {
     //console.log(parseFloat(balance));
     console.log(cashInfo);
 
-    if (receivedFrom != "") {
+    //if (receivedFrom != "") {
         if (date != "") {
             if (cashInfo != "") {
                 if (count > 0) {
-                    if ($("#description").val() != "") {
+               /*     if ($("#description").val() != "") {*/
                         //if (document.getElementById("attachmentUP").files.length != 0 || $("#upload").val() != "") {
                         return true;
                         /*}
@@ -275,10 +275,10 @@ function checkValidation() {
                             warningNotify("Attachment not found!");
                             return false;
                         }*/
-                    } else {
-                        warningNotify("Description couldn't be empty!");
-                        return false;
-                    }
+                    //} else {
+                    //    warningNotify("Description couldn't be empty!");
+                    //    return false;
+                    //}
                 }
                 else {
                     warningNotify("Please give at least one ledger name and debit amount");
@@ -294,11 +294,11 @@ function checkValidation() {
             warningNotify("Please give date");
             return false;
         }
-    }
-    else {
-        warningNotify("Please entire receive from!");
-        return false;
-    }
+    //}
+    //else {
+    //    warningNotify("Please entire receive from!");
+    //    return false;
+    //}
 
 }
 
@@ -353,6 +353,7 @@ function addRow(x) {
             var select = document.createElement('select');
 
             select.setAttribute('class', 'form-control input-sm');
+            select.style.width = '200px';
             select.setAttribute('id', 'ledgerId' + x);
             select.setAttribute('onchange', 'ledgerAction(' + x + ')');
             td.appendChild(select);
@@ -388,11 +389,9 @@ function addRow(x) {
             button.setAttribute('onclick', 'removeRow(this)');
             td.appendChild(button);
         }
-        $('#ledgerId' + x).select2();
-        $("#ledgerId" + x).focus();
-        //$('#ledgerId' + x).select2({
-        //    dropdownParent: $('#cashReceived') // Ensure it uses the right parent
-        //}).focus();
+        //$('#ledgerId' + x).select2();
+        //$("#ledgerId" + x).focus();
+       
 
     }
 }

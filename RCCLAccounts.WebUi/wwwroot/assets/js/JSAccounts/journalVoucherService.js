@@ -354,6 +354,7 @@ function addRow(x) {
             var select = document.createElement('select');
             
             select.setAttribute('class', 'form-control input-sm account-head');
+           // select.style.width = '200px';
             select.setAttribute('id', 'ledgerId' + x);
             select.setAttribute('onchange', 'ledgerAction('+x+')');
             td.appendChild(select);
@@ -384,8 +385,8 @@ function addRow(x) {
             button.setAttribute('onclick', 'removeRow(this)');
             td.appendChild(button);
         }
-        $("#ledgerId" + x).select2();
-        $("#ledgerId" + x).focus();
+        //$("#ledgerId" + x).select2();
+        //$("#ledgerId" + x).focus();
        
 
     }

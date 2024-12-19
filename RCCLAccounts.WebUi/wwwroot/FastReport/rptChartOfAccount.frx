@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="04/06/2021 11:06:50" ReportInfo.Modified="04/15/2024 10:38:45" ReportInfo.CreatorVersion="2019.4.9.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="04/06/2021 11:06:50" ReportInfo.Modified="12/19/2024 22:59:56" ReportInfo.CreatorVersion="2019.4.9.0">
   <Dictionary>
-    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqL2sX3CRpoatSz8EQ8vahikLfmvhiV+QhML2PG/I7RsWM/kJOVQBaeUJffqcjv+Tph7LwuOQ12kFamFOz9gJ8GwZV0gACG9cD1+fIejPLIOwlj34bkld6SHBGJM3pL6iOtjo2frPzk5asv452lRmDdsR2zvHg+KIt3/1SfE+q+2+MY1vo3FG6XdZitYY2XuuS">
+    <MsSqlDataConnection Name="Connection" ConnectionString="rijcmlqL2sX3CRpoatSz8EQ8vahikLfmvhiV+QhML2PG/I7RsWM/kJOVQBaeUJffqcjv+Tph7LwuOQ12kFamFOz9gJ8GwZV0gACG9cD1+fIejPLIOwlj34bkld6SHBGJM3pL6iOtjo2frPzk5asv452lRmDdsR2zvHg+KIt3/1SfE+q+2+MFrvwajXIKHv32nlEfVSi" CommandTimeout="300">
       <TableDataSource Name="Table" DataType="System.Int32" Enabled="true" SelectCommand="Execute(@Parameter)">
         <Column Name="LedgerId" DataType="System.String"/>
         <Column Name="LedgerCode" DataType="System.String"/>

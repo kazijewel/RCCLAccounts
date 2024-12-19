@@ -3,11 +3,18 @@
 var x = 0;
 $(document).ready(function () {
 
-    //$('#cashPayment').on('shown.bs.modal', function () {
-    //    $(document).off('focusin.bs.modal');
-    //});
    
     $('.select2').select2();
+    //$('#cashPayment').on('shown.bs.modal', function () {
+    //    // Initialize Select2 after the modal is shown
+    //    $('#ledgerId' + x).select2({
+    //        dropdownParent: $('#cashPayment')
+    //    });
+    //});
+    //$('#gridCashPayment').on('change', '.form-control.input-sm.select2', function () {
+    //    $(this).select2(); // Initialize Select2 on change event
+    //});
+
     $("#btnAdd").click(function () {
         init();
         buttonSet(false);
@@ -61,7 +68,8 @@ $(document).ready(function () {
     $("#btnAddRow").click(function () {
         x = x + 1;
         addRow(x);
-        ledger("#ledgerId"+x);
+        ledger("#ledgerId" + x);
+       
     });
     $("#btnPreview").click(function () {
         var voucherNo = localStorage.getItem("voucher");
@@ -247,11 +255,11 @@ function checkValidation() {
     //console.log(parseFloat(balance));
     console.log(cashInfo);
    
-    if (paidTo != "") { 
+  /*  if (paidTo != "") { */
         if (date != "") {
             if (cashInfo != "") {
                 if (count > 0) {
-                    if ($("#description").val() != "") {
+                    /*if ($("#description").val() != "") {*/
                         //if (document.getElementById("attachmentUP").files.length != 0 || $("#upload").val() != "") {
                             return true;
                         /*}
@@ -259,10 +267,10 @@ function checkValidation() {
                             warningNotify("Attachment not found!");
                             return false;
                         }*/
-                    } else {
-                        warningNotify("Description couldn't be empty!");
-                        return false;
-                    }
+                    //} else {
+                    //    warningNotify("Description couldn't be empty!");
+                    //    return false;
+                    //}
                 }
                 else {
                     warningNotify("Please give at least one ledger name and debit amount");
@@ -278,11 +286,11 @@ function checkValidation() {
             warningNotify("Please give date");
             return false;
         }
-    }
-    else {
-        warningNotify("Please entire Paid to!");
-        return false;
-    }
+    //}
+    //else {
+    //    warningNotify("Please entire Paid to!");
+    //    return false;
+    //}
 
 }
 function budgetBalanceSet(id,budgetId,balanceId) {
@@ -335,16 +343,23 @@ function addRow(x) {
             var select = document.createElement('select');
             
             select.setAttribute('class', 'form-control input-sm');
-        /*    select.setAttribute('class', 'form - control form - select select2');*/
-            
+           // select.setAttribute('class', 'form - control form - select select2');
+            select.style.width = '200px';
             select.setAttribute('id', 'ledgerId' + x);
             select.setAttribute('onchange', 'ledgerAction(' + x + ')');
             td.appendChild(select);
             console.log('Initializing Select2 for #ledgerId' + select.setAttribute('id', 'ledgerId' + x));
-            $('#ledgerId' + x).select2({
-                width: '200px' // Set the fixed width, adjust as needed
-            });
-           
+
+            // Initialize Select2 AFTER appending the element
+            //$('#ledgerId' + x).select2({
+            //    dropdownParent: $('#cashPayment'),
+            //    width: '200px'
+            //});
+            //$('#ledgerId' + x).select2({
+            //    width: '200px'
+            //});
+
+            
         }
         if (c == 3) {
             var ele = document.createElement('label');
@@ -377,27 +392,34 @@ function addRow(x) {
             button.setAttribute('onclick', 'removeRow(this)');
             td.appendChild(button);
         }
-        $('#ledgerId' + x).select2();
-        $("#ledgerId" + x).focus();
+
+       // $('#ledgerId' + x).select2();
+      //  $("#ledgerId" + x).focus();
         //$('#ledgerId' + x).select2({
         //    dropdownParent: $('#cashPayment'),
         //     dropdownPosition: 'below'
         //});
+        //$('#ledgerId' + x).select2({
+        //    dropdownParent: $('#cashPayment') // Or another suitable container
+        //});
+
+        //var parentElement = $('#ledgerId' + x);
+        //$(".js-example-basic-single").select2({
+        //    dropdownParent: parentElement
+        //});
+      
 
         //$('#ledgerId' + x).select2({
         //    dropdownParent: $('#cashPayment')      
         //});
 
-        //$('#cashPayment #ledgerId + x.select2').each(function () {
-        //    var $p = $(this).parent();
-        //    $(this).select2({
-        //        dropdownParent: $p
-        //    });
-        //});
-
+    
     
     }
 }
+
+
+
 function ledgerAction(a) {
     var ledger = $("#ledgerId" + a).val();
     $("#debitAmount" + a).focus();

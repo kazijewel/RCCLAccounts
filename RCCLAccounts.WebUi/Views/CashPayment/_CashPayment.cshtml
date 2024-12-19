@@ -29,6 +29,7 @@
     /*.select2-dropdown {
         z-index: 1061 !important; 
     }*/
+    /* Ensure Select2 dropdown appears inside modal */
 
 </style>
 
@@ -50,7 +51,7 @@
                     <div class="col-md-12">
                         <div class="col-md-12">
                             <div class="row row-xs align-items-center mg-b-20">
-                                <label class="col-sm-4 control-label"><span style="color: #FF0000;">*</span>Paid To:</label>
+                                <label class="col-sm-4 control-label">Paid To:</label>
                                 <div class="col-sm-8">
                                     <input id="paidTo" onkeypress="return focusScript(event, '.ledgerselect')" class="form-control input-sm" />
                                 </div>
@@ -146,9 +147,7 @@
                                     </div>
                                 </div>
                             </div>
-                        
-                            
-
+         
                         </div>
                     </div>
 
@@ -179,7 +178,7 @@
                         </table>
                     </div>
                     <div class="row row-xs align-items-center mg-b-20">
-                        <label class="col-sm-4 control-label"><span style="color: #FF0000;">*</span>Description:</label>
+                        <label class="col-sm-4 control-label">Description:</label>
                         <div class="col-sm-8 autocomplete" style="padding: 0;">
                             <input type="text"  class="form-control" id="description"  />
                         </div>
