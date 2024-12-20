@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using RCCLAccounts.Data;
 using RCCLAccounts.Data.Entities;
 using RCCLAccounts.WebUi.Common;
+using RCCLAccounts.WebUi.Models;
 using RCCLAccounts.WebUi.Services;
 
 namespace RCCLAccounts.WebUi.Controllers
@@ -264,6 +265,20 @@ namespace RCCLAccounts.WebUi.Controllers
             return Attachment;
         }
 
+        //[HttpPost]
+        public async Task<IActionResult> Delete(String Id)
+        {
+            int cashPayment = service.CashDelete(Id);
+
+            if (cashPayment > 0)
+            {
+                return Ok(new DefaultResponse("Success"));
+            }
+            else
+            {
+                return NotFound(new DefaultResponse("Voucher not found or could not be deleted."));
+            }        
+        }
 
     }
 }

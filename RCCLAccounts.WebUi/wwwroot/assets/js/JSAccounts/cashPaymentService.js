@@ -388,7 +388,7 @@ function addRow(x) {
             var button = document.createElement('input');
             button.setAttribute('type', 'button');
             button.setAttribute('value', 'Remove');
-            button.setAttribute('class', 'btn btn-default form-control input-sm');
+            button.setAttribute('class', 'btn btn-secondary btn-sm');
             button.setAttribute('onclick', 'removeRow(this)');
             td.appendChild(button);
         }

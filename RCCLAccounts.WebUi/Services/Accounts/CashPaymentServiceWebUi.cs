@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FastReport.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using RCCLAccounts.Data.Entities;
 using RCCLAccounts.WebUi.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Security.Claims;
@@ -441,6 +443,57 @@ namespace RCCLAccounts.WebUi.Services
             }
             return ret;
         }
-        
+
+
+        public int CashDelete(string TransactionId) {
+            int ret = 0;
+            SqlConnection con = new SqlConnection(sqlCon);
+            SqlTransaction transaction = null;
+            SqlCommand cmd1, cmd2;
+
+            try
+            {
+                con.Open();
+                transaction = con.BeginTransaction("CashPayment");
+
+                string sqlDel = "delete Vouchers where TransactionId = @transactionId ";
+
+
+                string sqlUd = "insert into UdVouchers " +
+                " select MasterNo,FiscalYearId,VoucherNo, VoucherDate,ChequeNo, ChequeDate,VoucherType, LedgerId,LedgerCode,LedgerName," +
+                " BalanceAmount,DrAmount, CrAmount, Narration, TransactionWith,CostCenterId,CostCenterName,ProductId,ProductName,ChequeClear,AuditApprove,AuditBy, AuditTime,AuditIp, " +
+                " ApproveBy,ApproveTime, ApproveIp,  AttachBill,AttachCheque, AttachReference,ReferenceNo,ReferenceDetails, TransactionType,BankName, BranchName,CompanyId,  " +
+                " 'Delete',EntryFrom,UserName,UserIp,EntryTime,TransactionId " +
+                " from Vouchers where TransactionId like @transactionId   ";
+
+                cmd1 = new SqlCommand(sqlUd, con, transaction);
+
+                cmd1.Parameters.AddWithValue("@transactionId", TransactionId);
+                cmd1.ExecuteNonQuery();
+
+                cmd2 = new SqlCommand(sqlDel, con, transaction);
+      
+                cmd2.Parameters.AddWithValue("@transactionId", TransactionId);
+                cmd2.ExecuteNonQuery();
+                transaction.Commit();
+                ret = 1;
+            }
+            catch (Exception exp)
+            {
+                if (transaction != null)
+                {
+                    transaction.Rollback();
+                }
+                var e = exp;
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return ret;
+        }
+
+
     }
 }

@@ -52,7 +52,8 @@
                     <th style="font-size:12px;">Apporve Status</th>
                     <th style="font-size:12px;">Approve By</th>
                     <th style="font-size:12px;">Approve Time</th>
-                    <th style="font-size:12px;">Action</th>
+                    <th style="font-size:12px;">Edit</th>
+                    <th style="font-size:12px;">Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +64,8 @@
 
 @section Scripts{
 
-   <link href="~/assets/css/media-gallery.css" rel="stylesheet" />
+    <link href="~/assets/css/media-gallery.css" rel="stylesheet" />
+    <script src="~/assets/plugins/sweet-alert/sweetalert.min.js"></script>
     <script src="~/assets/plugins/magnific-popup/magnific-popup.js"></script>
     <script asp-append-version="true" src="~/assets/js/modal.js"></script>
     <partial name="_AttachmentView" />
@@ -83,6 +85,49 @@
                 });
 
             });
+            $('#tbJournalVoucher tbody').on('click', '.tbDelete', function () {
+
+
+                var $this = $(this),
+                    tr = $(this).closest('tr').get(0);
+                var data = $("#tbJournalVoucher").dataTable().fnGetData(tr);
+
+                let id = data.transactionId;
+                console.log("Deleting ID: ", id);
+
+
+                $('body').removeClass('timer-alert');
+                swal({
+                    title: "Are you sure?",
+                    text: "You want to delete?",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "btn btn-danger",
+                    confirmButtonText: "Yes, delete it!",
+                    closeOnConfirm: false,
+                    showLoaderOnConfirm: true
+                }, function () {
+                    $.post('@Url.Action("Delete", "JournalVoucher")', { Id: id }, function (data) {
+                        console.log(data);
+                        if (data.message == "Success") {
+                            swal({
+                                title: "Deleted!",
+                                text: "Successfully deleted",
+                                type: "success"
+                            },
+                                function () {
+                                    location.reload();
+                                }
+                            );
+                        }
+                        else {
+                            swal("Error!", "Something went wrong.", "error");
+                        }
+                    });
+                    //swal("Deleted!", "Successfully deleted.", "success");
+                });
+            });
+
 
         });
 

@@ -180,6 +180,37 @@ function loadDataTable(url) {
                     }
 
                 }, "width": "5%"
+            },
+            {
+                "data": "transactionId",
+                "render": function (data) {
+                    if (data.auditApprove == '2') {
+                        /*if (isAdmin == 'True') {*/
+                        return `
+                            <div class="text-center">
+                                <a class="btn btn-sm btn-primary text-white tbDelete">
+                                    <i class="fa fa-trash-alt fa-lg"></i> 
+                                </a>
+                            </div>
+                            `;
+                        //} else {
+                        //    return `<div class="text-center"></div>`;
+                        //}
+
+                    } else {
+                        /* if (isEdit == 'True') {*/
+                        return `
+                            <div class="text-center">
+                                <a class="btn btn-sm btn-primary text-white tbDelete">
+                                    <i class="fa fa-trash-alt fa-lg"></i> 
+                                </a>
+                            </div>
+                            `;
+                        //} else {
+                        //    return `<div class="text-center"></div>`;
+                        //}
+                    }
+                }, "width": "5%"
             }
         ]
     });
