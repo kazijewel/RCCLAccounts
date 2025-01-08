@@ -200,19 +200,19 @@ namespace RCCLAccounts.WebUi.Controllers
             _title = "Suplementory ";
             caption = VoucherType;
             var sql = "";
-
+            //and LedgerId not in ('AL220','AL221','AL222') 
             if (VoucherType == "DEBIT")
             {
                 sql = " select VoucherDate,VoucherNo,TransactionType,Narration,DrAmount as Amount,LedgerName,UserName,UserIp,EntryTime,ChequeNo,AuditApprove," +
                       " case when AuditApprove=1 then 'Unauthorised' else  'Authorised' end as Autho from Vouchers where cast (VoucherDate AS date)" +
-                      " between CONVERT(date,'" + FromDate + "') and CONVERT(date,'" + Todate + "')  and LedgerId not in ('AL220','AL221','AL222') " +
+                      " between CONVERT(date,'" + FromDate + "') and CONVERT(date,'" + Todate + "')  " +
                       " and DrAmount>0 AND CompanyId like 'B-1'  and FiscalYearId like 'FY-1' order by VoucherDate,LedgerName,TransactionType,VoucherNo ";
             }
             else {
 
                 sql = " select VoucherDate,VoucherNo,TransactionType,Narration,CrAmount as Amount,LedgerName,UserName,UserIp,EntryTime,ChequeNo,AuditApprove," +
                       " case when AuditApprove=1 then 'Unauthorised' else  'Authorised' end as Autho from Vouchers where cast (VoucherDate AS date)" +
-                      " between CONVERT(date,'" + FromDate + "') and CONVERT(date,'" + Todate + "') and LedgerId not in ('AL220','AL221','AL222')  " +
+                      " between CONVERT(date,'" + FromDate + "') and CONVERT(date,'" + Todate + "')  " +
                       " and CrAmount>0  AND CompanyId like 'B-1'  and FiscalYearId like 'FY-1' order by VoucherDate,LedgerName,TransactionType,VoucherNo  ";
             }
 

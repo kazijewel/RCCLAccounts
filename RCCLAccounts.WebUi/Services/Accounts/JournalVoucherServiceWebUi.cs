@@ -157,12 +157,20 @@ namespace RCCLAccounts.WebUi.Services
             try
             {
                 con.Open();
+                //string sql = "select a.AutoId Id,a.TransactionId,a.VoucherNo,a.VoucherDate," +
+                //" b.LedgerId  lId, b.LedgerId,b.LedgerCode,b.LedgerName,a.AttachBill,Narration, " +
+                //" CONVERT(float, a.CrAmount)CrAmount,CONVERT(float, a.DrAmount)DrAmount,a.ReferenceDetails JVType " +
+                //" from Vouchers a inner join Ledgers b on a.LedgerId = b.LedgerId " +
+                //" where a.VoucherType = 'jau' and a.transactionId like @transactionId " +
+                //" and a.EntryFrom like '%Journal Voucher%'";
+
                 string sql = "select a.AutoId Id,a.TransactionId,a.VoucherNo,a.VoucherDate," +
-                " b.LedgerId  lId, b.LedgerId,b.LedgerCode,b.LedgerName,a.AttachBill,Narration, " +
+                " a.LedgerId  lId, a.LedgerId,a.LedgerCode,a.LedgerName,a.AttachBill,Narration, " +
                 " CONVERT(float, a.CrAmount)CrAmount,CONVERT(float, a.DrAmount)DrAmount,a.ReferenceDetails JVType " +
-                " from Vouchers a inner join Ledgers b on a.LedgerId = b.LedgerId " +
-                " where a.VoucherType = 'jau' and a.transactionId like @transactionId " +
-                " and a.EntryFrom like '%Journal Voucher%'";
+                " from Vouchers a  " +
+                " where a.VoucherType = 'jau' and a.transactionId = @transactionId " +
+                " and a.EntryFrom = 'Journal Voucher'";
+
                 SqlCommand cmd = new SqlCommand(sql, con);
                 cmd.Parameters.AddWithValue("@transactionId", transactionId);
                 SqlDataReader sqlData = cmd.ExecuteReader();
