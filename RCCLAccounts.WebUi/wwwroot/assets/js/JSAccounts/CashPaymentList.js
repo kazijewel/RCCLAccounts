@@ -101,7 +101,8 @@ function loadDataTable(url) {
             {
                 "data": "voucherDate",
                 "render": function (data) {
-                    return (moment(data).format("DD-MM-YYYY"));
+                    //return (moment(data).format("DD-MM-YYYY"));
+                    return data == null ? "" : (data);
                 }, "width": "12%" 
             },
             { "data": "ledgerName"},
@@ -151,7 +152,8 @@ function loadDataTable(url) {
             {
                 "data": "approveTime",
                 "render": function (data) {
-                    return data==null?"":(moment(data).format("DD-MM-YYYY hh:mm a"));
+                   // return data == null ? "" : (moment(data).format("DD-MM-YYYY hh:mm a"));
+                    return data == null ? "" :(data);
                 },"width": "9%"
             },
             {
