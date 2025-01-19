@@ -105,9 +105,9 @@ function loadDataTable(url) {
                     return data == null ? "" : (data);
                 }, "width": "12%" 
             },
-            { "data": "ledgerName"},
+            { "data": "ledgerName", "width": "20%" },
             { "data": "narration"},
-            { "data": "drAmt", className: "text-right", render: $.fn.dataTable.render.number(',', '.', 0, '') },
+            { "data": "drAmt", className: "text-right", render: $.fn.dataTable.render.number(',', '.', 0, ''), "width": "10%" },
             {
                 "data": null,
                 "render": function (data) {
@@ -146,16 +146,16 @@ function loadDataTable(url) {
 
                 }, "width": "5%"
             },
-            {
-                "data": "approveBy", "width": "5%"
-            },
-            {
-                "data": "approveTime",
-                "render": function (data) {
-                   // return data == null ? "" : (moment(data).format("DD-MM-YYYY hh:mm a"));
-                    return data == null ? "" :(data);
-                },"width": "9%"
-            },
+            //{
+            //    "data": "approveBy", "width": "5%"
+            //},
+            //{
+            //    "data": "approveTime",
+            //    "render": function (data) {
+            //       // return data == null ? "" : (moment(data).format("DD-MM-YYYY hh:mm a"));
+            //        return data == null ? "" :(data);
+            //    },"width": "9%"
+            //},
             {
                 "data": null,
                 "render": function (data) {

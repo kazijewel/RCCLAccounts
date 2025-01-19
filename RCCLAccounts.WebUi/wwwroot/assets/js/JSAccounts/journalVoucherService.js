@@ -160,7 +160,14 @@ function findWork(url) {
                         console.log("Voucher Date: ", d[i].voucherDate);
 
                         // Format the date if necessary, depending on the format you need
-                        var formattedDate = new Date(d[i].voucherDate).toISOString().split('T')[0];  // Adjust format as needed
+                    //    var formattedDate = new Date(d[i].voucherDate).toISOString().split('T')[0];  // Adjust format as needed
+
+                        const voucherDate = new Date(d[i].voucherDate);
+                        // Format the date as "YYYY-MM-DD" (required for the input type="date" element)
+                        const year = voucherDate.getFullYear();
+                        const month = String(voucherDate.getMonth() + 1).padStart(2, '0');
+                        const day = String(voucherDate.getDate()).padStart(2, '0');
+                        const formattedDate = `${year}-${month}-${day}`;
                         $("#date").val(formattedDate);
 
                         $("#voucherNo").val(d[i].voucherNo);
@@ -185,7 +192,15 @@ function findWork(url) {
                         console.log("Voucher Date: ", d[i].voucherDate);
 
                         // Format the date if necessary, depending on the format you need
-                        var formattedDate = new Date(d[i].voucherDate).toISOString().split('T')[0];  // Adjust format as needed
+                        //var formattedDate = new Date(d[i].voucherDate).toISOString().split('T')[0];  // Adjust format as needed
+
+                        const voucherDate = new Date(d[i].voucherDate);
+                        // Format the date as "YYYY-MM-DD" (required for the input type="date" element)
+                        const year = voucherDate.getFullYear();
+                        const month = String(voucherDate.getMonth() + 1).padStart(2, '0');
+                        const day = String(voucherDate.getDate()).padStart(2, '0');
+                        const formattedDate = `${year}-${month}-${day}`;
+
                         $("#date").val(formattedDate);
 
                         $("#voucherNo").val(d[i].voucherNo);
@@ -226,10 +241,16 @@ function clear() {
     //var Year = getCYear();
     //var Date = Day + "-" + Month + "-" + Year
 
-    var today = new Date();
-    var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
-
+    //var today = new Date();
+    //var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+    var voucherDate = new Date();
+    // Format the date as "YYYY-MM-DD" (required for the input type="date" element)
+    const year = voucherDate.getFullYear();
+    const month = String(voucherDate.getMonth() + 1).padStart(2, '0');
+    const day = String(voucherDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
     $("#date").val(formattedDate);
+
     //$("#balance").val("");
     $("#voucherNo").val("");
     $("#description").val("");

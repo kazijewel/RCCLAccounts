@@ -210,13 +210,21 @@ namespace RCCLAccounts.WebUi.Services
             try
             {
                 con.Open();
-                string sql = "select distinct Max(a.AutoId)Id,TransactionId,VoucherNo, convert(varchar,VoucherDate)VoucherDate," +
-                " Narration,CONVERT(float,SUM(CrAmount))CrAmount,CONVERT(float,SUM(DrAmount))DrAmount,AttachBill,a.AuditApprove,u.FullName ApproveBy,Max(ApproveTime) ApproveTime " +
+                //string sql = "select distinct Max(a.AutoId)Id,TransactionId,VoucherNo, a.VoucherDate," +
+                //" Narration,CONVERT(float,SUM(CrAmount))CrAmount,CONVERT(float,SUM(DrAmount))DrAmount,AttachBill,a.AuditApprove,u.FullName ApproveBy,Max(ApproveTime) ApproveTime " +
+                //" from Vouchers a " +
+                // "left join AspNetUsers u on a.ApproveBy = u.FullName " +
+                //"where VoucherType = 'jau'   and convert(date, a.VoucherDate) between convert(varchar, '" + fromDate + "',105) and convert(varchar, '" + toDate + "',105)  " +
+                //" and EntryFrom like '%Journal Voucher%'  "+
+                //" group by TransactionId,VoucherNo,VoucherDate,Narration,AttachBill,AuditApprove,u.FullName order by a.VoucherDate desc";
+
+                string sql = "select distinct a.AutoId as Id,TransactionId,VoucherNo, a.VoucherDate,a.LedgerName," +
+                " Narration,CONVERT(float,CrAmount)CrAmount,CONVERT(float,DrAmount)DrAmount,AttachBill,a.AuditApprove,u.FullName ApproveBy,ApproveTime " +
                 " from Vouchers a " +
-                 "left join AspNetUsers u on a.ApproveBy = u.FullName " +
-                "where VoucherType = 'jau'   and convert(date, a.VoucherDate) between convert(varchar, '" + fromDate + "',105) and convert(varchar, '" + toDate + "',105)  " +
-                " and EntryFrom like '%Journal Voucher%'  "+
-                " group by TransactionId,VoucherNo,VoucherDate,Narration,AttachBill,AuditApprove,u.FullName order by CONVERT(varchar,VoucherDate) desc";
+                " left join AspNetUsers u on a.ApproveBy = u.FullName " +
+                " where VoucherType = 'jau'   and convert(date, a.VoucherDate) between convert(varchar, '" + fromDate + "',105) and convert(varchar, '" + toDate + "',105)  " +
+                " and EntryFrom like '%Journal Voucher%'  " +
+                " order by a.VoucherDate desc,VoucherNo ";
 
                 SqlCommand cmd = new SqlCommand(sql,con);
                 SqlDataReader sqlData = cmd.ExecuteReader();
@@ -227,6 +235,7 @@ namespace RCCLAccounts.WebUi.Services
                         TransactionId = sqlData["TransactionId"].ToString(),
                         VoucherNo = sqlData["VoucherNo"].ToString(),
                         VoucherDate = sqlData["VoucherDate"].ToString(),
+                        LedgerName = sqlData["LedgerName"].ToString(),
                         Narration = sqlData["Narration"].ToString(),
                         CrAmount = sqlData["CrAmount"].ToString(),
                         DrAmount = sqlData["DrAmount"].ToString(),

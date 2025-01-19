@@ -161,9 +161,16 @@ function findWork(url) {
                     console.log("Voucher Date: ", d[i].voucherDate);
 
                     // Format the date if necessary, depending on the format you need
-                    var formattedDate = new Date(d[i].voucherDate).toISOString().split('T')[0];  // Adjust format as needed
-                    $("#date").val(formattedDate);
+                    //var formattedDate = new Date(d[i].voucherDate).toISOString().split('T')[0];  // Adjust format as needed
+                    //$("#date").val(formattedDate);
+                    const voucherDate = new Date(d[i].voucherDate);
 
+                    // Format the date as "YYYY-MM-DD" (required for the input type="date" element)
+                    const year = voucherDate.getFullYear();
+                    const month = String(voucherDate.getMonth() + 1).padStart(2, '0');
+                    const day = String(voucherDate.getDate()).padStart(2, '0');
+                    const formattedDate = `${year}-${month}-${day}`;
+                    $("#date").val(formattedDate);
 
                     $("#voucherNo").val(d[i].voucherNo);
                     $("#transactionId").val(d[i].transactionId);
@@ -195,8 +202,14 @@ function clear() {
     clearAttachment();
     //document.getElementById("SenctionDate").valueAsDate = new Date();
     //var today = getCDay() + '-' + getCMonth() + '-' + getCYear();
-    var today = new Date();
-    var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+    var voucherDate = new Date();
+    //var formattedDate = today.toISOString().split('T')[0]; // Format the date as YYYY-MM-DD
+    // Format the date as "YYYY-MM-DD" (required for the input type="date" element)
+
+    const year = voucherDate.getFullYear();
+    const month = String(voucherDate.getMonth() + 1).padStart(2, '0');
+    const day = String(voucherDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
 
     $("#date").val(formattedDate);
     $("#receivedFrom").val("");

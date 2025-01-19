@@ -96,12 +96,14 @@ function loadDataTable(url) {
             {
                 "data": "voucherDate",
                 "render": function (data) {
-                    return (moment(data).format("DD-MM-YYYY"));
+                    //return (moment(data).format("DD-MM-YYYY"));
+                    return data == null ? "" : (data);
                 }, "width": "15%"
             },
+            { "data": "ledgerName", "width": "20%" },
             { "data": "narration"},
-            { "data": "drAmount", className: "text-right", render: $.fn.dataTable.render.number(',', '.', 0, '') },
-            { "data": "crAmount", className: "text-right", render: $.fn.dataTable.render.number(',', '.', 0, '') },
+            { "data": "drAmount", className: "text-right", render: $.fn.dataTable.render.number(',', '.', 0, ''), "width": "5%" },
+            { "data": "crAmount", className: "text-right", render: $.fn.dataTable.render.number(',', '.', 0, ''), "width": "5%" },
             {
                 "data": null,
                 "render": function (data) {
@@ -140,15 +142,16 @@ function loadDataTable(url) {
 
                 }, "width": "5%"
             },
-            {
-                "data": "approveBy", "width": "5%"
-            },
-            {
-                "data": "approveTime",
-                "render": function (data) {
-                    return data == null ? "" : (moment(data).format("DD-MM-YYYY hh:mm a"));
-                }, "width": "9%"
-            },
+            //{
+            //    "data": "approveBy", "width": "5%"
+            //},
+            //{
+            //    "data": "approveTime",
+            //    "render": function (data) {
+            //       // return data == null ? "" : (moment(data).format("DD-MM-YYYY hh:mm a"));
+            //        return data == null ? "" : (data);
+            //    }, "width": "9%"
+            //},
             {
                 "data": null,
                 "render": function (data) {
