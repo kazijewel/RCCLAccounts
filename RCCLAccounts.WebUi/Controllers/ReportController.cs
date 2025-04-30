@@ -287,7 +287,7 @@ namespace RCCLAccounts.WebUi.Controllers
              
             caption = " For The Period Of " + dateToString(stringToDate(FromDate), "dd-MM-yy") + " To : " + dateToString(stringToDate(Todate), "dd-MM-yy");
     
-            var sql = " select * from [funAddjustedTrialBetweenDate] ('" + FromDate + "', '" + Todate + "', 'B-1') where (closingBal != 0 or Tranbal != 0 or Drbal != 0) order by sl,HeadId,GroupName,Ledger_Name  ";
+            var sql = " select * from [funAddjustedTrialBetweenDate] ('" + FromDate + "', '" + Todate + "', 'B-1') where (openingBal + Tranbal) != 0  order by sl,HeadId,GroupName,Ledger_Name  ";
 
             _logger.LogInformation(sql);
             sqls.Clear();
