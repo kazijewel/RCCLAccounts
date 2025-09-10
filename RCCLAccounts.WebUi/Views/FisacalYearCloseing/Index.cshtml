@@ -1,0 +1,157 @@
+﻿@*@model ESL.Models.MAccount.FiscalYearInfo*@
+
+@*@{
+
+    var title = "Ledger Transfer";
+}*@
+
+<div class="row">
+
+    <div class="col-sm-12">
+        <form class="form-horizontal form-bordered" autocomplete="off">
+            <section class="panel">
+                <header class="panel-heading">
+                    <h2 class="panel-title">Fiscal Year Closing</h2>
+
+                </header>
+                <div class="panel-body form-group col-sm-12" style="border:0px">
+                    <div class="col-sm-8">
+                        <h5>Here you see the current working fiscal year</h5>
+                        <h5>Current Fiscal Year : </h5>
+                    </div>
+                    <div class="col-sm-8">
+                        <p>In Order to close current fiscal year and start new transections for the next working fiscal year should execute following two steps.</p>
+                    </div> 
+                    <div class="col-sm-9">
+                            <h5 class="col-sm-3"># 1st Step : </h5>
+                            <button type="button" class="btn btn-primary col-sm-6 input-sm">Create New Fiscal Year</button>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>In 1st step new fiscal year be created and you can start data entry for new fiscal Year. But all ledger balace will remain zero.</p>
+                    </div>
+                    <div class="form-group col-sm-9">
+                        <div class=" col-sm-3">
+                            <h5># Final Step : </h5>
+                        </div>
+                            
+                        
+                        <div class="col-sm-6" style="float:left;">
+                            <button type="button" class="btn btn-primary input-sm">Final Balance Transfer</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <p>In final step balance will be transfered from previous fiscal year to current fiscal year.</p>
+                    </div>
+
+                </div>
+
+
+
+
+            </section>
+            
+
+        </form>
+    </div>
+  
+</div>
+
+
+
+
+@*<script>
+
+
+    document.getElementById('Name').focus()
+
+    function CheckAvailability() {
+        var category = $("#Name").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/Accounts/PrimaryGroup/IsExists?category=" + category,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                var message = $("#message");
+
+                if (response) {
+                    message.text("");
+                }
+                else {
+                    message.css("color", "red");
+                    message.text("Group Name Already Exists!!");
+                    $("#Name").val("");
+
+                }
+            }
+        });
+    };
+
+    Post = form => {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: form.action,
+                data: new FormData(form),
+                contentType: false,
+                processData: false,
+                success: function (res) {
+
+                    if (res.isValid) {
+
+                        new PNotify({
+                            title: 'Success!',
+                            text: res.message,
+                            type: 'success'
+                        });
+                        if (res.update) {
+
+                            setTimeout("window.location.href='/Accounts/PrimaryGroup/Index';", 500);
+
+                        }
+                        else {
+                            getMaxCodeData();
+                            document.getElementById('Name').value = '';
+                            document.getElementById('PrimaryGroupId').value = '';
+                            $("#message").html('');
+                            $("#Name").css("border-color", "#33BBFF");
+                        }
+                    }
+                    else
+
+                        new PNotify({
+                            title: 'Warning!',
+                            text: res.message,
+                            type: 'error'
+                        });;
+
+                },
+                error: function (err) {
+                    console.log(err)
+                }
+            })
+            return false;
+        } catch (ex) {
+            console.log(ex)
+        }
+    }
+
+    const getMaxCodeData = function () {
+        $.ajax({
+            type: "GET",
+            url: '/Accounts/PrimaryGroup/getMax',
+            contentType: 'application/json; charset=utf-8',
+            dataType: "json",
+            success: function (res) {
+                document.getElementById('Code').value = '' + res.maxId;
+            },
+            error: function (res) {
+                alert('error : ' + res);
+            }
+        });
+    }
+
+
+</script>*@
