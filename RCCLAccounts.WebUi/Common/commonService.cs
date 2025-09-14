@@ -1,4 +1,5 @@
 ﻿
+using FastReport.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.Operations;
@@ -524,5 +525,58 @@ namespace RCCLAccounts.WebUi.Common
             return ret;
         }
 
-    }
+
+		public bool getCurrentFiscaYearRunning()
+		{
+			bool RunningFlag = true ;
+			SqlConnection con = new SqlConnection(sqlCon);
+			try
+			{
+				con.Open();
+				string sql = "select RunningFlag from FiscalYears where CONVERT(date,CURRENT_TIMESTAMP) between OpeningDate and ClosingDate and RunningFlag = 1  ";
+				
+				SqlCommand sqlCmd = new SqlCommand(sql, con);
+				SqlDataReader sqlData = sqlCmd.ExecuteReader();
+				if (sqlData.Read())
+				{
+					if (sqlData.HasRows)
+					{
+						RunningFlag = false;
+					}
+				}
+			}
+			finally
+			{
+				con.Close();
+			}
+			return RunningFlag;
+		}
+
+		public bool getPreviousFiscaYearClose()
+		{
+			bool IsClosed = false;
+			SqlConnection con = new SqlConnection(sqlCon);
+			try
+			{
+				con.Open();
+				string sql = " select  IsClosed from FiscalYears where DATEADD(yyyy,-1,CONVERT(date,CURRENT_TIMESTAMP)) between OpeningDate and ClosingDate and IsClosed = 0 and RunningFlag = 0 ";
+
+				SqlCommand sqlCmd = new SqlCommand(sql, con);
+				SqlDataReader sqlData = sqlCmd.ExecuteReader();
+				if (sqlData.Read())
+				{
+					if (sqlData.HasRows)
+					{
+						IsClosed = true;
+					}
+				}
+			}
+			finally
+			{
+				con.Close();
+			}
+			return IsClosed;
+		}
+
+	}
 }

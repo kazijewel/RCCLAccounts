@@ -51,7 +51,20 @@ namespace RCCLAccounts.WebUi.Controllers
             return Json(obj);
         }
 
-        /*  public IActionResult Upsert(int? id)
+		public IActionResult GetCurrentFiscaYearRunning()
+		{
+			bool isRunning = commonService.getCurrentFiscaYearRunning();
+			return Json(new { isRunning });
+		}
+
+		public IActionResult GetPreviousFiscaYearClose()
+		{
+			bool IsClosed = commonService.getPreviousFiscaYearClose();
+			return Json(new { IsClosed });
+		}
+
+
+		/*  public IActionResult Upsert(int? id)
           {
               FiscalYearInfo fiscalYearInfo = new FiscalYearInfo();
 
@@ -71,7 +84,7 @@ namespace RCCLAccounts.WebUi.Controllers
               }
               return View(fiscalYearInfo);
           }*/
-    }
+	}
 }
         
 
