@@ -1,157 +1,423 @@
-﻿@*@model ESL.Models.MAccount.FiscalYearInfo*@
-
-@*@{
-
-    var title = "Ledger Transfer";
-}*@
-
-<div class="row">
-
-    <div class="col-sm-12">
-        <form class="form-horizontal form-bordered" autocomplete="off">
-            <section class="panel">
-                <header class="panel-heading">
-                    <h2 class="panel-title">Fiscal Year Closing</h2>
-
-                </header>
-                <div class="panel-body form-group col-sm-12" style="border:0px">
-                    <div class="col-sm-8">
-                        <h5>Here you see the current working fiscal year</h5>
-                        <h5>Current Fiscal Year : </h5>
-                    </div>
-                    <div class="col-sm-8">
-                        <p>In Order to close current fiscal year and start new transections for the next working fiscal year should execute following two steps.</p>
-                    </div> 
-                    <div class="col-sm-9">
-                            <h5 class="col-sm-3"># 1st Step : </h5>
-                            <button type="button" class="btn btn-primary col-sm-6 input-sm">Create New Fiscal Year</button>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>In 1st step new fiscal year be created and you can start data entry for new fiscal Year. But all ledger balace will remain zero.</p>
-                    </div>
-                    <div class="form-group col-sm-9">
-                        <div class=" col-sm-3">
-                            <h5># Final Step : </h5>
-                        </div>
-                            
-                        
-                        <div class="col-sm-6" style="float:left;">
-                            <button type="button" class="btn btn-primary input-sm">Final Balance Transfer</button>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <p>In final step balance will be transfered from previous fiscal year to current fiscal year.</p>
-                    </div>
-
-                </div>
-
-
-
-
-            </section>
-            
-
-        </form>
-    </div>
-  
-</div>
-
-
-
-
-@*<script>
-
-
-    document.getElementById('Name').focus()
-
-    function CheckAvailability() {
-        var category = $("#Name").val();
-
-        $.ajax({
-            type: "POST",
-            url: "/Accounts/PrimaryGroup/IsExists?category=" + category,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-
-                var message = $("#message");
-
-                if (response) {
-                    message.text("");
-                }
-                else {
-                    message.css("color", "red");
-                    message.text("Group Name Already Exists!!");
-                    $("#Name").val("");
-
-                }
-            }
-        });
-    };
-
-    Post = form => {
-        try {
-            $.ajax({
-                type: 'POST',
-                url: form.action,
-                data: new FormData(form),
-                contentType: false,
-                processData: false,
-                success: function (res) {
-
-                    if (res.isValid) {
-
-                        new PNotify({
-                            title: 'Success!',
-                            text: res.message,
-                            type: 'success'
-                        });
-                        if (res.update) {
-
-                            setTimeout("window.location.href='/Accounts/PrimaryGroup/Index';", 500);
-
-                        }
-                        else {
-                            getMaxCodeData();
-                            document.getElementById('Name').value = '';
-                            document.getElementById('PrimaryGroupId').value = '';
-                            $("#message").html('');
-                            $("#Name").css("border-color", "#33BBFF");
-                        }
-                    }
-                    else
-
-                        new PNotify({
-                            title: 'Warning!',
-                            text: res.message,
-                            type: 'error'
-                        });;
-
-                },
-                error: function (err) {
-                    console.log(err)
-                }
-            })
-            return false;
-        } catch (ex) {
-            console.log(ex)
+﻿
+    <title>Fiscal Year Closing</title>
+@*    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">*@
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
         }
-    }
 
-    const getMaxCodeData = function () {
-        $.ajax({
-            type: "GET",
-            url: '/Accounts/PrimaryGroup/getMax',
-            contentType: 'application/json; charset=utf-8',
-            dataType: "json",
-            success: function (res) {
-                document.getElementById('Code').value = '' + res.maxId;
-            },
-            error: function (res) {
-                alert('error : ' + res);
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: none;
+            margin-bottom: 20px;
+        }
+
+        .card-header {
+            background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            padding: 15px 20px;
+        }
+
+        .step-card {
+            border-left: 4px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+            .step-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--secondary-color);
+            color: white;
+            text-align: center;
+            line-height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+            .btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+        .info-box {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .current-fiscal-year {
+            background: linear-gradient(45deg, var(--primary-color), #4a6b8a);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .progress-container {
+            margin: 30px 0;
+            padding: 0 20px;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+            .progress-step:not(:last-child):after {
+                content: '';
+                position: absolute;
+                top: 40px;
+                left: 19px;
+                height: 40px;
+                width: 2px;
+                background-color: #dee2e6;
+                z-index: 1;
+            }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            z-index: 2;
+            font-size: 18px;
+        }
+
+        .step-complete .step-icon {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .step-active .step-icon {
+            background: var(--secondary-color);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+        }
+
+        .fiscal-timeline {
+            display: flex;
+            justify-content: space-between;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #dee2e6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .fiscal-timeline:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #dee2e6;
+            transform: translateY(-50%);
+        }
+
+        .timeline-label {
+            position: absolute;
+            top: 25px;
+            transform: translateX(-50%);
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .active-marker {
+            background: var(--secondary-color);
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.2);
+        }
+
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="panel-title mb-0"><i class="fas fa-calendar-alt me-2"></i> Fiscal Year Closing</h2>
+                    </div>
+                    <div class="card-body">
+                        <!-- Current Fiscal Year Info -->
+                        <div class="current-fiscal-year d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-1">Current Fiscal Year</h5>
+                                <div class="fiscal-year-range" id="currentFiscalYearDisplay">
+                                    <span class="loading-spinner me-2"></span> Loading...
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <span class="status-badge bg-light text-dark" id="fiscalYearStatus">Active <i class="fas fa-check-circle ms-1 text-success"></i></span>
+                                <p class="mb-0 small mt-1" id="periodText">Period: Loading...</p>
+                            </div>
+                        </div>
+
+                        <div class="info-box">
+                            <p class="mb-0"><i class="fas fa-info-circle me-2 text-primary"></i> Here you see the current working fiscal year. To close the current fiscal year and start transactions for the next fiscal year, execute the following two steps.</p>
+                        </div>
+
+                        <!-- Progress Visualization -->
+                        <div class="progress-container">
+                            <div class="progress-step step-active">
+                                <div class="step-icon">
+                                    <i class="fas fa-plus"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h5 class="mb-1">Create New Fiscal Year</h5>
+                                    <p class="text-muted mb-0">Create the next fiscal year to begin data entry</p>
+                                </div>
+                            </div>
+                            <div class="progress-step">
+                                <div class="step-icon">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <div class="step-content">
+                                    <h5 class="mb-1">Final Balance Transfer</h5>
+                                    <p class="text-muted mb-0">Transfer balances from previous to current fiscal year</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Steps -->
+                        <div class="row mt-4">
+                            <div class="col-md-6 mb-4">
+                                <div class="card step-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <span class="step-number">1</span>
+                                            <h4 class="card-title mb-0">Create New Fiscal Year</h4>
+                                        </div>
+                                        <p class="card-text">In this step, a new fiscal year will be created and you can start data entry for the new fiscal year. All ledger balances will remain zero initially.</p>
+                                        <div class="mt-4">
+                                            <button type="button" class="btn btn-primary" id="createFiscalYear">
+                                                <i class="fas fa-plus-circle me-2"></i> Create New Fiscal Year
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <div class="card step-card h-100">
+                                    <div class="card-body">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <span class="step-number">2</span>
+                                            <h4 class="card-title mb-0">Final Balance Transfer</h4>
+                                        </div>
+                                        <p class="card-text">In this final step, balances will be transferred from the previous fiscal year to the current fiscal year, completing the fiscal year closing process.</p>
+                                        <div class="mt-4">
+                                            <button type="button" class="btn btn-primary" id="transferBalance" disabled>
+                                                <i class="fas fa-exchange-alt me-2"></i> Final Balance Transfer
+                                            </button>
+                                        </div>
+                                        <div class="mt-2">
+                                            <small class="text-muted"><i class="fas fa-lock me-1"></i> Available after Step 1 is completed</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fiscal Year Timeline -->
+                        <div class="mt-5">
+                            <h4 class="mb-4">Fiscal Year Timeline</h4>
+                            <div class="fiscal-timeline">
+                                <div class="text-center">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-label">2022-2023</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="timeline-marker active-marker"></div>
+                                    <div class="timeline-label">2023-2024<br>(Current)</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="timeline-marker"></div>
+                                    <div class="timeline-label">2024-2025<br>(Next)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Important Notes -->
+                        <div class="alert alert-warning mt-5">
+                            <h5><i class="fas fa-exclamation-triangle me-2"></i> Important Notes</h5>
+                            <ul class="mb-0 mt-2">
+                                <li>Ensure all transactions for the current fiscal year are completed before closing</li>
+                                <li>Take a backup of your data before proceeding with fiscal year closing</li>
+                                <li>Once closed, the current fiscal year cannot be reopened for transactions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS with Popper -->
+@*    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>*@
+
+    <script asp-append-version="true" src="~/assets/js/jsaccounts/FiscalYearClosingService.js"></script>
+  
+    <script>
+
+      
+  
+        document.addEventListener('DOMContentLoaded', function () {
+            const createBtn = document.getElementById('createFiscalYear');
+            const transferBtn = document.getElementById('transferBalance');
+            const step1Progress = document.querySelector('.progress-step:first-child');
+            const step2Progress = document.querySelector('.progress-step:last-child');
+            const timelineMarkers = document.querySelectorAll('.timeline-marker');
+
+            // Simulate step 1 completion
+            createBtn.addEventListener('click', function () {
+                // Show loading state
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+                this.disabled = true;
+
+                // Simulate API call delay
+                setTimeout(() => {
+                    // Update button to completed state
+                    this.innerHTML = '<i class="fas fa-check me-2"></i> Completed';
+                    this.classList.remove('btn-primary');
+                    this.classList.add('btn-success');
+
+                    // Enable the transfer button
+                    transferBtn.disabled = false;
+
+                    // Update progress visualization
+                    step1Progress.classList.add('step-complete');
+                    step1Progress.classList.remove('step-active');
+                    step2Progress.classList.add('step-active');
+
+                    // Update step 1 icon
+                    const stepIcon = step1Progress.querySelector('.step-icon');
+                    stepIcon.innerHTML = '<i class="fas fa-check"></i>';
+
+                    // Update timeline
+                    timelineMarkers[2].classList.add('active-marker');
+
+                    // Show success notification
+                    showNotification('Success! New fiscal year created successfully.', 'success');
+                }, 2000);
+            });
+
+            // Simulate step 2 completion
+            transferBtn.addEventListener('click', function () {
+                // Show loading state
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+                this.disabled = true;
+
+                // Simulate API call delay
+                setTimeout(() => {
+                    // Update button to completed state
+                    this.innerHTML = '<i class="fas fa-check me-2"></i> Completed';
+                    this.classList.remove('btn-primary');
+                    this.classList.add('btn-success');
+
+                    // Update progress visualization
+                    step2Progress.classList.add('step-complete');
+                    step2Progress.classList.remove('step-active');
+
+                    // Update step 2 icon
+                    const stepIcon = step2Progress.querySelector('.step-icon');
+                    stepIcon.innerHTML = '<i class="fas fa-check"></i>';
+
+                    // Show success notification
+                    showNotification('Success! Balance transfer completed successfully.', 'success');
+
+                    // Update current fiscal year display
+                    const currentYear = document.querySelector('.current-fiscal-year h3');
+                    currentYear.textContent = '2024-2025';
+
+                    const statusBadge = document.querySelector('.status-badge');
+                    statusBadge.innerHTML = 'Active <i class="fas fa-check-circle ms-1 text-success"></i>';
+
+                    const startDate = document.querySelector('.current-fiscal-year .small');
+                    startDate.textContent = 'Started: April 1, 2024';
+
+                    // Update timeline
+                    timelineMarkers[1].classList.remove('active-marker');
+                    timelineMarkers[2].classList.remove('active-marker');
+
+                    // In a real application, we would create a new timeline marker for the next year
+                }, 2000);
+            });
+
+            // Helper function to show notifications
+            function showNotification(message, type) {
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type} alert-dismissible fade show position-fixed`;
+                alert.style.top = '20px';
+                alert.style.right = '20px';
+                alert.style.zIndex = '9999';
+                alert.style.minWidth = '300px';
+                alert.innerHTML = `
+                            ${message}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        `;
+
+                document.body.appendChild(alert);
+
+                // Auto remove after 5 seconds
+                setTimeout(() => {
+                    if (alert.parentNode) {
+                        alert.parentNode.removeChild(alert);
+                    }
+                }, 5000);
             }
         });
-    }
-
-
-</script>*@
+    </script>
