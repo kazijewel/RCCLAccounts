@@ -11,6 +11,7 @@ using RCCLAccounts.WebUi.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -26,10 +27,11 @@ namespace RCCLAccounts.WebUi.Controllers
 		private UserManager<ApplicationUser> _userManager;
 		private IHttpContextAccessor _accessor;
         private commonService commonService;
-        public FiscalYearCloseingController(
+
+		public FiscalYearCloseingController(
             IHttpContextAccessor accessor,
 			UserManager<ApplicationUser> userManager,
-			ILogger<FiscalYearCloseingController> logger,       
+			ILogger<FiscalYearCloseingController> logger,
 			 AppDbContext db)
         {   
             _accessor = accessor;
@@ -59,117 +61,57 @@ namespace RCCLAccounts.WebUi.Controllers
 
 		public IActionResult GetPreviousFiscaYearClose()
 		{
-			bool IsClosed = commonService.getPreviousFiscaYearClose();
-			return Json(new { IsClosed });
+			bool isClosed = commonService.getPreviousFiscaYearClose();
+			return Json(new { isClosed });
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> FirstStepAction()
+		{
+			try
+			{
+
+				var addlist = Dns.GetHostEntry(Dns.GetHostName());
+				string GetHostName = addlist.HostName.ToString();
+				string GetIPV6 = addlist.AddressList[0].ToString();
+				string GetIPV4 = addlist.AddressList[1].ToString();
+				var user = await _userManager.GetUserAsync(User);
+
+				string companyID = "B-1";
+				string userName = user.FullName.ToString();
+				string userIp = GetIPV4;
+
+				commonService.FiscalYearClosingFirstStep(companyID, userName, userIp);
+
+	
+				return Json(new { success = true, message = "New fiscal year created successfully." });
+			}
+			catch (Exception ex)
+			{
+				return Json(new { success = false, message = "Error to create table: " + ex.Message });
+			}
 		}
 
 
-		/*  public IActionResult Upsert(int? id)
-          {
-              FiscalYearInfo fiscalYearInfo = new FiscalYearInfo();
+		[HttpPost]
+		public async Task<IActionResult> FinalStepAction()
+		{
+			try
+			{
 
-              *//* List<SubGroup> list = _unitAccounts.SubGroup.GetAll().ToList();
-               ViewBag.subGroup = new SelectList(list, "Id", "Narration");*//*
+				string companyID = "B-1";
+				
+				commonService.FiscalYearClosingSecondStep(companyID);
 
-              if (id == null)
-              {
-                  return View(fiscalYearInfo);
-              }
+				return Json(new { success = true, message = "Balance Transfer Process completed successfully." });
+			}
+			catch (Exception ex)
+			{
+				return Json(new { success = false, message = "Error to transfer: " + ex.Message });
+			}
+		}
 
-              NarrationInfo obj = _unitAccounts.NarrationInfo.Get(id.GetValueOrDefault());
 
-              if (fiscalYearInfo == null)
-              {
-                  return NotFound();
-              }
-              return View(fiscalYearInfo);
-          }*/
 	}
 }
         
-
-        /*[BindProperty]
-        public SubGroup obj { get; set; }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Upsert(SubGroup obj)
-        {
-            string msg = "Unable to save!";
-            bool isUpdate = false;
-            if (ModelState.IsValid)
-            {
-                obj.UserIp = SD.getIp();
-                obj.UserId = _accessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                obj.UserName = _accessor.HttpContext.User.Identity.Name;
-                obj.EntryTime = DateTime.Now;
-                if (obj.Id == 0)
-                {
-                    msg = "Information save successfully!";
-                    SubGroup Pm = _unitAccounts.SubGroup.Add(obj);
-                    _unitAccounts.Save();
-                   UpdateTracking(Pm,"New");
-
-                }
-                else
-                {
-
-                   if (UpdateTracking(obj,"Update"))
-                    {
-                        isUpdate = true;
-                        msg = "Information update successfully!";
-                        _unitAccounts.SubGroup.Update(obj);
-                        _unitAccounts.Save();
-                    }
-                    
-                }
-                // return RedirectToAction(nameof(Index));
-                return Json(new { isValid = true, message = msg, update = isUpdate });
-            }
-            else
-            {
-                if (obj.Id != 0)
-                {
-                    obj.EntryTime = DateTime.Now;
-                    obj = _unitAccounts.SubGroup.Get(obj.Id);
-                }
-            }
-            //  return View(obj);
-            return Json(new { isValid = false, message = msg, update = isUpdate });
-        }
-
-        #region API CALLS
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var allObj = _unitAccounts.SubGroup.GetAll();
-            return Json(new { data = allObj });
-        }
-
-        public string isAnyCodeExist()
-        {
-            int maxCode = _unitAccounts.SubGroup.NumericMax("tbSubGroup", "Code");
-            if (maxCode == 1)
-            {
-                return "Not Exist";
-            }
-            else
-            {
-                return "Exist";
-            }
-        }
-
-        private string getMaxCode()
-        {
-            return "" + _unitAccounts.SubGroup.NumericMax("tbSubGroup", "Code");
-        }
-
-
-        public Boolean UpdateTracking(SubGroup primaryObject,String Flag)
-        {
-            return true;
-        }
-
-        #endregion;
-    }
-}
-*/

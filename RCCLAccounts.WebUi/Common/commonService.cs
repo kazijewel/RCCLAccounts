@@ -8,6 +8,7 @@ using RCCLAccounts.Data;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
@@ -528,7 +529,7 @@ namespace RCCLAccounts.WebUi.Common
 
 		public bool getCurrentFiscaYearRunning()
 		{
-			bool RunningFlag = true ;
+			bool RunningFlag = false;
 			SqlConnection con = new SqlConnection(sqlCon);
 			try
 			{
@@ -541,7 +542,7 @@ namespace RCCLAccounts.WebUi.Common
 				{
 					if (sqlData.HasRows)
 					{
-						RunningFlag = false;
+						RunningFlag = true;
 					}
 				}
 			}
@@ -554,7 +555,7 @@ namespace RCCLAccounts.WebUi.Common
 
 		public bool getPreviousFiscaYearClose()
 		{
-			bool IsClosed = false;
+			bool IsClosed = true;
 			SqlConnection con = new SqlConnection(sqlCon);
 			try
 			{
@@ -567,7 +568,7 @@ namespace RCCLAccounts.WebUi.Common
 				{
 					if (sqlData.HasRows)
 					{
-						IsClosed = true;
+						IsClosed = false;
 					}
 				}
 			}
@@ -577,6 +578,44 @@ namespace RCCLAccounts.WebUi.Common
 			}
 			return IsClosed;
 		}
+
+		#region Fiscalyear Close
+
+		public void FiscalYearClosingFirstStep(string companyID, string userName, string userIp)
+		{
+			using (SqlConnection con = new SqlConnection(sqlCon))
+			{
+				con.Open();
+				using (SqlCommand cmd = new SqlCommand("prcYearClosing1stStep", con))
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+
+					cmd.Parameters.AddWithValue("@companyId", companyID);
+					cmd.Parameters.AddWithValue("@userName", userName);
+					cmd.Parameters.AddWithValue("@userIp", userIp);
+
+					cmd.ExecuteNonQuery();
+				}
+			}
+		}
+		public void FiscalYearClosingSecondStep(string companyID)
+		{
+			using (SqlConnection con = new SqlConnection(sqlCon))
+			{
+				con.Open();
+				using (SqlCommand cmd = new SqlCommand("prcYearClosing2ndStep", con))
+				{
+					cmd.CommandType = CommandType.StoredProcedure;
+
+					cmd.Parameters.AddWithValue("@companyId", companyID);
+				
+
+					cmd.ExecuteNonQuery();
+				}
+			}
+		}
+
+		#endregion
 
 	}
 }

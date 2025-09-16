@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace RCCLAccounts.Data.Entities;
 
 public partial class FiscalYear
 {
-    public long AutoId { get; set; }
+	[DatabaseGenerated(DatabaseGeneratedOption.Identity), Key]
+	public long AutoId { get; set; }
 
     public string CompanyId { get; set; } = null!;
 
