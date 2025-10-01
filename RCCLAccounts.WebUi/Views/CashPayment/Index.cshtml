@@ -112,49 +112,110 @@
 
 
 
+            //$('#tbCashPayment tbody').on('click', '.tbDelete', function () {
+
+
+            //    var $this = $(this),
+            //        tr = $(this).closest('tr').get(0);
+            //    var data = $("#tbCashPayment").dataTable().fnGetData(tr);
+
+            //    let id = data.transactionId;
+            //    console.log("Deleting ID: ", id);
+
+
+            //    $('body').removeClass('timer-alert');
+            //    swal({
+            //        title: "Are you sure?",
+            //        text: "You want to delete?",
+            //        type: "warning",
+            //        showCancelButton: true,
+            //        confirmButtonClass: "btn btn-danger",
+            //        confirmButtonText: "Yes, delete it!",
+            //        closeOnConfirm: false,
+            //        showLoaderOnConfirm: true
+            //    }, function () {
+            //        $.post('@Url.Action("Delete", "CashPayment")', { Id: id }, function (data) {
+            //            console.log(data);
+            //            if (data.message == "Success") {
+            //                swal({
+            //                    title: "Deleted!",
+            //                    text: "Successfully deleted",
+            //                    type: "success"
+            //                },
+            //                    function () {
+            //                        location.reload();
+            //                    }
+            //                );
+            //            }
+            //            else {
+            //                swal("Error!", "Something went wrong.", "error");
+            //            }
+            //        });
+            //        //swal("Deleted!", "Successfully deleted.", "success");
+            //    });
+            //});
+
+
             $('#tbCashPayment tbody').on('click', '.tbDelete', function () {
-
-
                 var $this = $(this),
                     tr = $(this).closest('tr').get(0);
                 var data = $("#tbCashPayment").dataTable().fnGetData(tr);
 
                 let id = data.transactionId;
+                let transactionDate = data.voucherDate; // Assuming you have transactionDate in your data
                 console.log("Deleting ID: ", id);
-
+                console.log("Transaction Date: ", transactionDate);
 
                 $('body').removeClass('timer-alert');
-                swal({
-                    title: "Are you sure?",
-                    text: "You want to delete?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonClass: "btn btn-danger",
-                    confirmButtonText: "Yes, delete it!",
-                    closeOnConfirm: false,
-                    showLoaderOnConfirm: true
-                }, function () {
-                    $.post('@Url.Action("Delete", "CashPayment")', { Id: id }, function (data) {
-                        console.log(data);
-                        if (data.message == "Success") {
-                            swal({
-                                title: "Deleted!",
-                                text: "Successfully deleted",
-                                type: "success"
-                            },
-                                function () {
-                                    location.reload();
-                                }
-                            );
-                        }
-                        else {
-                            swal("Error!", "Something went wrong.", "error");
-                        }
+
+                // First check if fiscal year is closed for this transaction date
+                $.post('@Url.Action("CheckFiscalYearClose", "CashPayment")', { voucherDate: transactionDate }, function (fiscalResponse) {
+                    console.log("Fiscal Year Check Response: ", fiscalResponse);
+
+                    if (fiscalResponse.isClosed === "1") {
+                        // Fiscal year is closed - show warning and prevent deletion
+                        swal({
+                            title: "Delete Failed!",
+                            text: "Cannot delete transaction. The fiscal year for this transaction is closed.",
+                            type: "warning",
+                            confirmButtonClass: "btn btn-warning",
+                            confirmButtonText: "OK"
+                        });
+                        return;
+                    }
+
+                    // Fiscal year is open - proceed with deletion confirmation
+                    swal({
+                        title: "Are you sure?",
+                        text: "You want to delete this transaction?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonClass: "btn btn-danger",
+                        confirmButtonText: "Yes, delete it!",
+                        closeOnConfirm: false,
+                        showLoaderOnConfirm: true
+                    }, function () {
+                        $.post('@Url.Action("Delete", "CashPayment")', { Id: id }, function (data) {
+                            console.log(data);
+                            if (data.message == "Success") {
+                                swal({
+                                    title: "Deleted!",
+                                    text: "Successfully deleted",
+                                    type: "success"
+                                },
+                                    function () {
+                                        location.reload();
+                                    });
+                            }
+                            else {
+                                swal("Error!", "Something went wrong.", "error");
+                            }
+                        });
                     });
-                    //swal("Deleted!", "Successfully deleted.", "success");
+                }).fail(function () {
+                    swal("Error!", "Failed to verify fiscal year status.", "error");
                 });
             });
-
 
 
 

@@ -434,13 +434,13 @@ namespace RCCLAccounts.WebUi.Common
             return list;
         }
 
-        public string fiscalYearIdTrans(string voucherDate)
+        public string checkYearClosed(string voucherDate)
         {
             SqlConnection con = new SqlConnection(sqlCon);
 
 
-            string sql = "Select vFiscalYearIdTrans from [dbo].[funFiscalYearInfo]('" + voucherDate + "',"
-                     + " '" + voucherDate + "', '" + _accessor.HttpContext.Session.GetString("companyName") + "')";
+            string sql = "Select isnull(iClosed,0) iClosed from [dbo].[funFiscalYearInfo]('" + voucherDate + "',"
+                     + " '" + voucherDate + "', 'B-1')";
 
             try
             {
@@ -451,7 +451,7 @@ namespace RCCLAccounts.WebUi.Common
                 {
                     if (reader.Read())
                     {
-                        return reader["vFiscalYearIdTrans"].ToString();
+                        return reader["iClosed"].ToString();
                     }
                 }
             }
@@ -616,6 +616,9 @@ namespace RCCLAccounts.WebUi.Common
 		}
 
 		#endregion
+
+
+
 
 	}
 }

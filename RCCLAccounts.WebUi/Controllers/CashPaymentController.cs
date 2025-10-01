@@ -280,5 +280,11 @@ namespace RCCLAccounts.WebUi.Controllers
             }        
         }
 
-    }
+		public IActionResult CheckFiscalYearClose(string voucherDate)
+		{
+			String isClosed = commonService.checkYearClosed(voucherDate);
+			return Json(new { isClosed });
+		}
+
+	}
 }

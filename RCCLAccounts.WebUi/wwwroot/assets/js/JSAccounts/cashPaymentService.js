@@ -190,9 +190,30 @@ function findWork(url) {
 
 function saveWork(isNew, isEdit) {
     if (checkValidation()) {
-        submit(isNew,isEdit);
+        var date = $("#date").val();
+        $.ajax({
+            url: '/CashPayment/CheckFiscalYearClose',
+            type: 'POST',
+            data: { voucherDate: date },
+            success: function (response) {
+                // response.status is a string: "0" or "1"
+                if (response.isClosed === "0") {
+                    // Fiscal year is open, proceed with save
+                    submit(isNew, isEdit);
+                } else {
+                    // Fiscal year is closed, show notification                  
+                    warningNotify("Transaction is closed for this year.");
+                }
+            },
+            error: function () {              
+                warningNotify("Failed to check fiscal year status.");
+            }
+        });
+       
     }
 }
+
+
 function clear() {
     clearAttachment();
     //document.getElementById("SenctionDate").valueAsDate = new Date();
@@ -270,7 +291,8 @@ function checkValidation() {
     //console.log(parseFloat(balance));
     console.log(cashInfo);
    
-  /*  if (paidTo != "") { */
+    /*  if (paidTo != "") { */
+
         if (date != "") {
             if (cashInfo != "") {
                 if (count > 0) {

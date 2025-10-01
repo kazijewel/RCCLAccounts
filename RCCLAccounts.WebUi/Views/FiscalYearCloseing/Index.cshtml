@@ -1,6 +1,5 @@
 ﻿
     <title>Fiscal Year Closing</title>
-
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -144,6 +143,7 @@
             background: #dee2e6;
             position: relative;
             z-index: 2;
+            margin: 0 auto;
         }
 
         .fiscal-timeline:before {
@@ -160,9 +160,11 @@
         .timeline-label {
             position: absolute;
             top: 25px;
+            left: 50%;
             transform: translateX(-50%);
             font-size: 12px;
             color: #6c757d;
+            white-space: nowrap;
         }
 
         .active-marker {
@@ -176,6 +178,23 @@
             font-size: 12px;
             font-weight: 600;
         }
+        
+        .text-center {
+            position: relative;
+            flex: 1;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+       
     </style>
     <div class="container py-5">
         <div class="row justify-content-center">
@@ -310,6 +329,7 @@
         //    loadFiscalYearData();
         //});
 
+
     function loadFiscalYearData() {
         $.ajax({
             url: '/FiscalYearCloseing/GetFiscaleYearDate',
@@ -324,6 +344,7 @@
                     const fiscalPeriod = res.opening + ' to ' + res.closing;
 
                     updateFiscalYearUI(fiscalYearName, fiscalPeriod);
+                    generateFiscalTimeline(fiscalYearName); // Generate dynamic timeline
                 } else {
                     showDefaultFiscalYear();
                 }
@@ -346,8 +367,41 @@
 
         $('#currentFiscalYearDisplay').text('Fiscal Year: ' + defaultYear);
         $('#periodText').text('Period: ' + defaultPeriod);
+        // Generate timeline with default year
+        generateFiscalTimeline(defaultYear);
     }
+    // Function to generate dynamic timeline
+    function generateFiscalTimeline(currentFiscalYear) {
+        const timelineContainer = document.querySelector('.fiscal-timeline');
+        timelineContainer.innerHTML = ''; // Clear existing content
 
+        // Extract year from the current fiscal year string (assuming format "YYYY-YYYY")
+        const currentYear = parseInt(currentFiscalYear.split('-')[0]);
+
+        // Generate timeline for previous, current, and next fiscal years
+        const yearsToShow = [
+            { year: currentYear - 1, label: `${currentYear - 1}-${currentYear}`, isCurrent: false },
+            { year: currentYear, label: `${currentYear}-${currentYear + 1}`, isCurrent: true },
+            { year: currentYear + 1, label: `${currentYear + 1}-${currentYear + 2}`, isCurrent: false }
+        ];
+
+        // Create timeline elements
+        yearsToShow.forEach((yearData, index) => {
+            const timelineItem = document.createElement('div');
+            timelineItem.className = 'text-center';
+
+            const marker = document.createElement('div');
+            marker.className = `timeline-marker ${yearData.isCurrent ? 'active-marker' : ''}`;
+
+            const label = document.createElement('div');
+            label.className = 'timeline-label';
+            label.innerHTML = yearData.label + (yearData.isCurrent ? '<br>(Current)' : '');
+
+            timelineItem.appendChild(marker);
+            timelineItem.appendChild(label);
+            timelineContainer.appendChild(timelineItem);
+        });
+    }
     function checkFiscalYearStatus() {
         $.ajax({
             url: '/FiscalYearCloseing/GetCurrentFiscaYearRunning',
