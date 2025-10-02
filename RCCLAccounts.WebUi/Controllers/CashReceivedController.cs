@@ -283,5 +283,10 @@ namespace RCCLAccounts.WebUi.Controllers
                 return NotFound(new DefaultResponse("Voucher not found or could not be deleted."));
             }
         }
+        public IActionResult CheckFiscalYearClose(string voucherDate)
+        {
+            String isClosed = commonService.checkYearClosed(voucherDate);
+            return Json(new { isClosed });
+        }
     }
 }

@@ -94,11 +94,27 @@
                 var data = $("#tbCashReceived").dataTable().fnGetData(tr);
 
                 let id = data.transactionId;
+                let transactionDate = data.voucherDate; // Assuming you have transactionDate in your data
                 console.log("Deleting ID: ", id);
-
+                console.log("Transaction Date: ", transactionDate);
 
                 $('body').removeClass('timer-alert');
-                swal({
+
+                $.post('@Url.Action("CheckFiscalYearClose", "CashReceived")', { voucherDate: transactionDate }, function (fiscalResponse) {
+                    console.log("Fiscal Year Check Response: ", fiscalResponse);
+
+                    if (fiscalResponse.isClosed === "1") {
+                        // Fiscal year is closed - show warning and prevent deletion
+                        swal({
+                            title: "Delete Failed!",
+                            text: "Cannot delete transaction. The fiscal year for this transaction is closed.",
+                            type: "warning",
+                            confirmButtonClass: "btn btn-warning",
+                            confirmButtonText: "OK"
+                        });
+                        return;
+                    }
+                 swal({
                     title: "Are you sure?",
                     text: "You want to delete?",
                     type: "warning",
@@ -127,8 +143,10 @@
                     });
                     //swal("Deleted!", "Successfully deleted.", "success");
                 });
+              });
+               }).fail(function () {
+                swal("Error!", "Failed to verify fiscal year status.", "error");
             });
-
 
         });
 
