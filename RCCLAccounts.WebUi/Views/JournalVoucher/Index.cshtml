@@ -78,7 +78,7 @@
     <script asp-append-version="true" src="~/assets/js/jsaccounts/service.js"></script>
     <script asp-append-version="true" type="text/javascript">
 
-        $(document).ready(function () {
+       $(document).ready(function () {
             $('.select2').select2();
             $('#journalVoucher').on('shown.bs.modal', function () {
                 $('#debitHead').select2({
@@ -94,9 +94,24 @@
                 var data = $("#tbJournalVoucher").dataTable().fnGetData(tr);
 
                 let id = data.transactionId;
+                let transactionDate = data.voucherDate; // Assuming you have transactionDate in your data
                 console.log("Deleting ID: ", id);
+                console.log("Transaction Date: ", transactionDate);
+                // First check if fiscal year is closed for this transaction date
+                $.post('@Url.Action("CheckFiscalYearClose", "JournalVoucher")', { voucherDate: transactionDate }, function (fiscalResponse) {
+                    console.log("Fiscal Year Check Response: ", fiscalResponse);
 
-
+                    if (fiscalResponse.isClosed === "1") {
+                        // Fiscal year is closed - show warning and prevent deletion
+                        swal({
+                            title: "Delete Failed!",
+                            text: "Cannot delete transaction. The fiscal year for this transaction is closed.",
+                            type: "warning",
+                            confirmButtonClass: "btn btn-warning",
+                            confirmButtonText: "OK"
+                        });
+                        return;
+                    }
                 $('body').removeClass('timer-alert');
                 swal({
                     title: "Are you sure?",
@@ -126,7 +141,12 @@
                         }
                     });
                     //swal("Deleted!", "Successfully deleted.", "success");
+                 });
+
+                    }).fail(function () {
+                    swal("Error!", "Failed to verify fiscal year status.", "error");
                 });
+            
             });
 
 

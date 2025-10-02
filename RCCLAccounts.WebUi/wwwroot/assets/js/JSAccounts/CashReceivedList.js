@@ -61,7 +61,7 @@ function reloadData() {
     
 
     $.ajax({
-        url: "/Accounts/FiscalYearInfo/GetFiscaleYearDate",
+        url: "/FiscalYearCloseing/GetFiscaleYearDate",
         async: false,
         success: function (res) {
            // console.log(res.opening);
