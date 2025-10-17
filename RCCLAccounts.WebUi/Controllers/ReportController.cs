@@ -186,7 +186,7 @@ namespace RCCLAccounts.WebUi.Controllers
             {
                 clause = " where balance!=0 ";
             }
-            string sql = "select * from funOpeningTrialBalance('" + fiscalYearId + "','" + companyId + "') " + clause + " " +
+            string sql = "select * from funOpeningTrialBalance ('" + fiscalYearId + "','" + companyId + "') " + clause + " " +
                 " order by SL,PrimaryGroupCode,HeadName," +
                 " MainGroupCode,GroupName,SubGroupCode,SubGroupName,LedgerCode,LedgerName";
             _logger.LogInformation(sql);
